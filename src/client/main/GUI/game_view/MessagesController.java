@@ -1,4 +1,4 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import main.GUI.music.Music;
+import client.main.GUI.music.Music;
 
 /**
  * @author Andrea

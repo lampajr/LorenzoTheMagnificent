@@ -1,10 +1,10 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import main.GUI.music.Music;
+import client.main.GUI.music.Music;
 
 import java.util.Random;
 

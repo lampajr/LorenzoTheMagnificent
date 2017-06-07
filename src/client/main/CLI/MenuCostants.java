@@ -1,4 +1,4 @@
-package main.CLI;
+package client.main.CLI;
 
 /**
  * @author Andrea

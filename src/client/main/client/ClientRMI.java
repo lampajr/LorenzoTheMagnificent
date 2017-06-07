@@ -1,10 +1,10 @@
-package main.client;
+package client.main.client;
 
-import main.api.PlayerInterface;
-import main.api.ServerInterface;
-import main.api.messages.MessageAction;
-import main.api.messages.MessageNewAction;
-import main.api.types.ResourceType;
+import api.PlayerInterface;
+import api.ServerInterface;
+import api.messages.MessageAction;
+import api.messages.MessageNewAction;
+import api.types.ResourceType;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

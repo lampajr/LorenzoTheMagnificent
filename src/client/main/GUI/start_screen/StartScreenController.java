@@ -1,4 +1,4 @@
-package main.GUI.start_screen;
+package client.main.GUI.start_screen;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -18,8 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import main.GUI.music.Music;
-import main.GUILauncher;
+import client.main.GUI.music.Music;
+import client.main.GUILauncher;
 
 import java.io.IOException;
 import java.net.URL;
@@ -100,7 +100,7 @@ public class StartScreenController implements Initializable {
 
     private void changeScene() throws IOException, InterruptedException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("main/GUI/login/login_view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main/GUI/login/login_view.fxml"));
         Parent window = (Pane) fxmlLoader.load();
         Platform.runLater(()->{
             Stage stage = (Stage)  labelClick.getScene().getWindow();
@@ -112,7 +112,6 @@ public class StartScreenController implements Initializable {
             }
             stage.setScene(scene);
             stage.centerOnScreen();
-            //stage.sizeToScene();
             stage.setTitle("LORENZO IL MAGNIFICO!!");
         });
     }

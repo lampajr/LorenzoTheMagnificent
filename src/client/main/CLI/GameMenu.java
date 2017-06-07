@@ -1,9 +1,9 @@
-package main.CLI;
+package client.main.CLI;
 
-import main.api.types.ActionSpacesType;
-import main.api.types.CardType;
-import main.api.types.FamilyMemberType;
-import main.api.types.MarketActionType;
+import api.types.ActionSpacesType;
+import api.types.CardType;
+import api.types.FamilyMemberType;
+import api.types.MarketActionType;
 
 import java.rmi.RemoteException;
 import java.util.HashMap;

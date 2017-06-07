@@ -1,11 +1,8 @@
-package main.CLI;
+package client.main.CLI;
 
-import main.api.messages.MessageAction;
-import main.api.types.*;
-import main.api.types.ResourceType;
-import main.client.AbstractClient;
-import main.model.action_spaces.Action;
-import main.model.action_spaces.single_action_spaces.ActionSpace;
+import api.messages.MessageAction;
+import api.types.*;
+import client.main.client.AbstractClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;

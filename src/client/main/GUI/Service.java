@@ -1,4 +1,4 @@
-package main.GUI;
+package client.main.GUI;
 
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -6,9 +6,9 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import main.api.types.ActionSpacesType;
-import main.api.types.CardType;
-import main.api.types.FamilyMemberType;
+import api.types.ActionSpacesType;
+import api.types.CardType;
+import api.types.FamilyMemberType;
 
 /**
  * @author Andrea

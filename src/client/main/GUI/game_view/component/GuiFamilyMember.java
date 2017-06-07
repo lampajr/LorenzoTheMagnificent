@@ -1,4 +1,4 @@
-package main.GUI.game_view.component;
+package client.main.GUI.game_view.component;
 
 import javafx.scene.Cursor;
 import javafx.scene.control.ToggleButton;
@@ -7,9 +7,9 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import main.GUI.Service;
-import main.api.types.FamilyMemberType;
-import main.client.AbstractClient;
+import client.main.GUI.Service;
+import client.main.client.AbstractClient;
+import api.types.FamilyMemberType;
 
 
 /**

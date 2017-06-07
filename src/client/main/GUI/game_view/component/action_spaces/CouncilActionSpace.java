@@ -1,10 +1,10 @@
-package main.GUI.game_view.component.action_spaces;
+package client.main.GUI.game_view.component.action_spaces;
 
 import javafx.application.Platform;
 import javafx.scene.layout.GridPane;
-import main.GUI.game_view.GUIController;
-import main.GUI.game_view.component.GuiFamilyMember;
-import main.api.types.ActionSpacesType;
+import client.main.GUI.game_view.GUIController;
+import client.main.GUI.game_view.component.GuiFamilyMember;
+import api.types.ActionSpacesType;
 
 /**
  * @author lampa

@@ -1,4 +1,4 @@
-package main.GUI.game_mode_selection;
+package client.main.GUI.game_mode_selection;
 
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -23,10 +23,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
-import main.GUI.game_view.GUIController;
-import main.GUI.music.Music;
-import main.GUILauncher;
-import main.client.AbstractClient;
+import client.main.GUI.game_view.GUIController;
+import client.main.GUI.music.Music;
+import client.main.GUILauncher;
+import client.main.client.AbstractClient;
 
 
 
@@ -239,7 +239,7 @@ public class GameModeSelectionView {
         public void run() {
             try {
                 client.startGame(gameMode);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("main/gui/game_view/game_view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main/gui/game_view/game_view.fxml"));
                 Parent window = (Pane) fxmlLoader.load();
                 GUIController controller = fxmlLoader.getController();
                 AbstractClient.getInstance().setInterfaceController(controller); //setto il model

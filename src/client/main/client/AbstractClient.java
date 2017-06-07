@@ -1,10 +1,11 @@
-package main.client;
+package client.main.client;
 
-import main.CLI.InterfaceController;
-import main.api.ClientInterface;
-import main.api.messages.MessageAction;
-import main.api.messages.MessageNewAction;
-import main.api.types.*;
+import api.ClientInterface;
+import api.messages.MessageAction;
+import api.messages.MessageNewAction;
+import api.types.*;
+import client.main.CLI.InterfaceController;
+import client.main.GUI.Service;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -226,8 +227,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     public void notifyNewAction(int value, char codeAction) throws RemoteException {
         interfaceController.notifyMessage("You can do a new Action");
         currentNewActionValue = value;
-        currentNewActionActionSpaceType = main.GUI.Service.getActionSpaceType(codeAction);
-        currentNewActionCardType = main.GUI.Service.getCardType(codeAction);
+        currentNewActionActionSpaceType = Service.getActionSpaceType(codeAction);
+        currentNewActionCardType = Service.getCardType(codeAction);
         phase = Phases.NEW_ACTION;
     }
 

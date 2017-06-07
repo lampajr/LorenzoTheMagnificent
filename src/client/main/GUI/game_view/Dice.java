@@ -1,4 +1,4 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;

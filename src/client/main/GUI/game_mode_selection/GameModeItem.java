@@ -1,4 +1,4 @@
-package main.GUI.game_mode_selection;
+package client.main.GUI.game_mode_selection;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.Cursor;

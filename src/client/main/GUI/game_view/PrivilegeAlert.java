@@ -1,12 +1,12 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
-import main.api.types.ResourceType;
-import main.client.AbstractClient;
+import api.types.ResourceType;
+import client.main.client.AbstractClient;
 
 import java.rmi.RemoteException;
 

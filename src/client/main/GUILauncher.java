@@ -1,5 +1,4 @@
-package main;
-
+package client.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,13 +36,13 @@ public class GUILauncher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main/GUI/start_screen/start_screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI/start_screen/start_screen.fxml"));
         stage.setOnCloseRequest(event -> System.exit(0));
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(new Scene(root, 356, 542));
-        stage.setTitle("Lorenzo Il Magnifico");
+        stage.setTitle("Lorenzo The Magnificent");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("res/Icona_testa.png")));
         stage.show();
 

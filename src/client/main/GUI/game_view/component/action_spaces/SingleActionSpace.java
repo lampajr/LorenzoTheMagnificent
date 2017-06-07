@@ -1,4 +1,4 @@
-package main.GUI.game_view.component.action_spaces;
+package client.main.GUI.game_view.component.action_spaces;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -6,10 +6,10 @@ import javafx.scene.Cursor;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import main.GUI.game_view.GUIController;
-import main.GUI.game_view.component.GuiFamilyMember;
-import main.api.types.ActionSpacesType;
-import main.client.AbstractClient;
+import client.main.GUI.game_view.GUIController;
+import client.main.GUI.game_view.component.GuiFamilyMember;
+import client.main.client.AbstractClient;
+import api.types.ActionSpacesType;
 
 /**
  * @author Andrea

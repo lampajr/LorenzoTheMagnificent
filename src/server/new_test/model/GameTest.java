@@ -1,11 +1,19 @@
 package server.new_test.model;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author lampa
+ * @author Andrea
+ * @author Luca
  */
 public class GameTest {
+
+    @Before
+    public void setup() {
+
+    }
+
     @Test
     public void getCurrentPlayer() throws Exception {
     }

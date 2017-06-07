@@ -1,10 +1,10 @@
-package main.client;
+package client.main.client;
 
-import main.api.messages.MessageAction;
-import main.api.messages.MessageNewAction;
-import main.api.messages.SocketProtocol;
-import main.api.types.CardType;
-import main.api.types.ResourceType;
+import api.messages.MessageAction;
+import api.messages.MessageNewAction;
+import api.messages.SocketProtocol;
+import api.types.CardType;
+import api.types.ResourceType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

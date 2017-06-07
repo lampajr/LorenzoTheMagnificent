@@ -1,7 +1,7 @@
-package main.CLI;
+package client.main.CLI;
 
-import main.api.messages.MessageAction;
-import main.api.types.*;
+import api.messages.MessageAction;
+import api.types.*;
 
 import java.rmi.RemoteException;
 import java.util.List;

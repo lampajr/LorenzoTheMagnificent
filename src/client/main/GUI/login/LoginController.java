@@ -1,4 +1,4 @@
-package main.GUI.login;
+package client.main.GUI.login;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,9 +6,9 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import main.GUI.game_mode_selection.GameModeSelectionView;
-import main.GUILauncher;
-import main.client.AbstractClient;
+import client.main.GUI.game_mode_selection.GameModeSelectionView;
+import client.main.GUILauncher;
+import client.main.client.AbstractClient;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;

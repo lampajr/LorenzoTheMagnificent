@@ -1,7 +1,7 @@
-package main.GUI.game_view.component.action_spaces;
+package client.main.GUI.game_view.component.action_spaces;
 
-import main.api.types.ActionSpacesType;
-import main.GUI.game_view.component.GuiFamilyMember;
+import api.types.ActionSpacesType;
+import client.main.GUI.game_view.component.GuiFamilyMember;
 
 /**
  * @author Luca

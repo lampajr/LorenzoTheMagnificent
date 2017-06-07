@@ -1,4 +1,4 @@
-package main.GUI.game_view.component;
+package client.main.GUI.game_view.component;
 
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;

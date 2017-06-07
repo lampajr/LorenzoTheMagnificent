@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="rootPane" fx:id="rootPane" prefHeight="542.0" prefWidth="356.0" stylesheets="@res/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GUI.start_screen.StartScreenController">
+<Pane id="rootPane" fx:id="rootPane" prefHeight="542.0" prefWidth="356.0" stylesheets="@res/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.main.GUI.start_screen.StartScreenController">
     <children>
         <ImageView fitHeight="542.0" fitWidth="369.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
             <image>

@@ -1,4 +1,4 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,9 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import main.api.types.CardType;
-import main.api.types.ResourceType;
-import main.GUI.Service;
+import api.types.CardType;
+import api.types.ResourceType;
+import client.main.GUI.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;

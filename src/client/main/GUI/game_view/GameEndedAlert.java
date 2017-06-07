@@ -1,4 +1,4 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

@@ -1,7 +1,7 @@
-package main.GUI.game_view.component;
+package client.main.GUI.game_view.component;
 
 import javafx.scene.shape.Circle;
-import main.GUI.Service;
+import client.main.GUI.Service;
 
 /**
  * @author Luca

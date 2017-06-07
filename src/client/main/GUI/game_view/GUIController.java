@@ -1,4 +1,4 @@
-package main.GUI.game_view;
+package client.main.GUI.game_view;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,15 +14,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import main.CLI.InterfaceController;
-import main.GUI.Service;
-import main.GUI.game_mode_selection.GameModeSelectionView;
-import main.GUI.game_view.component.*;
-import main.GUI.game_view.component.action_spaces.*;
-import main.GUILauncher;
-import main.api.messages.MessageAction;
-import main.api.types.*;
-import main.client.AbstractClient;
+import client.main.CLI.InterfaceController;
+import client.main.GUI.Service;
+import client.main.GUI.game_mode_selection.GameModeSelectionView;
+import client.main.GUI.game_view.component.*;
+import client.main.GUI.game_view.component.action_spaces.*;
+import client.main.GUILauncher;
+import client.main.client.AbstractClient;
+import api.messages.MessageAction;
+import api.types.*;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -434,7 +434,7 @@ public class GUIController implements InterfaceController {
         Platform.runLater(() -> {
             infoTabPane.getTabs().add(tab);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("main/GUI/game_view/personal_board_view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main/GUI/game_view/personal_board_view.fxml"));
                 Parent personalBoard = fxmlLoader.load();
                 PersonalBoardController controller = fxmlLoader.getController();
                 opponentPersonalBoardControllerMap.put(id, controller);
@@ -722,11 +722,11 @@ public class GUIController implements InterfaceController {
 //        lorenzoAnimation.startGameAnimation();
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("main/GUI/game_view/message_view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main/GUI/game_view/message_view.fxml"));
             Parent messagesServer = fxmlLoader.load();
             messagesController = fxmlLoader.getController();
             personalGridPane.add(messagesServer, 0, 2);
-            fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("main/GUI/game_view/personal_board_view.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main/GUI/game_view/personal_board_view.fxml"));
             Parent personalBoard = fxmlLoader.load();
             personalBoardController = fxmlLoader.getController();
             personalTab.setContent(personalBoard);
