@@ -1,6 +1,7 @@
 package client.main.CLI;
 
 
+import client.main.CLI.CLIController;
 import client.main.client.AbstractClient;
 
 import java.io.BufferedReader;
