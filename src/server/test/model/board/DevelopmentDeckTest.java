@@ -1,4 +1,4 @@
-package server.new_test.model.board;
+package server.test.model.board;
 
 import api.types.CardType;
 import server.main.model.board.DevelopmentCard;

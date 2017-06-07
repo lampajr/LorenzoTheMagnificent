@@ -67,11 +67,14 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     public void isGameStarted(int id, Map<Integer, String> opponents, List<String> codeExcomList) throws RemoteException{
         this.id = id;
         opponentsIdList = new ArrayList<>(opponents.keySet());
-        interfaceController.startGame(id, username);
-        interfaceController.showExcomCards(codeExcomList);
+        if (interfaceController!=null) {
+            interfaceController.startGame(id, username);
+            interfaceController.showExcomCards(codeExcomList);
+        }
         initializeQtaResourcesMap();
         opponents.forEach(((idValue, name) -> {
-            interfaceController.createOpponentDiscs(idValue, name);
+            if (interfaceController!=null)
+                interfaceController.createOpponentDiscs(idValue, name);
             opponentQtaResourcesMap.put(idValue, new HashMap<>());
             opponentsCardsMap.put(idValue, new HashMap<>());
             initializeOpponentsResources(idValue);
@@ -113,7 +116,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @throws RemoteException
      */
     public synchronized void setTowersCards(List<String> list) throws RemoteException {
-        interfaceController.setBoardCards(list);
+        if (interfaceController!=null)
+            interfaceController.setBoardCards(list);
     }
 
     /**
@@ -124,7 +128,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     @Override
     public void updateResources(Map<ResourceType, Integer> qtaResourcesMap) throws RemoteException {
         this.qtaResourcesMap = qtaResourcesMap;
-        interfaceController.modifyResources(qtaResourcesMap);
+        if (interfaceController!=null)
+            interfaceController.modifyResources(qtaResourcesMap);
     }
 
     /**
@@ -135,9 +140,11 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     @Override
     public void updatePersonalCards(Map<CardType, List<String>> personalcardsMap) throws RemoteException {
         myCardsList = personalcardsMap;
-        interfaceController.removeDrawnCards(personalcardsMap);
-        interfaceController.updateMyCards(personalcardsMap);
-        interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
+        if (interfaceController!=null){
+            interfaceController.removeDrawnCards(personalcardsMap);
+            interfaceController.updateMyCards(personalcardsMap);
+            interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
+        }
     };
 
     /**
@@ -149,7 +156,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void opponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap) throws RemoteException {
-        interfaceController.removeDrawnCards(personalcardsMap); //rimuovo le carte che ha pescato
+        if (interfaceController!=null)
+            interfaceController.removeDrawnCards(personalcardsMap); //rimuovo le carte che ha pescato
         //aggiorno le risorse e le carte del giocatore che ha appena mosso
         opponentQtaResourcesMap.put(id, qtaResourcesMap);
         opponentsCardsMap.put(id, personalcardsMap);
@@ -161,8 +169,10 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
             else
                 resourcesMap.put(resourceType, integer);
         }));
-        interfaceController.updateOpponentPersonalBoard(personalcardsMap, resourcesMap, id);
-        interfaceController.modifyOpponentPoints(pointMap, id);
+        if (interfaceController!=null) {
+            interfaceController.updateOpponentPersonalBoard(personalcardsMap, resourcesMap, id);
+            interfaceController.modifyOpponentPoints(pointMap, id);
+        }
     }
 
     /**
@@ -173,7 +183,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void opponentFamilyMemberMove(int id, MessageAction msgAction) throws RemoteException {
-        interfaceController.updateOpponentFamilyMemberMove(id, msgAction);
+        if (interfaceController!=null)
+            interfaceController.updateOpponentFamilyMemberMove(id, msgAction);
     }
 
     /**
@@ -183,7 +194,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyMessage(String msg) throws RemoteException {
-        interfaceController.notifyMessage(msg);
+        if (interfaceController!=null)
+            interfaceController.notifyMessage(msg);
     }
 
     /**
@@ -195,8 +207,10 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void setDiceValues(int orange, int white, int black) throws RemoteException {
-        interfaceController.notifyMessage("First player has rolled the dices!");
-        interfaceController.setDices(orange, white, black);
+        if (interfaceController!=null) {
+            interfaceController.notifyMessage("First player has rolled the dices!");
+            interfaceController.setDices(orange, white, black);
+        }
     }
 
     /**
@@ -205,8 +219,10 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyHaveToShotDice() throws RemoteException {
-        interfaceController.notifyMessage("You have to roll the dices!");
-        interfaceController.showDices();
+        if (interfaceController!=null) {
+            interfaceController.notifyMessage("You have to roll the dices!");
+            interfaceController.showDices();
+        }
     }
 
     /**
@@ -214,7 +230,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @throws RemoteException
      */
     public void notifyPrivilege() throws RemoteException {
-        interfaceController.showPrivilegeAlert();
+        if (interfaceController!=null)
+            interfaceController.showPrivilegeAlert();
     }
 
     /**
@@ -225,7 +242,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyNewAction(int value, char codeAction) throws RemoteException {
-        interfaceController.notifyMessage("You can do a new Action");
+        if (interfaceController!=null)
+            interfaceController.notifyMessage("You can do a new Action");
         currentNewActionValue = value;
         currentNewActionActionSpaceType = Service.getActionSpaceType(codeAction);
         currentNewActionCardType = Service.getCardType(codeAction);
@@ -238,7 +256,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyYourTurn() throws RemoteException {
-        interfaceController.notifyMessage("Is your turn");
+        if (interfaceController!=null)
+            interfaceController.notifyMessage("Is your turn");
         phase = Phases.ACTION;
     }
 
@@ -248,7 +267,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyYourExcommunicationTurn() throws RemoteException {
-        interfaceController.showExcommunicatingAlert();
+        if (interfaceController!=null)
+            interfaceController.showExcommunicatingAlert();
         phase = Phases.EXCOMMUNICATION;
     }
 
@@ -258,7 +278,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyEndMove() throws RemoteException{
-        interfaceController.notifyMessage("You have ended your turn, please wait for your opponents");
+        if (interfaceController!=null)
+            interfaceController.notifyMessage("You have ended your turn, please wait for your opponents");
         if (phase == Phases.NEW_ACTION)
             phase = Phases.ACTION;
     }
@@ -270,7 +291,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void excommunicate(int id, int period) throws RemoteException{
-        interfaceController.excommunicate(id, period);
+        if (interfaceController!=null)
+            interfaceController.excommunicate(id, period);
     };
 
     /**
@@ -280,7 +302,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void gameEnded(String msg) throws RemoteException {
-        interfaceController.showGameEndedAlert(msg);
+        if (interfaceController!=null)
+            interfaceController.showGameEndedAlert(msg);
         //interfaceController.backToMenu();
     };
 
@@ -291,7 +314,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyTurnOrder(List<Integer> orderList) throws RemoteException {
-        interfaceController.showOrderList(orderList);
+        if (interfaceController!=null)
+            interfaceController.showOrderList(orderList);
     }
 
     /**
@@ -301,7 +325,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      */
     @Override
     public void notifyOpponentSurrender(int surrenderId) throws RemoteException{
-        interfaceController.opponentSurrender(surrenderId);
+        if (interfaceController!=null)
+            interfaceController.opponentSurrender(surrenderId);
     }
 
 
@@ -386,10 +411,14 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @return ritorna il MessageAction corretto da inviare al server
      */
     public MessageAction encondingMessageAction() {
-        if (actionSpacesType == null)
-            interfaceController.notifyMessage("You haven't selected the Action Space");
-        else if (familyMemberType == null)
-            interfaceController.notifyMessage("You haven't selected the family member");
+        if (actionSpacesType == null) {
+            if (interfaceController != null)
+                interfaceController.notifyMessage("You haven't selected the Action Space");
+        }
+        else if (familyMemberType == null) {
+            if (interfaceController!=null)
+                interfaceController.notifyMessage("You haven't selected the family member");
+        }
         else
             return new MessageAction(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
         return null;
@@ -408,12 +437,16 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
             if (actionSpacesType == ActionSpacesType.SINGLE_PRODUCTION || actionSpacesType == ActionSpacesType.LARGE_PRODUCTION)
                 return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
         }
-        else if (actionSpacesType != currentNewActionActionSpaceType)
-            interfaceController.notifyMessage("You haven't selected the correct Action Space");
+        else if (actionSpacesType != currentNewActionActionSpaceType) {
+            if (interfaceController!=null)
+                interfaceController.notifyMessage("You haven't selected the correct Action Space");
+        }
         else if (currentNewActionCardType == null) //va bene qualsiasi torre
             return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
-        else if (cardType != currentNewActionCardType)
-            interfaceController.notifyMessage("You haven't selected the correct Tower");
+        else if (cardType != currentNewActionCardType) {
+            if (interfaceController!=null)
+                interfaceController.notifyMessage("You haven't selected the correct Tower");
+        }
         return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
     }
 

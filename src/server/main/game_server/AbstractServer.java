@@ -49,7 +49,7 @@ public abstract class AbstractServer extends UnicastRemoteObject implements Serv
      * @return
      */
     public Game getFreeGame(int gameMode) {
-        List<Game> games = null;
+        List<Game> games = new ArrayList<>();
         switch (gameMode){
             case RANDOM:
                 games = new ArrayList<>(MainServer.randomGamesMap.values());
