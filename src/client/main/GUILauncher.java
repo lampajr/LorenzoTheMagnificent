@@ -33,6 +33,7 @@ public class GUILauncher extends Application {
      * @param stage finestra iniziale
      * @throws IOException
      */
+
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
