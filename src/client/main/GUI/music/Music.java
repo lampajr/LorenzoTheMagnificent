@@ -9,8 +9,8 @@ import java.io.IOException;
  * @author Luca
  */
 public class Music {
-
-    private static final String PATH = "client/main/GUI/music/";
+    private static final String PATH = "src/client/main/GUI/music/";
+    private static final String PATH1 = "";
     private File claps;
     private Clip clip;
     private AudioInputStream audio;
