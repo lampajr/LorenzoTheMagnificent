@@ -151,7 +151,7 @@ public class PersonalBoard {
      * @return true se le ho, false altrimenti
      */
     public boolean checkResources(Field cost){
-        return resourceList.get(cost.getType()).getQta() >= Math.abs(cost.getQta());
+        return resourceList.get(cost.getType()).checkResource(cost);
     }
 
     /**

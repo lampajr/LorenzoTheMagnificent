@@ -26,6 +26,8 @@ public class GuiFamilyMember extends ToggleButton {
         this.id = id;
         this.familyMemberType = familyMemberType;
         setPrefSize(RADIUS*2, RADIUS*2);
+//        getStylesheets().add(getClass().getResource("family_member_style.css").toExternalForm());
+//        setId(Service.getStringColorById(id));
         createPane();
     }
 
@@ -50,6 +52,10 @@ public class GuiFamilyMember extends ToggleButton {
         setCursor(Cursor.HAND);
         setEffect(new DropShadow(RADIUS, Color.BLACK));
         addMouseClicked();
+    }
+
+    public FamilyMemberType getFamilyMemberType() {
+        return familyMemberType;
     }
 
     public int getFamilyId() {

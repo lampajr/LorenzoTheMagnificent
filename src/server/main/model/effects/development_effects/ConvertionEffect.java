@@ -1,5 +1,6 @@
 package server.main.model.effects.development_effects;
 
+import api.types.ResourceType;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
@@ -49,9 +50,14 @@ public class ConvertionEffect implements Effect{
             player.getPersonalBoard().modifyResources(f);
         }
         for(Field f : fieldToIncrement) {
-            player.getPersonalBoard().modifyResources(f);
-            player.getPersonalBoard().setCurrentField(f);
-            player.activeExcommunicationEffects(player.getPersonalBoard().getCurrentAction(), 2);
+            if (f.getType() != ResourceType.PRIVILEGE) {
+                player.getPersonalBoard().modifyResources(f);
+                player.getPersonalBoard().setCurrentField(f);
+                player.activeExcommunicationEffects(player.getPersonalBoard().getCurrentAction(), 2);
+            }
+            else {
+                player.notifyPrivilege();
+            }
         }
     }
 

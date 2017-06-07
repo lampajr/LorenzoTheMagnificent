@@ -3,6 +3,7 @@ package server.main.model.board;
 import api.types.CardType;
 import server.main.model.effects.development_effects.*;
 import server.main.model.fields.Field;
+import server.main.model.fields.MilitaryCost;
 import server.main.model.fields.Resource;
 
 import java.sql.ResultSet;
@@ -153,13 +154,14 @@ public class DevelopmentDeck {
                         DevelopmentCard = new DevelopmentCard(type, name, createCostsList(codcost),
                                 createQuickEffectListTB(codQuickEffect), createPermanentEffectListTerritory(codPermanentEffect),
                                 period);
+                        break;
                     case BUILDING:
                         DevelopmentCard = new DevelopmentCard(type, name, createCostsList(codcost),
                                 createQuickEffectListTB(codQuickEffect), createPermanentEffectListBuildings(codPermanentEffect),
                                 period);
                         break;
                     case VENTURES:
-                        DevelopmentCard = new DevelopmentCard(type, name, createCostsList(codcost),
+                        DevelopmentCard = new DevelopmentCard(type, name, createCostsListVentures(codcost),
                                 createQuickEffectListVC(codQuickEffect), createPermanentEffectListVentures(codPermanentEffect),
                                 period);
                         break;
@@ -299,23 +301,41 @@ public class DevelopmentDeck {
 
     /**
      * crea la lista dei costi di ogni carta, metodo chiamato dal metodo createCardList
-     * @param cod
+     * @param codCost
      * @return
      */
-    private List<Field> createCostsList(String cod) {
+    private List<Field> createCostsList(String codCost) {
         //creo la lista degli effetti immediati
         List<Field> costsList = new ArrayList<>();
-        if(cod == null){
+        if(codCost == null){
             return null;
         }
-        costsList.add(Resource.createResource(cod.substring(0,2), true));
-        if (cod.length() == 4) {
-            costsList.add(Resource.createResource(cod.substring(2,4), true));
+        costsList.add(Resource.createResource(codCost.substring(0,2), true));
+        if (codCost.length() == 4) {
+            costsList.add(Resource.createResource(codCost.substring(2,4), true));
         }
-        if (cod.length() == 6) {
-            costsList.add(Resource.createResource(cod.substring(4,6), true));
+        if (codCost.length() == 6) {
+            costsList.add(Resource.createResource(codCost.substring(4,6), true));
         }
         return costsList;
+    }
+
+    /**
+     * crea la lista di costi per le imprese, deve fare un'ulteriore
+     * verifica se il costo riguarda punti militari
+     * @param codCost
+     * @return
+     */
+    private List<Field> createCostsListVentures(String codCost) {
+        if (codCost == null) {
+            return null;
+        }
+        List<Field> costsList = new ArrayList<>();
+        if (codCost.charAt(0) == 'm') {
+            costsList.add(MilitaryCost.createMilitaryCost(codCost.substring(1,3)));
+            return costsList;
+        }
+        return createCostsList(codCost);
     }
 
     /**

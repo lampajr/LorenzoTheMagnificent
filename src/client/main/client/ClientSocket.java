@@ -187,7 +187,6 @@ public class ClientSocket extends AbstractClient implements Runnable{
     @Override
     public void exit() throws RemoteException {
         try {
-            surrender();
             out.writeObject(SocketProtocol.EXIT);
             out.flush();
         }

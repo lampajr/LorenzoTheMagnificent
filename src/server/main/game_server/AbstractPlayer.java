@@ -14,6 +14,7 @@ import server.main.model.action_spaces.Action;
 import server.main.model.board.DevelopmentCard;
 import server.main.model.board.FamilyMember;
 import server.main.model.board.PersonalBoard;
+import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
 
 import java.rmi.RemoteException;
@@ -308,7 +309,10 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
 
     @Override
     public void convertPrivilege(int qta, ResourceType type) throws RemoteException {
-        personalBoard.modifyResources(new Resource(qta, type));
+        Field res = new Resource(qta, type);
+        personalBoard.modifyResources(res);
+        personalBoard.setCurrentField(res);
+        activeExcommunicationEffects(new Action(null, 0, null, this), 2);
         updateMove(null);
         game.notifyAllPlayers(this, idPlayer, personalBoard.getPersonalCardsMap(), personalBoard.getQtaResources(), null);
     }

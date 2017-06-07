@@ -37,10 +37,6 @@ public class PersonalBoardController {
     @FXML private AnchorPane rootPane;
 
     @FXML private GridPane cardsGridPane;
-    @FXML private GridPane buildingsGridPane;
-    @FXML private GridPane territoriesGridPane;
-    @FXML private GridPane charactersGridPane;
-    @FXML private GridPane venturesGridPane;
 
     private GUIController GUIController;
 
@@ -69,10 +65,6 @@ public class PersonalBoardController {
                 }
             }));
         });
-    }
-
-    public void setBackgroundColor(int id) {
-        rootPane.setStyle("-fx-background-color: " + Service.getStringColorById(id));
     }
 
     /**
@@ -160,7 +152,7 @@ public class PersonalBoardController {
             }
             else if (cardType == CardType.VENTURES) {
                 img.setOnMouseEntered(event -> Service.zoomInUpper(img));
-                img.setOnMouseExited(event -> Service.zoomOut(img));
+                img.setOnMouseExited(event -> Service.zoomOutBoard(img));
             }
             else {
                 img.setOnMouseEntered(event -> Service.zoomIn(img));

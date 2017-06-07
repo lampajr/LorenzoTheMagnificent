@@ -134,15 +134,15 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * metodo che mi aggiorna le mie carte nella personal board
-     * @param personalcardsMap mapp delle carte
+     * @param personalCardsMap mapp delle carte
      * @throws RemoteException
      */
     @Override
-    public void updatePersonalCards(Map<CardType, List<String>> personalcardsMap) throws RemoteException {
-        myCardsList = personalcardsMap;
+    public synchronized void updatePersonalCards(Map<CardType, List<String>> personalCardsMap) throws RemoteException {
+        myCardsList = personalCardsMap;
         if (interfaceController!=null){
-            interfaceController.removeDrawnCards(personalcardsMap);
-            interfaceController.updateMyCards(personalcardsMap);
+            interfaceController.removeDrawnCards(personalCardsMap);
+            interfaceController.updateMyCards(personalCardsMap);
             interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
         }
     };

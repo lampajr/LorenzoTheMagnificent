@@ -45,4 +45,11 @@ public interface Field {
      * @param reset valore qta
      */
     void setQta(int reset);
+
+    /**
+     * mi controlla se ho le risorse sufficienti
+     * @param cost costo da verificare
+     * @return true se le ho, false altrimenti
+     */
+    boolean checkResource(Field cost);
 }
