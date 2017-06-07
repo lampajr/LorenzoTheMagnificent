@@ -66,21 +66,21 @@ public class Service {
     }
 
     public static void zoomInUpperDx(ImageView img) {
-        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, -20, 40));
+        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, -20, 60));
         img.toFront();
         pt.play();
         pt.setOnFinished(e -> img.toFront());
     }
 
     public static void zoomInUpperSx(ImageView img) {
-        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, 20, 40));
+        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, 20, 60));
         img.toFront();
         pt.play();
         pt.setOnFinished(e -> img.toFront());
     }
 
     public static void zoomInUpper(ImageView img) {
-        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, 0, 40));
+        ParallelTransition pt = new ParallelTransition(createScaleTransition(img, 1.5, 2), createTranslateTransition(img, 0, 60));
         img.toFront();
         pt.play();
         pt.setOnFinished(e -> img.toFront());

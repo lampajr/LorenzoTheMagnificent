@@ -41,8 +41,7 @@ public class GUIController implements InterfaceController {
     private static final String EXTENSION = ".png";
     public static final int CARD_HEIGHT = 126;
     public static final int CARD_WIDTH = 108;
-    @FXML
-    private Button iconifyButton;
+    @FXML private Button iconifyButton;
     private AbstractClient client;
     private LorenzoAnimation lorenzoAnimation;
 
@@ -56,9 +55,9 @@ public class GUIController implements InterfaceController {
     @FXML private GridPane buildingTowersActionSpaces;
     @FXML private GridPane venturesTower;
     @FXML private GridPane venturesTowersActionSpaces;
-    @FXML private GridPane council;
-    @FXML private GridPane largeHarvest;
-    @FXML private GridPane largeProduction;
+    @FXML private HBox council;
+    @FXML private HBox largeHarvest;
+    @FXML private HBox largeProduction;
     @FXML private GridPane singleHarvest;
     @FXML private GridPane singleProduction;
     @FXML private GridPane yellowMarket;
@@ -78,7 +77,6 @@ public class GUIController implements InterfaceController {
     @FXML private GridPane rootGridPane;
 
     @FXML private GridPane personalGridPane;
-    @FXML private GridPane myPersonalBoardGridPane;
     @FXML private HBox personalHBox;
     @FXML private AnchorPane anchorPane;
     @FXML private GridPane orderGridPane;
@@ -133,7 +131,7 @@ public class GUIController implements InterfaceController {
         actionSpacesMap.put(harvest.getType(), harvest);
         //raccolta larga
         LargeActionSpace lHarvest = new LargeActionSpace(ActionSpacesType.LARGE_HARVEST, largeHarvest, this);
-        largeHarvest.add(lHarvest, 0, 0);
+        largeHarvest.getChildren().add(lHarvest);
         actionSpacesMap.put(lHarvest.getType(), lHarvest);
         //produzione singolo
         SingleActionSpace production = new SingleActionSpace(ActionSpacesType.SINGLE_PRODUCTION, singleProduction, this);
@@ -141,11 +139,11 @@ public class GUIController implements InterfaceController {
         actionSpacesMap.put(production.getType(), production);
         //produzione larga
         LargeActionSpace lProduction = new LargeActionSpace(ActionSpacesType.LARGE_PRODUCTION, largeProduction, this);
-        largeProduction.add(lProduction, 0, 0);
+        largeProduction.getChildren().add(lProduction);
         actionSpacesMap.put(lProduction.getType(), lProduction);
         //palazzo del consiglio
         CouncilActionSpace councilActionSpace = new CouncilActionSpace(ActionSpacesType.COUNCIL, council, this);
-        council.add(councilActionSpace, 0, 0);
+        council.getChildren().add(councilActionSpace);
         actionSpacesMap.put(councilActionSpace.getType(), councilActionSpace);
     }
 
@@ -472,7 +470,9 @@ public class GUIController implements InterfaceController {
         personalFamilyMembersMap.put(FamilyMemberType.BLACK_DICE, new GuiFamilyMember(id, FamilyMemberType.BLACK_DICE));
         personalFamilyMembersMap.put(FamilyMemberType.WHITE_DICE, new GuiFamilyMember(id, FamilyMemberType.WHITE_DICE));
         personalFamilyMembersMap.put(FamilyMemberType.NEUTRAL_DICE, new GuiFamilyMember(id, FamilyMemberType.NEUTRAL_DICE));
-        personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> familyMember.setToggleGroup(toggleGroup)));
+        personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> {
+            familyMember.setToggleGroup(toggleGroup);
+        }));
     }
 
     /**

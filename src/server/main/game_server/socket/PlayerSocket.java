@@ -348,6 +348,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
                             convertPrivilege(qta, type);
                             break;
                         case EXIT:
+                            surrender();
                             connect = false;
                             out.writeObject(SocketProtocol.EXIT);
                             out.flush();

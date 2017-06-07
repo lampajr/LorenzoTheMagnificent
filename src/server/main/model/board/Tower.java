@@ -71,7 +71,7 @@ public class Tower {
                     if (element.getFamilyMember() != null){
                         if (element.getFamilyMember().getPersonalBoard().getId() == familyMember.getPersonalBoard().getId()){
                             if (!(element.getFamilyMember().getType() == FamilyMemberType.NEUTRAL_DICE || familyMember.getType() == FamilyMemberType.NEUTRAL_DICE))
-                                throw new LorenzoException("hai già posizionato un familiare su questa torre!");
+                                throw new LorenzoException("You have already set up a family member in this tower!");
                         }
                     }
                 }

@@ -46,9 +46,7 @@ public class SingleActionSpace extends AnchorPane implements ActionSpaceInterfac
     @Override
     public void addFamilyMember(GuiFamilyMember familyMember) {
         setFamilyMember(familyMember);
-        if (!container.getChildren().contains(this.familyMember)) {
-            Platform.runLater(() -> container.add(this.familyMember, 0, 0));
-        }
+        Platform.runLater(() -> container.add(familyMember, 0, 0));
     }
 
     void setFamilyMember(GuiFamilyMember familyMember) {

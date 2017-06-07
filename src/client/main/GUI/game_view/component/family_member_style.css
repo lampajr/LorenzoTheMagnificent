@@ -1,0 +1,53 @@
+#yellow {
+    -fx-border-radius: 50%;
+    -fx-border-color: yellow;
+}
+
+#yellowSelected {
+    -fx-border-radius: 50%;
+    -fx-border-color: yellow;
+    -fx-background-color: yellow;
+}
+
+#yellow:hover {
+    -fx-background-color: yellow;
+}
+
+#blue {
+    -fx-border-radius: 50%;
+    -fx-border-color: blue;
+}
+
+#blue:hover {
+    -fx-background-color: blue;
+}
+
+#red {
+    -fx-border-radius: 50%;
+    -fx-border-color: red;
+}
+
+#redSelected {
+    -fx-border-radius: 50%;
+    -fx-border-color: red;
+    -fx-background-color: red;
+}
+
+#red:hover {
+    -fx-background-color: red;
+}
+
+#green {
+    -fx-border-radius: 50%;
+    -fx-border-color: green;
+}
+
+#greenSelected {
+    -fx-border-radius: 50%;
+    -fx-border-color: green;
+    -fx-background-color: green;
+}
+
+#green:hover {
+    -fx-background-color: green;
+}

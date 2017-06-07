@@ -63,6 +63,15 @@ public class Resource implements Field {
         this.qta = reset;
     }
 
+    @Override
+    public boolean checkResource(Field cost) {
+        if (cost instanceof MilitaryCost) {
+            MilitaryCost militaryCost = (MilitaryCost) cost;
+            return qta >= militaryCost.getMinValue();
+        }
+        return qta >= cost.getQta();
+    }
+
     /**
      * mi crea la risorsa in base al codice preso dal db e che il metodo
      * riceve come parametro
