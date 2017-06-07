@@ -1,0 +1,99 @@
+#messagesLabel{
+    -fx-cursor: hand;
+    -fx-border-radius: 15%;
+    -fx-border-color: black;
+
+
+}
+
+#toolbar {
+    -fx-background-color: transparent;
+}
+
+#textFlow {
+    -fx-border-width: 5;
+    -fx-border-color: black;
+    -fx-background-color: floralwhite;
+}
+
+#exitButton {
+    -fx-background-image: url("X.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: transparent;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+
+#iconifyButton{
+    -fx-background-image: url("meno.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: transparent;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+
+#surrenderButton {
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: transparent;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+
+#gameRootPane {
+    -fx-background-image: url("brickBackground.png");
+    -fx-background-repeat: repeat;
+    -fx-border-insets: 2;
+    -fx-background-insets: 2;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: gray;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(100, 100, 100, 1), 24, 0.5, 0, 0);
+}
+
+#yellowButton {
+    -fx-border-color: black;
+    -fx-border-radius: 5%;
+    -fx-arc-width: 5%;
+    -fx-arc-height: 5%;
+    -fx-border-width: 4px;
+    -fx-background-color: rgba(183,174,22,0.71);
+}
+
+#blueButton {
+    -fx-border-color: black;
+    -fx-border-radius: 5%;
+    -fx-arc-width: 5%;
+    -fx-arc-height: 5%;
+    -fx-border-width: 4px;
+    -fx-background-color: rgba(8,20,136,0.71);
+}
+
+#redButton {
+    -fx-border-color: black;
+    -fx-border-radius: 5%;
+    -fx-arc-width: 5%;
+    -fx-arc-height: 5%;
+    -fx-border-width: 4px;
+    -fx-background-color: rgba(227,1,4,0.71);
+}
+
+#greenButton {
+    -fx-border-color: black;
+    -fx-border-radius: 5%;
+    -fx-arc-width: 5%;
+    -fx-arc-height: 5%;
+    -fx-border-width: 4px;
+    -fx-background-color: rgba(18,227,61,0.71);
+}
+
+#toolbarButton {
+    -fx-background-color: rgba(57,29,4,0.71);
+    -fx-border-color: black;
+    -fx-border-radius: 5%;
+}
+
+#privilegeAlert {
+    -fx-background-image: url("brickBackground.png");
+}
