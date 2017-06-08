@@ -572,7 +572,7 @@ public class Game {
         turnOrder.remove(player);
         numPlayers--;
         if (isStarted) {
-            if (numPlayers<2){
+            if (numPlayers==1){
                 try {
                     turnOrder.get(0).youWin();
                 }
@@ -625,5 +625,46 @@ public class Game {
             }
         }
 
+    }
+
+
+
+    /////// METODI SET e GET AGGIUNTI PER I TEST
+
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public int getLap() {
+        return lap;
+    }
+
+    public void setLap(int lap) {
+        this.lap = lap;
+    }
+
+    public Phases getPhase() {
+        return phase;
+    }
+
+    public void setPhase(Phases phase) {
+        this.phase = phase;
+    }
+
+    public void setCurrentPlayer(AbstractPlayer player) {
+        currentPlayer = player;
     }
 }

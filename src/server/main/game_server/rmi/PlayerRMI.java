@@ -37,7 +37,8 @@ public class PlayerRMI extends AbstractPlayer {
      */
     @Override
     public void gameIsStarted(Map<Integer, String> opponents, List<String> codeList) throws RemoteException {
-        getClientInterface().isGameStarted(getIdPlayer(), opponents, codeList);
+        if (getClientInterface()!= null)
+            getClientInterface().isGameStarted(getIdPlayer(), opponents, codeList);
     }
 
     /**
@@ -45,42 +46,52 @@ public class PlayerRMI extends AbstractPlayer {
      * @throws RemoteException
      */
     public void isYourTurn() throws RemoteException {
-        getClientInterface().notifyYourTurn();
+        if (getClientInterface()!= null)
+            getClientInterface().notifyYourTurn();
     }
 
     @Override
     public void isYourExcommunicationTurn() throws RemoteException {
-        getClientInterface().notifyYourExcommunicationTurn();
+        if (getClientInterface()!= null)
+            getClientInterface().notifyYourExcommunicationTurn();
     }
 
     public void youWin() throws RemoteException {
-        getClientInterface().gameEnded("YOU WON, CONGRATS BUDDY!!");
+        if (getClientInterface()!= null)
+            getClientInterface().gameEnded("YOU WON, CONGRATS BUDDY!!");
     }
 
     public void youLose() throws RemoteException {
-        getClientInterface().gameEnded(" YOU LOSE, SORRY ");
+        if (getClientInterface()!= null)
+            getClientInterface().gameEnded(" YOU LOSE, SORRY ");
     }
 
     @Override
     public void notifyNewAction(int value, char codeAction) throws RemoteException {
-        getClientInterface().notifyNewAction(value, codeAction);
+        if (getClientInterface()!= null)
+            getClientInterface().notifyNewAction(value, codeAction);
     }
 
     @Override
     public void notifyError(String errorMessage) throws RemoteException {
-        getClientInterface().notifyMessage(errorMessage);
+        if (getClientInterface()!= null)
+            getClientInterface().notifyMessage(errorMessage);
     }
 
     @Override
     public void updateMove(MessageAction msg) throws RemoteException {
-        getClientInterface().updateResources(getPersonalBoard().getQtaResources());
-        getClientInterface().updatePersonalCards(getPersonalBoard().getPersonalCardsMap());
-        getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msg);
+        if (getClientInterface()!= null) {
+            getClientInterface().updateResources(getPersonalBoard().getQtaResources());
+            getClientInterface().updatePersonalCards(getPersonalBoard().getPersonalCardsMap());
+        }
+        if (getGame()!= null)
+            getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msg);
     }
 
     @Override
     public void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) throws RemoteException {
-        getClientInterface().opponentMove(id, personalcardsMap, qtaResourcesMap);
+        if (getClientInterface()!= null)
+            getClientInterface().opponentMove(id, personalcardsMap, qtaResourcesMap);
         if (msgAction != null)
             getClientInterface().opponentFamilyMemberMove(id, msgAction);
     }
@@ -91,7 +102,8 @@ public class PlayerRMI extends AbstractPlayer {
      */
     @Override
     public void notifyRollDice() throws RemoteException {
-        getClientInterface().notifyHaveToShotDice();
+        if (getClientInterface()!= null)
+            getClientInterface().notifyHaveToShotDice();
     }
 
     /**
@@ -103,7 +115,8 @@ public class PlayerRMI extends AbstractPlayer {
      */
     @Override
     public void sendDicesValues(int orange, int white, int black) throws RemoteException {
-        getClientInterface().setDiceValues(orange, white, black);
+        if (getClientInterface()!= null)
+            getClientInterface().setDiceValues(orange, white, black);
     }
 
     /**
@@ -115,12 +128,14 @@ public class PlayerRMI extends AbstractPlayer {
     public void initializeBoard(List<DevelopmentCard> towersCardsList) throws RemoteException {
         List<String> list = new ArrayList<>();
         towersCardsList.forEach((developmentCard -> list.add(developmentCard.getName())));
-        getClientInterface().setTowersCards(list);
+        //if (getClientInterface()!= null)
+            getClientInterface().setTowersCards(list);
     }
 
     @Override
     public void notifyEndMove() throws RemoteException {
-        getClientInterface().notifyEndMove();
+        if (getClientInterface()!= null)
+            getClientInterface().notifyEndMove();
     }
 
     /**
@@ -129,7 +144,8 @@ public class PlayerRMI extends AbstractPlayer {
      */
     @Override
     public void notifyPrivilege() throws RemoteException {
-        getClientInterface().notifyPrivilege();
+        if (getClientInterface()!= null)
+            getClientInterface().notifyPrivilege();
     }
 
     /**
@@ -143,23 +159,28 @@ public class PlayerRMI extends AbstractPlayer {
         for (AbstractPlayer player: playersOrderList) {
             orderList.add(player.getIdPlayer());
         }
-        getClientInterface().notifyTurnOrder(orderList);
+        if (getClientInterface()!= null)
+            getClientInterface().notifyTurnOrder(orderList);
     }
 
     @Override
     public void opponentSurrender(int id) throws RemoteException {
-        getClientInterface().notifyOpponentSurrender(id);
+        if (getClientInterface()!= null)
+            getClientInterface().notifyOpponentSurrender(id);
     }
 
     @Override
     public void excommunicate(int id, int period) throws RemoteException {
-        getGame().notifyAllPlayers(this, period);
-        getClientInterface().excommunicate(id, period);
+        if (getGame()!=null)
+            getGame().notifyAllPlayers(this, period);
+        if (getClientInterface()!= null)
+            getClientInterface().excommunicate(id, period);
     }
 
     @Override
     public void opponentExcommunicate(int idPlayer, int period) throws RemoteException {
-        getClientInterface().excommunicate(idPlayer, period);
+        if (getClientInterface()!= null)
+            getClientInterface().excommunicate(idPlayer, period);
     }
 
 

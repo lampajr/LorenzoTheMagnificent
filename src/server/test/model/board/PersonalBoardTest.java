@@ -19,7 +19,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @author lampa
+ * @author Andrea
+ * @author Luca
  */
 public class PersonalBoardTest {
     private PersonalBoard personalBoard;

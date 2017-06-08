@@ -135,7 +135,8 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
             out.writeObject(getPersonalBoard().getPersonalCardsMap());
             out.flush();
-            getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msgAction);
+            if (getGame()!=null)
+                getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msgAction);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -180,7 +181,8 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
 
     @Override
     public void excommunicate(int id, int period) throws RemoteException {
-        getGame().notifyAllPlayers(this, period);
+        if (getGame()!=null)
+            getGame().notifyAllPlayers(this, period);
         opponentExcommunicate(id, period);
     }
 

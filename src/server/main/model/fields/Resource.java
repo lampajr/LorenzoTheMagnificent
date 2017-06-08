@@ -69,7 +69,7 @@ public class Resource implements Field {
             MilitaryCost militaryCost = (MilitaryCost) cost;
             return qta >= militaryCost.getMinValue();
         }
-        return qta >= cost.getQta();
+        return qta >= Math.abs(cost.getQta());
     }
 
     /**

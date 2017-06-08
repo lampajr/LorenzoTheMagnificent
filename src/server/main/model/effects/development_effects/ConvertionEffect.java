@@ -1,10 +1,10 @@
 package server.main.model.effects.development_effects;
 
 import api.types.ResourceType;
+import server.main.game_server.AbstractPlayer;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
-import server.main.game_server.AbstractPlayer;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -41,24 +41,30 @@ public class ConvertionEffect implements Effect{
      */
     @Override
     public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+        if (checkActivation(player)) {
+            for(Field f : fieldToDecrement){
+                player.getPersonalBoard().modifyResources(f);
+            }
+            for(Field f : fieldToIncrement) {
+                if (f.getType() != ResourceType.PRIVILEGE) {
+                    player.getPersonalBoard().modifyResources(f);
+                    player.getPersonalBoard().setCurrentField(f);
+                    player.activeExcommunicationEffects(player.getPersonalBoard().getCurrentAction(), 2);
+                }
+                else {
+                    player.notifyPrivilege();
+                }
+            }
+        }
+    }
+
+    private boolean checkActivation(AbstractPlayer player) {
         for(Field f : fieldToDecrement){
             if(!player.getPersonalBoard().checkResources(f)){
-                return;
+                return false;
             }
         }
-        for(Field f : fieldToDecrement){
-            player.getPersonalBoard().modifyResources(f);
-        }
-        for(Field f : fieldToIncrement) {
-            if (f.getType() != ResourceType.PRIVILEGE) {
-                player.getPersonalBoard().modifyResources(f);
-                player.getPersonalBoard().setCurrentField(f);
-                player.activeExcommunicationEffects(player.getPersonalBoard().getCurrentAction(), 2);
-            }
-            else {
-                player.notifyPrivilege();
-            }
-        }
+        return true;
     }
 
 

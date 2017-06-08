@@ -102,7 +102,8 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     public void activeExcommunicationEffects(Action action, int type) throws RemoteException{
         personalBoard.setCurrentAction(action);
         try {
-            game.activeFirstPeriodExcommunication(action, type);
+            if (game!=null)
+                game.activeFirstPeriodExcommunication(action, type);
         }
         catch (NewActionException e) {
             //non dovrebbe mai verificrsi
@@ -113,7 +114,8 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     public void activeExcommunicationEffects(Action action) throws RemoteException{
         personalBoard.setCurrentAction(action);
         try {
-            game.activeSecondPeriodExcommunication(action);
+            if (game!=null)
+                game.activeSecondPeriodExcommunication(action);
         }
         catch (NewActionException e) {
             //non dovrebbe mai verificrsi
@@ -262,7 +264,8 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
 
     @Override
     public void shotDice(int orange, int white, int black) throws RemoteException{
-        game.shotDice(this, orange, white, black);
+        if (game!=null)
+            game.shotDice(this, orange, white, black);
     }
 
 
@@ -274,22 +277,26 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     @Override
     public synchronized void doAction(MessageAction msg) throws RemoteException {
         FamilyMember familyMember = personalBoard.getFamilyMember(msg.getFamilyMemberType());
-        game.doAction(this, msg, familyMember);
+        if (game!=null)
+            game.doAction(this, msg, familyMember);
     }
 
     @Override
     public void endMove() throws RemoteException {
-        game.endMove(this);
+        if (game!=null)
+            game.endMove(this);
     }
 
     @Override
     public synchronized void surrender() throws RemoteException {
-        game.removePlayer(this);
+        if (game!=null)
+            game.removePlayer(this);
     }
 
     @Override
     public void doNewAction(MessageNewAction msg) throws RemoteException {
-        game.doNewAction(this, msg);
+        if (game!=null)
+            game.doNewAction(this, msg);
     }
 
     /**
@@ -299,11 +306,13 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
      */
     @Override
     public synchronized void excommunicationChoice(boolean choice) throws RemoteException {
-        if (choice){
-            game.excommunicatePlayer(this);
-        }
-        else {
-            game.giveChurchSupport(this);
+        if (game!=null){
+            if (choice){
+                game.excommunicatePlayer(this);
+            }
+            else {
+                game.giveChurchSupport(this);
+            }
         }
     }
 
@@ -314,6 +323,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         personalBoard.setCurrentField(res);
         activeExcommunicationEffects(new Action(null, 0, null, this), 2);
         updateMove(null);
-        game.notifyAllPlayers(this, idPlayer, personalBoard.getPersonalCardsMap(), personalBoard.getQtaResources(), null);
+        if (game!=null)
+            game.notifyAllPlayers(this, idPlayer, personalBoard.getPersonalCardsMap(), personalBoard.getQtaResources(), null);
     }
 }
