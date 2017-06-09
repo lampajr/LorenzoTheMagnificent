@@ -25,6 +25,8 @@ public class Music {
             clip = AudioSystem.getClip();
             audio = AudioSystem.getAudioInputStream(claps);
             clip.open(audio);
+            if(resource.equals("MainTheme.wav"))
+                clip.loop(10);
             clip.start();
         }
         catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {

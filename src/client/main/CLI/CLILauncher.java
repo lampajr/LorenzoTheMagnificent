@@ -2,6 +2,7 @@ package client.main.CLI;
 
 
 import client.main.CLI.CLIController;
+import client.main.GUI.music.Music;
 import client.main.client.AbstractClient;
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ public class CLILauncher {
     private static BufferedReader in ;
     private static CLIController cliController;
     private AbstractClient abstractClient;
+    private static Music music;
 
 
 
@@ -32,6 +34,8 @@ public class CLILauncher {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        //music = new Music();
+        //music.play(music.getPath() + "MainTheme.wav");
         System.out.println(RED + "-------------- LORENZO IL MAGNIFICO --------------" +RESET);
         boolean b = true;
         in = new BufferedReader(new InputStreamReader(System.in));
