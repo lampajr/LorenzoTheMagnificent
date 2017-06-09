@@ -2,6 +2,7 @@ package client.main.CLI;
 
 import api.messages.MessageAction;
 import api.types.*;
+import client.main.GUI.music.Music;
 import client.main.client.AbstractClient;
 
 import java.io.BufferedReader;
@@ -96,11 +97,7 @@ public class CLIController implements InterfaceController, Runnable {
         System.out.println(WHITE_BACKGROUND + BLACK + " BLACK DICE :" + black + RESET);
         System.out.println(BLACK_BACKGROUND + WHITE + " WHITE DICE :" + white + RESET);
         System.out.println(RED_BACKGROUND + YELLOW + " ORANGE DICE :" + orange + RESET);
-        try {
-            client.shotDice(orange , white , black);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        client.shotDice(orange , white , black);
     }
 
     @Override
@@ -127,12 +124,13 @@ public class CLIController implements InterfaceController, Runnable {
             gameMenu.getMarketOccMap().get(marketActionType).put(personalId,familyMemberType);
         }
         if(gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType) != null){
-            if(gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType).get(personalId) != null){
-
+            if(gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType).get(personalId) == null){
+                gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType).put(personalId, new ArrayList<>());
             }
-
+            else{
+                gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType).get(personalId).add(familyMemberType);
+            }
         }
-
     }
 
     @Override
@@ -186,7 +184,19 @@ public class CLIController implements InterfaceController, Runnable {
 
     @Override
     public void showGameEndedAlert(String msg) {
+        System.out.println(GREEN_BACKGROUND + RED + "  --------------------------------- \n\n       "+msg+"      \n\n ---------------------------------");
 
+
+        backToMenu();
+    }
+
+    @Override
+    public void showGameEndedAlert(String msg, Map<String, Integer> rankingMap) {
+        System.out.println(GREEN_BACKGROUND + RED + "  --------------------------------- \n\n       "+msg+"      \n\n ---------------------------------");
+
+        rankingMap.forEach((name,rank) -> System.out.println("Player : "+ name +" RANK : " +rank) );
+
+        backToMenu();
     }
 
     @Override
@@ -196,7 +206,7 @@ public class CLIController implements InterfaceController, Runnable {
 
     @Override
     public void opponentSurrender(int surrenderId) {
-
+        System.out.println(RED + " PLAYER "+ surrenderId + "Has surrended ");
     }
 
     @Override
@@ -425,19 +435,20 @@ public class CLIController implements InterfaceController, Runnable {
         System.out.println("---- ARE YOU SURE YOU WANNA SURRENDER ? (yes - no) ----");
         try {
             String surrenderChoice = in.readLine();
-            if(surrenderChoice.equals("yes"))
+            if(surrenderChoice.equals("yes")) {
+                System.out.println("Sto surrendando");
+                client.surrender();
+                System.out.println("sto per tornare al menu");
                 backToMenu();
+            }
             else if(surrenderChoice.equals("no"))
+                
                 game(true);
         } catch (IOException e) {
             System.out.println(" Please, insert a correct option. ");
         }
 
-        try {
-            client.surrender();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -556,15 +567,11 @@ public class CLIController implements InterfaceController, Runnable {
      * @param modality di gioco ( random, two player ecc)
      */
     private void createGame(int modality) {
-        try {
-            client = AbstractClient.getInstance();
-            client.startGame(modality);
-            new Thread(() -> {
-                waitGame();
-            }).start();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        client = AbstractClient.getInstance();
+        client.startGame(modality);
+        new Thread(() -> {
+            waitGame();
+        }).start();
     }
 
     /**
@@ -717,9 +724,16 @@ public class CLIController implements InterfaceController, Runnable {
      */
     void showBoard() {
         System.out.println(YELLOW_BACKGROUND + WHITE +" BOARD STATUS " +RESET);
+        showPlayers();
         showTowers();
         showExcomCards();
         showActionSpaces();
+
+    }
+
+    private void showPlayers() {
+        List<Integer> playerList = client.getOpponentsIdList();
+        playerList.forEach(integer -> System.out.println("Id Player : " + integer));
     }
 
     private void showExcomCards() {
@@ -797,10 +811,8 @@ public class CLIController implements InterfaceController, Runnable {
 
     private void showLargeActionSpaces() {
         System.out.println(GREEN + "LARGE harvest space :");
-        if(gameMenu.getLargeActionSpaceOccMap().get(ActionSpacesType.LARGE_HARVEST) != null){
-            gameMenu.getLargeActionSpaceOccMap().get(ActionSpacesType.LARGE_HARVEST).forEach( ((integer, familyMemberTypes) -> {
-                System.out.println("PLAYER : " + integer + " Family member : " + familyMemberTypes);
-            }) );
+        if(gameMenu.getLargeActionSpaceOccMap().get(ActionSpacesType.LARGE_HARVEST) != null) {
+
         }
         else{
             System.out.println(WHITE + "EMPTY ACTION SPACE " + RESET);
@@ -816,9 +828,7 @@ public class CLIController implements InterfaceController, Runnable {
         }
         System.out.println(WHITE + "COUNCil space :");
         if(gameMenu.getLargeActionSpaceOccMap().get(ActionSpacesType.COUNCIL) != null){
-            gameMenu.getLargeActionSpaceOccMap().get(ActionSpacesType.COUNCIL).forEach( ((integer, familyMemberTypes) -> {
-                System.out.println("PLAYER : " + integer + " Family member : " + familyMemberTypes.get(0));
-            }) );
+
         }
         else{
             System.out.println(WHITE + "EMPTY ACTION SPACE " + RESET);
