@@ -47,10 +47,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     private Map<Integer, Map<CardType, List<String>>> opponentsCardsMap = new HashMap<>();
 
 
-    protected AbstractClient() throws RemoteException {
-    }
-
     public AbstractClient(String username, String password) throws RemoteException {
+        super();
         this.username = username;
         this.password = password;
     }
@@ -64,7 +62,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @param opponents l'id dei giocatori
      */
     @Override
-    public void isGameStarted(int id, Map<Integer, String> opponents, List<String> codeExcomList) throws RemoteException{
+    public void isGameStarted(int id, Map<Integer, String> opponents, List<String> codeExcomList) {
         this.id = id;
         opponentsIdList = new ArrayList<>(opponents.keySet());
         if (interfaceController!=null) {
@@ -113,9 +111,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * metodo che mi setta sul tabellone tutte le carte ricevute dal server
      * @param list lista dei nomi delle carte
-     * @throws RemoteException
      */
-    public synchronized void setTowersCards(List<String> list) throws RemoteException {
+    public synchronized void setTowersCards(List<String> list) {
         if (interfaceController!=null)
             interfaceController.setBoardCards(list);
     }
@@ -123,10 +120,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * metodo che aggiorna le mie risorse
      * @param qtaResourcesMap lista di risorse
-     * @throws RemoteException
      */
     @Override
-    public void updateResources(Map<ResourceType, Integer> qtaResourcesMap) throws RemoteException {
+    public void updateResources(Map<ResourceType, Integer> qtaResourcesMap) {
         this.qtaResourcesMap = qtaResourcesMap;
         if (interfaceController!=null)
             interfaceController.modifyResources(qtaResourcesMap);
@@ -135,10 +131,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * metodo che mi aggiorna le mie carte nella personal board
      * @param personalCardsMap mapp delle carte
-     * @throws RemoteException
      */
     @Override
-    public synchronized void updatePersonalCards(Map<CardType, List<String>> personalCardsMap) throws RemoteException {
+    public synchronized void updatePersonalCards(Map<CardType, List<String>> personalCardsMap) {
         myCardsList = personalCardsMap;
         if (interfaceController!=null){
             interfaceController.removeDrawnCards(personalCardsMap);
@@ -152,10 +147,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @param id id del giocatore che ha mosso
      * @param personalcardsMap mappa delle carte personali del giocatore che ha mosso
      * @param qtaResourcesMap mappa delle qta delle risorse del giocatore che ha mosso
-     * @throws RemoteException
      */
     @Override
-    public void opponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap) throws RemoteException {
+    public void opponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap) {
         if (interfaceController!=null)
             interfaceController.removeDrawnCards(personalcardsMap); //rimuovo le carte che ha pescato
         //aggiorno le risorse e le carte del giocatore che ha appena mosso
@@ -179,10 +173,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * chiama il metodo del controller che mi sposta il familiare nello spazio azione corretto
      * @param id id del giocatore che muove
      * @param msgAction messaggio codificato della mossa
-     * @throws RemoteException
      */
     @Override
-    public void opponentFamilyMemberMove(int id, MessageAction msgAction) throws RemoteException {
+    public void opponentFamilyMemberMove(int id, MessageAction msgAction) {
         if (interfaceController!=null)
             interfaceController.updateOpponentFamilyMemberMove(id, msgAction);
     }
@@ -190,10 +183,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * metodo che mi notifica al client un messaggio provenitente dal server
      * @param msg messaggio da notificare
-     * @throws RemoteException
      */
     @Override
-    public void notifyMessage(String msg) throws RemoteException {
+    public void notifyMessage(String msg) {
         if (interfaceController!=null)
             interfaceController.notifyMessage(msg);
     }
@@ -203,10 +195,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @param orange dado arancione
      * @param white bianco
      * @param black nero
-     * @throws RemoteException
      */
     @Override
-    public void setDiceValues(int orange, int white, int black) throws RemoteException {
+    public void setDiceValues(int orange, int white, int black) {
         if (interfaceController!=null) {
             interfaceController.notifyMessage("First player has rolled the dices!");
             interfaceController.setDices(orange, white, black);
@@ -215,10 +206,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * mi informa il giocatore che deve tirare i dadi
-     * @throws RemoteException
      */
     @Override
-    public void notifyHaveToShotDice() throws RemoteException {
+    public void notifyHaveToShotDice() {
         if (interfaceController!=null) {
             interfaceController.notifyMessage("You have to roll the dices!");
             interfaceController.showDices();
@@ -227,9 +217,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * notifica l'ottenimento di un nuovo privielgio
-     * @throws RemoteException
      */
-    public void notifyPrivilege() throws RemoteException {
+    public void notifyPrivilege() {
         if (interfaceController!=null)
             interfaceController.showPrivilegeAlert();
     }
@@ -238,10 +227,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * notifica al client che deve fare un'altra azione
      * @param value valore dell'azione
      * @param codeAction codice dell'azione (spazio azione)
-     * @throws RemoteException
      */
     @Override
-    public void notifyNewAction(int value, char codeAction) throws RemoteException {
+    public void notifyNewAction(int value, char codeAction) {
         if (interfaceController!=null)
             interfaceController.notifyMessage("You can do a new Action");
         currentNewActionValue = value;
@@ -252,10 +240,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * notifica al client che è il suo turno nella fase azione
-     * @throws RemoteException
      */
     @Override
-    public void notifyYourTurn() throws RemoteException {
+    public void notifyYourTurn() {
         if (interfaceController!=null)
             interfaceController.notifyMessage("Is your turn");
         phase = Phases.ACTION;
@@ -263,10 +250,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * notifica al client che è il suo turno nella fase scomunica
-     * @throws RemoteException
      */
     @Override
-    public void notifyYourExcommunicationTurn() throws RemoteException {
+    public void notifyYourExcommunicationTurn() {
         if (interfaceController!=null)
             interfaceController.showExcommunicatingAlert();
         phase = Phases.EXCOMMUNICATION;
@@ -274,10 +260,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /**
      * mi notifica che ho terminato il turno
-     * @throws RemoteException
      */
     @Override
-    public void notifyEndMove() throws RemoteException{
+    public void notifyEndMove() {
         if (interfaceController!=null)
             interfaceController.notifyMessage("You have ended your turn, please wait for your opponents");
         if (phase == Phases.NEW_ACTION)
@@ -287,10 +272,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * notifica che sono stato scomunicato nel periodo passato come parametro
      * @param period periodo
-     * @throws RemoteException
      */
     @Override
-    public void excommunicate(int id, int period) throws RemoteException{
+    public void excommunicate(int id, int period) {
         if (interfaceController!=null)
             interfaceController.excommunicate(id, period);
     };
@@ -298,22 +282,30 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * notifica che la partita è terminata, con l'esito
      * @param msg messaggio (esito)
-     * @throws RemoteException
+     * @param rankingMap classifica finale
      */
     @Override
-    public void gameEnded(String msg) throws RemoteException {
+    public void gameEnded(String msg, Map<String, Integer> rankingMap) {
+        if (interfaceController!=null)
+            interfaceController.showGameEndedAlert(msg, rankingMap);
+    };
+
+    /**
+     * temrine della partita per abbandono
+     * @param msg messaggio di vittoria
+     */
+    @Override
+    public void gameEndedByAbandonment(String msg) {
         if (interfaceController!=null)
             interfaceController.showGameEndedAlert(msg);
-        //interfaceController.backToMenu();
-    };
+    }
 
     /**
      * notifica al controller che deve esporre la lista dei giocatori
      * @param orderList lista degli id
-     * @throws RemoteException
      */
     @Override
-    public void notifyTurnOrder(List<Integer> orderList) throws RemoteException {
+    public void notifyTurnOrder(List<Integer> orderList) {
         if (interfaceController!=null)
             interfaceController.showOrderList(orderList);
     }
@@ -321,10 +313,9 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * notifica e aggiorna l'interfaccia eleiminando ogni traccia del giocatore che ha abbandonato
      * @param surrenderId id del giocatore che ha abbandonato
-     * @throws RemoteException
      */
     @Override
-    public void notifyOpponentSurrender(int surrenderId) throws RemoteException{
+    public void notifyOpponentSurrender(int surrenderId) {
         if (interfaceController!=null)
             interfaceController.opponentSurrender(surrenderId);
     }
@@ -389,20 +380,15 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     }
 
     public void encodingAndSendingMessage(int servantsToPay) {
-        try {
-            if (phase == Phases.NEW_ACTION) {
-                MessageNewAction msgNewAction = encondingMessageNewAction();
-                if (msgNewAction != null)
-                    doNewAction(msgNewAction, servantsToPay);
-            }
-            else {
-                MessageAction msgAction = encondingMessageAction();
-                if (msgAction != null)
-                    doAction(msgAction, servantsToPay);
-            }
+        if (phase == Phases.NEW_ACTION) {
+            MessageNewAction msgNewAction = encondingMessageNewAction();
+            if (msgNewAction != null)
+                doNewAction(msgNewAction, servantsToPay);
         }
-        catch (RemoteException e) {
-            e.printStackTrace();
+        else {
+            MessageAction msgAction = encondingMessageAction();
+            if (msgAction != null)
+                doAction(msgAction, servantsToPay);
         }
     }
 
@@ -428,7 +414,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * metodo che mi codifica il messaggio azione DA RICONTROLLARE
      * @return ritorna il MessageAction corretto da inviare al server
      */
-    public MessageNewAction encondingMessageNewAction() {
+    private MessageNewAction encondingMessageNewAction() {
         if (currentNewActionActionSpaceType == ActionSpacesType.SINGLE_HARVEST){
             if (actionSpacesType == ActionSpacesType.SINGLE_HARVEST || actionSpacesType == ActionSpacesType.LARGE_HARVEST)
                 return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
@@ -465,13 +451,12 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     /**
      * metodo che mi tenta il login al server
      */
-    public abstract boolean login() throws RemoteException, NotBoundException;
+    public abstract boolean login() throws NotBoundException;
 
     /**
      * metodo che manda un messaggio al server dicendo che voglio giocare.
-     * @throws RemoteException
      */
-    public abstract void startGame(int gameMode) throws RemoteException;
+    public abstract void startGame(int gameMode);
 
 
     /**
@@ -479,60 +464,52 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * corretta dalle due sottoclassi.
      * @param msg messaggio già codificato
      * @param servantsToPay  servitori che voglio pagare
-     * @throws RemoteException
      */
-    public abstract void doAction(MessageAction msg, int servantsToPay) throws RemoteException;
+    public abstract void doAction(MessageAction msg, int servantsToPay);
 
     /**
      * metodo che invia un messa di nuova azione al server
      * @param msg messaggio già codificato
      * @param servantsToPay servitori che voglio pagare
-     * @throws RemoteException
      */
-    public abstract void doNewAction(MessageNewAction msg, int servantsToPay) throws RemoteException;
+    public abstract void doNewAction(MessageNewAction msg, int servantsToPay) ;
 
     /**
      * il giocatore lancia i dadi, e invia i risultati al server!!
      * @param orange dado arancione
      * @param white bianco
      * @param black nero
-     * @throws RemoteException
      */
-    public abstract void shotDice(int orange, int white, int black) throws RemoteException;
+    public abstract void shotDice(int orange, int white, int black) ;
 
     /**
      * metodo che mi identifica la scelta di dare sostegno o meno alla chiesa
      * @param choice true accetto la scomunica, false do sostegno
-     * @throws RemoteException
      */
-    public abstract void excommunicationChoice(boolean choice) throws RemoteException;
+    public abstract void excommunicationChoice(boolean choice) ;
 
 
     /**
      * metyodo che viene chiamato dal client che notifica al server che la mossa è finita
-     * @throws RemoteException
      */
-    public abstract void endMove() throws RemoteException;
+    public abstract void endMove() ;
 
     /**
      * manda un messaggio al server dicendo in cosa voglio convertire il mio privilegio
      * @param qta qta in cui convertire
      * @param type tipo in cui convertire
-     * @throws RemoteException
      */
-    public abstract void convertPrivilege(int qta, ResourceType type) throws RemoteException;
+    public abstract void convertPrivilege(int qta, ResourceType type) ;
 
     /**
      * mi dice al server che voglio abbandonare la partita
-     * @throws RemoteException
      */
-    public abstract void surrender() throws RemoteException;
+    public abstract void surrender() ;
 
     /**
      * esce totalmente dal gioco
-     * @throws RemoteException
      */
-    public abstract void exit() throws RemoteException;
+    public abstract void exit() ;
 
 
     /**
@@ -550,12 +527,17 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
      * @param password password
      * @return l'istanza di giocatore corretta
      */
-    public static AbstractClient createInstance(boolean connection, String username, String password) throws RemoteException {
-        if (!logged){
-            if (connection)
-                instance = new ClientRMI(username, password);
-            else
-                instance = new ClientSocket(username, password);
+    public static AbstractClient createInstance(boolean connection, String username, String password) {
+        try {
+            if (!logged){
+                if (connection)
+                    instance = new ClientRMI(username, password);
+                else
+                    instance = new ClientSocket(username, password);
+            }
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
         }
         return instance;
     }

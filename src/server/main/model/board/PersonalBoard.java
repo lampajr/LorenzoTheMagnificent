@@ -8,7 +8,6 @@ import server.main.model.action_spaces.Action;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -204,7 +203,7 @@ public class PersonalBoard {
             try {
                 developmentCard.activePermanentEffects();
             }
-            catch (RemoteException | NewActionException e) {
+            catch (NewActionException e) {
                 e.printStackTrace();
             }
         }));
@@ -220,7 +219,7 @@ public class PersonalBoard {
             try {
                 developmentCard.activePermanentEffects();
             }
-            catch (RemoteException | NewActionException e) {
+            catch (NewActionException e) {
                 e.printStackTrace();
             }
         }));
@@ -236,7 +235,7 @@ public class PersonalBoard {
             try {
                 developmentCard.activePermanentEffects();
             }
-            catch (RemoteException | NewActionException e) {
+            catch (NewActionException e) {
                 e.printStackTrace();
             }
         }));
@@ -250,7 +249,7 @@ public class PersonalBoard {
             try {
                 developmentCard.activePermanentEffects();
             }
-            catch (RemoteException | NewActionException e) {
+            catch (NewActionException e) {
                 e.printStackTrace();
             }
         }));
@@ -269,7 +268,7 @@ public class PersonalBoard {
         familyMemberList.get(NEUTRAL_DICE).setValue(0);
     }
 
-    public int calculateVictoryPoints() throws RemoteException, NewActionException {
+    public int calculateVictoryPoints() {
         activeVentueresEffects();
         int sum = resourceList.get(ResourceType.VICTORY).getQta(); //aggiungo i punti vittoria
         //adesso devo convertire gli altri

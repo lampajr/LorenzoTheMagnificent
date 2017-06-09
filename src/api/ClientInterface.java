@@ -134,8 +134,15 @@ public interface ClientInterface extends Remote{
     /**
      * notifica che la partita è terminata, con l'esito
      * @param msg messaggio (esito)
+     * @param rankingMap classifica finale
      */
-    void gameEnded(String msg) throws RemoteException;
+    void gameEnded(String msg, Map<String, Integer> rankingMap) throws RemoteException;
+
+    /**
+     * notifica che la partita è temrinata per abbandono, e mi dice che ho vinto
+     * @param msg messaggio di vittoria
+     */
+    void gameEndedByAbandonment(String msg) throws RemoteException;
 
     /**
      * mi notifica l'ordine dei giocatori per il turno corrente
@@ -150,4 +157,5 @@ public interface ClientInterface extends Remote{
      * @throws RemoteException
      */
     void notifyOpponentSurrender(int surrenderId) throws RemoteException;
+
 }

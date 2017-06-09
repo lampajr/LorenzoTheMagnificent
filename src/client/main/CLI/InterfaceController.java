@@ -177,6 +177,13 @@ public interface InterfaceController {
     void showGameEndedAlert(String msg);
 
     /**
+     * mi rende visibile l'alert che mi notifica la fine della partita
+     * @param msg messaggio da notificare al giocatore
+     * @param rankingMap classifica finale
+     */
+    void showGameEndedAlert(String msg, Map<String,Integer> rankingMap);
+
+    /**
      * aggiorna la plancia del giocatore con id
      * @param personalcardsMap mappa delle carte
      * @param resourcesMap mappa delle risorse

@@ -38,26 +38,35 @@ public class ClientRMI extends AbstractClient {
      * Metodo che notifica al server che l' utente sta compiendo un azione su uno spazio azione, sotto forma
      * di messaggio, chiamando il metodo doAction dell' intefaccia serverGame
      * (Va parametrizzato per scegliere quale azione compiere e con quale familiare)
-     * @throws RemoteException
      */
     @Override
-    public void doAction(MessageAction msg, int servantsToPay) throws RemoteException {
-        if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
-            msg.setValue(servantsToPay);
-            serverGame.doAction(msg);
+    public void doAction(MessageAction msg, int servantsToPay) {
+        try {
+            if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
+                msg.setValue(servantsToPay);
+                serverGame.doAction(msg);
+            }
+            else
+                notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
         }
-        else
-            notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void doNewAction(MessageNewAction msg, int servantsToPay) throws RemoteException {
-        if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
-            msg.setAdditionalValue(servantsToPay);
-            serverGame.doNewAction(msg);
+    public void doNewAction(MessageNewAction msg, int servantsToPay) {
+        try {
+            if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
+                msg.setAdditionalValue(servantsToPay);
+                serverGame.doNewAction(msg);
+            }
+            else
+                notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
         }
-        else
-            notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -65,23 +74,31 @@ public class ClientRMI extends AbstractClient {
      * metodo che esegue il login del giocatore, scaricando l' intefaccia del server per poter chiamare il metodo
      * di login su di essa (attraverso getRegistry e Lookup)
      * @return true se il login va a buon fine.
-     * @throws RemoteException
-     * @throws NotBoundException
      */
     @Override
-    public boolean login() throws RemoteException, NotBoundException {
-        registry = LocateRegistry.getRegistry(1099);
-        server = (ServerInterface) registry.lookup(SERVER);
-        return server.login(getUsername(), getPassword());
+    public boolean login() throws NotBoundException {
+        try {
+            registry = LocateRegistry.getRegistry(1099);
+            server = (ServerInterface) registry.lookup(SERVER);
+            return server.login(getUsername(), getPassword());
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
      * richiede al server di accoppiarlo ad una partita, darà sempre esito positivo
-     * @throws RemoteException
      */
     @Override
-    public void startGame(int gameMode) throws RemoteException {
-        serverGame = (PlayerInterface) server.startGame(getUsername(), gameMode, this);
+    public void startGame(int gameMode) {
+        try {
+            serverGame = (PlayerInterface) server.startGame(getUsername(), gameMode, this);
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -103,24 +120,32 @@ public class ClientRMI extends AbstractClient {
      * informo il server in cosa voglio convertire i miei privilegi
      * @param qta qta in cui convertire
      * @param type tipo in cui convertire
-     * @throws RemoteException
      */
     @Override
-    public void convertPrivilege(int qta, ResourceType type) throws RemoteException {
-        serverGame.convertPrivilege(qta, type);
+    public void convertPrivilege(int qta, ResourceType type) {
+        try {
+            serverGame.convertPrivilege(qta, type);
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * abbandono la partita, informo il server
-     * @throws RemoteException
      */
     @Override
-    public void surrender() throws RemoteException {
-        serverGame.surrender();
+    public void surrender() {
+        try {
+            serverGame.surrender();
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void exit() throws RemoteException {
+    public void exit() {
         surrender();
         System.exit(0);
     }
@@ -131,21 +156,29 @@ public class ClientRMI extends AbstractClient {
      * @param orange dado arancione
      * @param white bianco
      * @param black nero
-     * @throws RemoteException
      */
     @Override
-    public void shotDice(int orange, int white, int black) throws RemoteException{
-        serverGame.shotDice(orange, white, black);
+    public void shotDice(int orange, int white, int black) {
+        try {
+            serverGame.shotDice(orange, white, black);
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * metodo che rappresenta la scelta riguardante la decisione di farsi scomunicare
      * oppure dare sostegno alla chiesa
      * @param choice true accetto la scomunica, false do sostegno
-     * @throws RemoteException
      */
     @Override
-    public void excommunicationChoice(boolean choice) throws RemoteException {
-        serverGame.excommunicationChoice(choice);
+    public void excommunicationChoice(boolean choice) {
+        try {
+            serverGame.excommunicationChoice(choice);
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

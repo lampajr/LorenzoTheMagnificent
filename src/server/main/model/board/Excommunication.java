@@ -114,7 +114,7 @@ public class Excommunication {
      * @throws RemoteException
      * @throws NewActionException
      */
-    public void activeFirtsPeriod(AbstractPlayer player, int type) throws RemoteException, NewActionException {
+    public void activeFirtsPeriod(AbstractPlayer player, int type) throws NewActionException {
         if (excomPlayerMap.get(1).contains(player)){
             if (type == 1 && (excomEffectList.get(0) instanceof ActionValueModifyingEffect ||
                                 excomEffectList.get(0) instanceof FamilyMemberValueDecrementEffect)){
@@ -133,7 +133,7 @@ public class Excommunication {
      * @throws RemoteException
      * @throws NewActionException
      */
-    public void activeSecondPeriod(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void activeSecondPeriod(AbstractPlayer player) throws NewActionException {
         if (excomPlayerMap.get(2).contains(player)){
             excomEffectList.get(1).active(player);
             System.out.println("ho attivato l'effetto scomunica 2 periodo per " + player.getIdPlayer());

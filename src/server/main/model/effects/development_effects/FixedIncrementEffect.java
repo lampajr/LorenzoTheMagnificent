@@ -1,11 +1,9 @@
 package server.main.model.effects.development_effects;
 
 import api.types.ResourceType;
+import server.main.game_server.AbstractPlayer;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
-import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
 
 /**
  * @author Luca
@@ -23,7 +21,7 @@ public class FixedIncrementEffect implements Effect{
     }
 
     @Override
-    public void active(AbstractPlayer player) throws RemoteException {
+    public void active(AbstractPlayer player) {
         player.getPersonalBoard().setCurrentField(field);
         if (field  != null) {
             if (field.getType() != ResourceType.PRIVILEGE)

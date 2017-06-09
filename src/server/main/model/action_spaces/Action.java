@@ -1,11 +1,9 @@
 package server.main.model.action_spaces;
 
+import server.main.game_server.AbstractPlayer;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.board.FamilyMember;
-import server.main.game_server.exceptions.LorenzoException;
-import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
 
 /**
  * @author Luca
@@ -51,7 +49,7 @@ public class Action {
      * metodo che mi esegue l'azione, chiamando il metodo sullo spazio
      * azione che ha come attributo.
      */
-    public void commitAction() throws LorenzoException, RemoteException, NewActionException {
+    public void commitAction() throws LorenzoException, NewActionException {
         player.getPersonalBoard().activeCharacterEffects(this);
         player.activeExcommunicationEffects(this, 1);
         player.activeExcommunicationEffects(this);

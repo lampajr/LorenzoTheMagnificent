@@ -1,13 +1,12 @@
 package server.main.model.board;
 
+import api.types.CardType;
+import server.main.game_server.AbstractPlayer;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.effects.development_effects.Effect;
-import server.main.game_server.exceptions.LorenzoException;
 import server.main.model.fields.Field;
-import server.main.game_server.AbstractPlayer;
-import api.types.CardType;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -93,14 +92,14 @@ public class DevelopmentCard {
      * metodo che attiva tutti gli effetti immediati chiamando il metodo
      * active(PersonalBoard) di ciascun effetto.
      */
-    public void activeQuickEffects() throws RemoteException, NewActionException {
+    public void activeQuickEffects() throws NewActionException {
         if (quickEffects != null) {
             for (Effect effect : quickEffects)
                 effect.active(player);
         }
     }
 
-    public void activePermanentEffects() throws RemoteException, NewActionException {
+    public void activePermanentEffects() throws NewActionException {
         if (permanentEffects != null) {
             for (Effect effect : permanentEffects)
                 effect.active(player);

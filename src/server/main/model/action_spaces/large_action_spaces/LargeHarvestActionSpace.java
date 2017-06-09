@@ -8,7 +8,6 @@ import server.main.model.effects.development_effects.Effect;
 import server.main.model.effects.development_effects.FixedIncrementEffect;
 import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class LargeHarvestActionSpace extends LargeActionSpace{
     }
 
     @Override
-    public void doAction(Action action) throws LorenzoException, RemoteException, NewActionException {
+    public void doAction(Action action) throws LorenzoException, NewActionException {
         if(getValue() > action.getValue())
             throw new LorenzoException("la tua azione non ha abbastanza forza!!");
 

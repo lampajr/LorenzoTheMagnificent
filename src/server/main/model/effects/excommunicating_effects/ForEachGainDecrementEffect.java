@@ -1,14 +1,12 @@
 package server.main.model.effects.excommunicating_effects;
 
 import api.types.ResourceType;
+import server.main.game_server.AbstractPlayer;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.effects.development_effects.Effect;
 import server.main.model.effects.development_effects.EffectsCreator;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
-import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
 
 /**
  * @author Luca
@@ -22,7 +20,7 @@ public class ForEachGainDecrementEffect implements Effect {
     }
 
     @Override
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void active(AbstractPlayer player) throws NewActionException {
         Field resource = player.getPersonalBoard().getCurrentField();
         if (resource != null && resource.getType() == this.resource.getType()) {
             player.getPersonalBoard().modifyResources(this.resource);

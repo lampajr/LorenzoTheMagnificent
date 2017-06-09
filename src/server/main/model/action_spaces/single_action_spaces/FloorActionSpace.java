@@ -61,7 +61,7 @@ public class FloorActionSpace extends ActionSpace {
      * @throws NewActionException in caso di effetto che mi consente una nuova mossa
      */
     @Override
-    public void doAction(Action action) throws LorenzoException, RemoteException, NewActionException {
+    public void doAction(Action action) throws LorenzoException, NewActionException {
         if (getMinValue() > action.getValue())
             throw new LorenzoException("non hai abbastanza forza per eseguire l'azione!!");
 

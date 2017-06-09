@@ -1,13 +1,12 @@
 package server.main.model.effects.development_effects;
 
-import server.main.model.board.DevelopmentCard;
-import server.main.model.fields.Field;
-import server.main.model.fields.Resource;
 import api.types.CardType;
 import api.types.ResourceType;
 import server.main.game_server.AbstractPlayer;
+import server.main.model.board.DevelopmentCard;
+import server.main.model.fields.Field;
+import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class VariableIncrementEffect implements Effect{
     }
 
     @Override
-    public void active(AbstractPlayer player) throws RemoteException {
+    public void active(AbstractPlayer player) {
         int qta;
         if (cardType != null){
             List<DevelopmentCard> list = player.getPersonalBoard().getCardsList(cardType);

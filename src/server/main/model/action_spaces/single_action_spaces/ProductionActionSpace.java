@@ -1,14 +1,13 @@
 package server.main.model.action_spaces.single_action_spaces;
 
+import api.types.ResourceType;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.action_spaces.Action;
 import server.main.model.effects.development_effects.Effect;
 import server.main.model.effects.development_effects.FixedIncrementEffect;
-import server.main.game_server.exceptions.LorenzoException;
 import server.main.model.fields.Resource;
-import api.types.ResourceType;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class ProductionActionSpace extends ActionSpace{
     }
 
     @Override
-    public void doAction(Action action) throws LorenzoException, RemoteException, NewActionException {
+    public void doAction(Action action) throws LorenzoException, NewActionException {
         if (getMinValue() > action.getValue())
             throw new LorenzoException("non hai abbastanza forza per eseguire l'azione");
 

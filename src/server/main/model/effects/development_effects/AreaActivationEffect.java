@@ -30,7 +30,7 @@ public class AreaActivationEffect implements Effect{
      * @throws NewActionException
      */
     @Override
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void active(AbstractPlayer player) throws NewActionException {
         if (player.getPersonalBoard().getCurrentAction().getValue() >= minValue)
             effect.active(player);
     }

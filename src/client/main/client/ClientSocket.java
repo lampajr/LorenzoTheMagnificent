@@ -58,7 +58,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void startGame(int gameMode) throws RemoteException {
+    public void startGame(int gameMode) {
         try{
             out.writeObject(SocketProtocol.START_GAME);
             out.flush();
@@ -75,7 +75,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void doAction(MessageAction msg, int servantsToPay) throws RemoteException {
+    public void doAction(MessageAction msg, int servantsToPay) {
         if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
             msg.setValue(servantsToPay);
             try {
@@ -94,7 +94,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void doNewAction(MessageNewAction msg, int servantsToPay) throws RemoteException {
+    public void doNewAction(MessageNewAction msg, int servantsToPay) {
         if (servantsToPay <= getQtaResource(ResourceType.SERVANTS)) {
             msg.setAdditionalValue(servantsToPay);
             try {
@@ -112,7 +112,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void shotDice(int orange, int white, int black) throws RemoteException{
+    public void shotDice(int orange, int white, int black) {
         try {
             out.writeObject(SocketProtocol.SHOT_DICE);
             out.flush();
@@ -132,10 +132,9 @@ public class ClientSocket extends AbstractClient implements Runnable{
      * metodo che rappresenta la scelta riguardante la decisione di farsi scomunicare
      * oppure dare sostegno alla chiesa
      * @param choice true accetto la scomunica, false do sostegno
-     * @throws RemoteException
      */
     @Override
-    public void excommunicationChoice(boolean choice) throws RemoteException {
+    public void excommunicationChoice(boolean choice) {
         try {
             out.writeObject(SocketProtocol.EXCOMMUNICATION_CHOICE);
             out.flush();
@@ -148,7 +147,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void endMove() throws RemoteException {
+    public void endMove() {
         try {
             out.writeObject(SocketProtocol.END_MOVE);
             out.flush();
@@ -159,7 +158,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void convertPrivilege(int qta, ResourceType type) throws RemoteException {
+    public void convertPrivilege(int qta, ResourceType type) {
         try {
             out.writeObject(SocketProtocol.CONVERT_PRIVILEGE);
             out.flush();
@@ -174,7 +173,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void surrender() throws RemoteException {
+    public void surrender() {
         try {
             out.writeObject(SocketProtocol.SURRENDER);
             out.flush();
@@ -185,7 +184,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
-    public void exit() throws RemoteException {
+    public void exit() {
         try {
             out.writeObject(SocketProtocol.EXIT);
             out.flush();
@@ -210,7 +209,12 @@ public class ClientSocket extends AbstractClient implements Runnable{
                             break;
                         case GAME_ENDED:
                             response = (String)in.readObject();
-                            gameEnded(response);
+                            Map<String, Integer> rankingMap = (Map<String,Integer>) in.readObject();
+                            gameEnded(response, rankingMap);
+                            break;
+                        case GAME_ENDED_BY_ABANDONMENT:
+                            response = (String)in.readObject();
+                            gameEndedByAbandonment(response);
                             break;
                         case EXCOMMUNICATE:
                             int id = in.readInt();

@@ -34,6 +34,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     private Game game;
 
     public AbstractPlayer(String username) throws RemoteException {
+        super();
         this.username = username;
     }
 
@@ -42,7 +43,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         idPlayer = game.getId(this);
     }
 
-    public int calculateVictoryPoints() throws RemoteException, NewActionException {
+    public int calculateVictoryPoints() {
         return personalBoard.calculateVictoryPoints();
     }
 
@@ -54,12 +55,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
      */
     public void setDiceValues(int orange, int white, int black) {
         personalBoard.setDiceValues(orange,white,black);
-        try {
-            sendDicesValues(orange, white, black);
-        }
-        catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        sendDicesValues(orange, white, black);
     }
 
     public FamilyMember getFamilyMember(FamilyMemberType type) {
@@ -79,7 +75,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         return this.personalBoard;
     }
 
-    public ClientInterface getClientInterface() {
+    protected ClientInterface getClientInterface() {
         return this.clientInterface;
     }
 
@@ -99,7 +95,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         personalBoard.removeAllFamilyMembers();
     };
 
-    public void activeExcommunicationEffects(Action action, int type) throws RemoteException{
+    public void activeExcommunicationEffects(Action action, int type) {
         personalBoard.setCurrentAction(action);
         try {
             if (game!=null)
@@ -111,7 +107,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         }
     }
 
-    public void activeExcommunicationEffects(Action action) throws RemoteException{
+    public void activeExcommunicationEffects(Action action) {
         personalBoard.setCurrentAction(action);
         try {
             if (game!=null)
@@ -123,8 +119,9 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         }
     }
 
-    public void activeExcommunicationEffects() throws RemoteException{
-        game.activeThirdPeriodExcommunication();
+    public void activeExcommunicationEffects() {
+        if (game!=null)
+            game.activeThirdPeriodExcommunication();
     }
 
 
@@ -136,125 +133,115 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
      * mi notifica che la partita è cominciata
      * @param opponents giocatori avversari
      * @param codeList codici delle tessete scomuniche
-     * @throws RemoteException
      */
-    public abstract void gameIsStarted(Map<Integer, String> opponents, List<String> codeList) throws RemoteException;
+    public abstract void gameIsStarted(Map<Integer, String> opponents, List<String> codeList);
 
     /**
      * mi notifica che è il mio turno
-     * @throws RemoteException
      */
-    public abstract void isYourTurn() throws RemoteException;
+    public abstract void isYourTurn();
 
     /**
      * metodo che notifica al client che è il suo turno di scelta se scomunicarsi o no.
-     * @throws RemoteException
      */
-    public abstract void isYourExcommunicationTurn() throws RemoteException;
+    public abstract void isYourExcommunicationTurn();
 
     /**
-     * mi notifica che ho vinto
-     * @throws RemoteException
+     * mi notifica che ho vinto in seguito ad un abbandono
      */
-    public abstract void youWin() throws RemoteException;
+    public abstract void youWinByAbandonment();
 
     /**
-     * mi notifica che ho perso
-     * @throws RemoteException
+     * notifica che ho vinto passandomi la classifica finale
+     * @param rankingMap classifica finale
      */
-    public abstract void youLose() throws RemoteException;
+    public abstract void youWin(Map<String, Integer> rankingMap);
+
+    /**
+     * mi notifica che ho perso passandomi la classifica finale
+     * @param rankingMap classifica finale
+     */
+    public abstract void youLose(Map<String, Integer> rankingMap);
 
     /**
      * mi notifica che devo fare un'altra azione
      * @param value valore dell'azione
      * @param codeAction codice che mi identifica che tipo di azione posso fare
-     * @throws RemoteException
      */
-    public abstract void notifyNewAction(int value, char codeAction) throws RemoteException;
+    public abstract void notifyNewAction(int value, char codeAction);
 
     /**
      * mi notifica un messaggio di errore
      * @param message messaggio
-     * @throws RemoteException
      */
-    public abstract void notifyError(String message) throws RemoteException;
+    public abstract void notifyError(String message);
 
     /**
      * mi notifica i cambiamenti nella mia plancia in seguito alla mia mossa
      * @param msgAction messaggio codificato dell'azione appena andata a buon fine
-     * @throws RemoteException
      */
-    public abstract void updateMove(MessageAction msgAction) throws RemoteException;
+    public abstract void updateMove(MessageAction msgAction);
 
     /**
      * notifica a tutti i giocatori che cosa ha mosso il giocatore che ha appena effettuato la mossa
-     * @throws RemoteException
      */
-    public abstract void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msg) throws RemoteException;
+    public abstract void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msg);
 
     /**
      * notifica al giocatore che deve tirare i dadi
-     * @throws RemoteException
      */
-    public abstract void notifyRollDice() throws RemoteException;
+    public abstract void notifyRollDice();
 
     /**
      * notifica al giocatore che è stato scomunicato
      * @param id id del giocatore
      * @param period periodo
-     * @throws RemoteException
      */
-    public abstract void excommunicate(int id, int period) throws RemoteException;
+    public abstract void excommunicate(int id, int period);
 
     /**
      * notifica che un altro giocatore è stato scomunicato
      * @param idPlayer id del giocatore
      * @param period periodo
      */
-    public abstract void opponentExcommunicate(int idPlayer, int period) throws RemoteException;
+    public abstract void opponentExcommunicate(int idPlayer, int period);
 
     /**
      * metodo che invia al client i risultati del tiro del dado
      * @param orange valore dado arancione
      * @param white dado bianco
      * @param black dado nero
-     * @throws RemoteException
      */
-    public abstract void sendDicesValues(int orange, int white, int black) throws RemoteException;
+    public abstract void sendDicesValues(int orange, int white, int black);
 
     /**
      * metodo che viene chiamato per inizializzare il turno, cioè mi invia al
      * client tutte le carte che sono state pescate in questo turno
      * @param towersCardsList lista di stringhe che mi indica i nomi delle carte pescate
-     * @throws RemoteException
      */
-    public abstract void initializeBoard(List<DevelopmentCard> towersCardsList) throws RemoteException;
+    public abstract void initializeBoard(List<DevelopmentCard> towersCardsList);
 
     /**
      * notifica al client che ha terminato il suo turno
-     * @throws RemoteException
      */
-    public abstract void notifyEndMove() throws RemoteException;
+    public abstract void notifyEndMove();
 
     /**
      * metodo che notifica il guadagno di un privilegio
-     * @throws RemoteException
      */
-    public abstract void notifyPrivilege() throws RemoteException;
+    public abstract void notifyPrivilege();
 
     /**
      * invia al client l'ordine dei giocatori
      * @param playersOrderList lista dei giocatori
-     * @throws RemoteException
      */
-    public abstract void sendOrder(List<AbstractPlayer> playersOrderList) throws RemoteException;
+    public abstract void sendOrder(List<AbstractPlayer> playersOrderList);
 
     /**
      * notifica al giocatore che il giocatore con id (id) si è arreso
      * @param id id del giocatore arreso
-     * @throws RemoteException
      */
-    public abstract void opponentSurrender(int id) throws RemoteException;
+    public abstract void opponentSurrender(int id);
 
 
 
@@ -263,19 +250,19 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
 
 
     @Override
-    public void shotDice(int orange, int white, int black) throws RemoteException{
+    public void shotDice(int orange, int white, int black){
         if (game!=null)
             game.shotDice(this, orange, white, black);
     }
 
 
     @Override
-    public void addClientInterface(ClientInterface clientInterface) throws RemoteException {
+    public void addClientInterface(ClientInterface clientInterface){
         this.clientInterface = clientInterface;
     }
 
     @Override
-    public synchronized void doAction(MessageAction msg) throws RemoteException {
+    public synchronized void doAction(MessageAction msg){
         FamilyMember familyMember = personalBoard.getFamilyMember(msg.getFamilyMemberType());
         if (game!=null)
             game.doAction(this, msg, familyMember);
@@ -288,7 +275,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     }
 
     @Override
-    public synchronized void surrender() throws RemoteException {
+    public synchronized void surrender(){
         if (game!=null)
             game.removePlayer(this);
     }

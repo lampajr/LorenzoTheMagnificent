@@ -196,11 +196,11 @@ public class Board {
 
 
 
-    public void activeFirstPeriodExcommunication(Action action, int type) throws RemoteException, NewActionException {
+    public void activeFirstPeriodExcommunication(Action action, int type) throws NewActionException {
         excommunication.activeFirtsPeriod(action.getPlayer(), type);
     }
 
-    public void activeSecondPeriodExcommunication(Action action) throws RemoteException, NewActionException {
+    public void activeSecondPeriodExcommunication(Action action)throws NewActionException {
         excommunication.activeSecondPeriod(action.getPlayer());
     }
 
@@ -215,7 +215,7 @@ public class Board {
      * @param familyMember familiare
      * @throws LorenzoException in caso la mosssa non vada abuon fine
      */
-    public void doAction(AbstractPlayer player, MessageAction msg,  FamilyMember familyMember) throws LorenzoException, RemoteException, NewActionException {
+    public void doAction(AbstractPlayer player, MessageAction msg,  FamilyMember familyMember) throws LorenzoException, NewActionException {
         ActionSpaceInterface actionSpace = convertActionMessage(msg);
         if (actionSpace == null)
             throw new LorenzoException("YOU CAN'T DO ACTION HERE; ACTION SPACE ISN'T AVAILABLE");
@@ -225,7 +225,7 @@ public class Board {
     }
 
 
-    public void doNewAction(AbstractPlayer player, MessageNewAction msg) throws LorenzoException, RemoteException, NewActionException {
+    public void doNewAction(AbstractPlayer player, MessageNewAction msg) throws LorenzoException, NewActionException {
         ActionSpaceInterface actionSpace = convertActionMessage(msg);
         if (actionSpace == null)
             throw new LorenzoException("YOU CAN'T DO ACTION HERE; ACTION SPACE ISN?T AVAILABLE");

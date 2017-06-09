@@ -1,9 +1,7 @@
 package server.main.model.effects.development_effects;
 
-import server.main.game_server.exceptions.NewActionException;
 import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
+import server.main.game_server.exceptions.NewActionException;
 
 /**
  * @author Luca
@@ -23,7 +21,7 @@ public interface Effect {
      * metodo nella maniera propriamente corretta.
      * @param player il giocatore che sta attivando l'effetto
      */
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException;
+    public void active(AbstractPlayer player) throws NewActionException;
 
 
 }

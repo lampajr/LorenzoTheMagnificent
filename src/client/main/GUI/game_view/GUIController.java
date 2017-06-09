@@ -1,5 +1,14 @@
 package client.main.GUI.game_view;
 
+import api.messages.MessageAction;
+import api.types.*;
+import client.main.CLI.InterfaceController;
+import client.main.GUI.Service;
+import client.main.GUI.game_mode_selection.GameModeSelectionView;
+import client.main.GUI.game_view.component.*;
+import client.main.GUI.game_view.component.action_spaces.*;
+import client.main.GUILauncher;
+import client.main.client.AbstractClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,15 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import client.main.CLI.InterfaceController;
-import client.main.GUI.Service;
-import client.main.GUI.game_mode_selection.GameModeSelectionView;
-import client.main.GUI.game_view.component.*;
-import client.main.GUI.game_view.component.action_spaces.*;
-import client.main.GUILauncher;
-import client.main.client.AbstractClient;
-import api.messages.MessageAction;
-import api.types.*;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -400,12 +400,7 @@ public class GUIController implements InterfaceController {
     @Override
     public void sendDices(){
         if (blackDice.isRolled() && whiteDice.isRolled()&& orangeDice.isRolled()){
-            try {
-                client.shotDice(orangeDice.getNum(), whiteDice.getNum(), blackDice.getNum());
-            }
-            catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            client.shotDice(orangeDice.getNum(), whiteDice.getNum(), blackDice.getNum());
         }
     }
 
@@ -547,13 +542,8 @@ public class GUIController implements InterfaceController {
 
     @Override
     public void surrender() {
-        try {
-            client.surrender();
-            backToMenu();
-        }
-        catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        client.surrender();
+        backToMenu();
     }
 
     /**
@@ -605,6 +595,11 @@ public class GUIController implements InterfaceController {
     }
 
     @Override
+    public void showGameEndedAlert(String msg, Map<String, Integer> rankingMap) {
+        Platform.runLater(() -> new GameEndedAlert(msg, this, rankingMap));
+    }
+
+    @Override
     public void updateOpponentPersonalBoard(Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> resourcesMap, int id) {
         opponentPersonalBoardControllerMap.get(id).updateCards(personalcardsMap);
         opponentPersonalBoardControllerMap.get(id).modifyResources(resourcesMap);
@@ -638,12 +633,7 @@ public class GUIController implements InterfaceController {
 
     @Override
     public void exit() throws InterruptedException {
-        try {
-            client.exit();
-        }
-        catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        client.exit();
     }
 
 

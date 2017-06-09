@@ -39,7 +39,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     // metodi ereditati e da implementare da ABSTRACT PLAYER //////////////////////////////////////
 
     @Override
-    public void gameIsStarted(Map<Integer, String> opponents, List<String> codeExcomList) throws RemoteException {
+    public void gameIsStarted(Map<Integer, String> opponents, List<String> codeExcomList) {
         try {
             out.writeObject(SocketProtocol.IS_GAME_STARTED);
             out.flush();
@@ -56,7 +56,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void isYourTurn() throws RemoteException {
+    public void isYourTurn() {
         try {
             out.writeObject(SocketProtocol.YOUR_TURN);
             out.flush();
@@ -67,7 +67,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void isYourExcommunicationTurn() throws RemoteException {
+    public void isYourExcommunicationTurn() {
         try {
             out.writeObject(SocketProtocol.YOUR_EXCOMMUNICATION_TURN);
             out.flush();
@@ -78,11 +78,11 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void youWin() throws RemoteException {
+    public void youWinByAbandonment() {
         try {
-            out.writeObject(SocketProtocol.GAME_ENDED);
+            out.writeObject(SocketProtocol.GAME_ENDED_BY_ABANDONMENT);
             out.flush();
-            out.writeObject("YOU WON, CONGRATS BUDDY!!");
+            out.writeObject("YOU WON BECAUSE YOUR OPPONENTS HAVE ABANDONED!!");
             out.flush();
         }
         catch (IOException e) {
@@ -92,12 +92,29 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void youLose() throws RemoteException {
+    public void youWin(Map<String, Integer> rankingMap) {
+        try {
+            out.writeObject(SocketProtocol.GAME_ENDED_BY_ABANDONMENT);
+            out.flush();
+            out.writeObject("YOU WON, CONGRATS BUDDY!!");
+            out.flush();
+            out.writeObject(rankingMap);
+            out.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void youLose(Map<String, Integer> rankingMap) {
         try {
             out.writeObject(SocketProtocol.GAME_ENDED);
             out.flush();
             out.writeObject(" YOU LOSE, SORRY");
             out.flush();
+            out.writeObject(rankingMap);
+            out.flush();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -105,7 +122,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void notifyNewAction(int value, char codeAction) throws RemoteException {
+    public void notifyNewAction(int value, char codeAction) {
         try {
             out.writeObject(SocketProtocol.NEW_ACTION);
             out.flush();
@@ -120,12 +137,12 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void notifyError(String errorMessage) throws RemoteException {
+    public void notifyError(String errorMessage) {
         printMsgToClient(errorMessage);
     }
 
     @Override
-    public void updateMove(MessageAction msgAction) throws RemoteException {
+    public void updateMove(MessageAction msgAction) {
         try {
             out.writeObject(SocketProtocol.UPDATE_RESOURCES);
             out.flush();
@@ -144,7 +161,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) throws RemoteException {
+    public void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
         try {
             out.writeObject(SocketProtocol.OPPONENT_MOVE);
             out.flush();
@@ -169,7 +186,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void notifyRollDice() throws RemoteException {
+    public void notifyRollDice() {
         try {
             out.writeObject(SocketProtocol.HAVE_TO_SHOT);
             out.flush();
@@ -180,14 +197,14 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void excommunicate(int id, int period) throws RemoteException {
+    public void excommunicate(int id, int period) {
         if (getGame()!=null)
             getGame().notifyAllPlayers(this, period);
         opponentExcommunicate(id, period);
     }
 
     @Override
-    public void opponentExcommunicate(int idPlayer, int period) throws RemoteException {
+    public void opponentExcommunicate(int idPlayer, int period) {
         try {
             out.writeObject(SocketProtocol.EXCOMMUNICATE);
             out.flush();
@@ -202,7 +219,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void sendDicesValues(int orange, int white, int black) throws RemoteException {
+    public void sendDicesValues(int orange, int white, int black) {
         try {
             out.writeObject(SocketProtocol.DICE_VALUES);
             out.flush();
@@ -219,7 +236,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void initializeBoard(List<DevelopmentCard> towersCardsList) throws RemoteException {
+    public void initializeBoard(List<DevelopmentCard> towersCardsList) {
         List<String> list = new ArrayList<>();
         towersCardsList.forEach((developmentCard -> list.add(developmentCard.getName())));
         try {
@@ -234,7 +251,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void notifyEndMove() throws RemoteException {
+    public void notifyEndMove() {
         try {
             out.writeObject(SocketProtocol.END_MOVE);
             out.flush();
@@ -245,7 +262,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void notifyPrivilege() throws RemoteException {
+    public void notifyPrivilege() {
         try {
             out.writeObject(SocketProtocol.PRIVILEGE);
             out.flush();
@@ -256,7 +273,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void sendOrder(List<AbstractPlayer> playersOrderList) throws RemoteException {
+    public void sendOrder(List<AbstractPlayer> playersOrderList) {
         List<Integer> orderList = new ArrayList<>();
         for (AbstractPlayer player: playersOrderList) {
             orderList.add(player.getIdPlayer());
@@ -273,7 +290,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void opponentSurrender(int id) throws RemoteException {
+    public void opponentSurrender(int id) {
         try {
             out.writeObject(SocketProtocol.OPPONENT_SURRENDER);
             out.flush();
@@ -308,7 +325,6 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
 
     @Override
     public void run() {
-        boolean restart = false;
         try{
             try{
                 boolean connect = true;
@@ -342,7 +358,6 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
                             out.writeObject(SocketProtocol.SURRENDER);
                             out.flush();
                             connect = false;
-                            restart = true;
                             break;
                         case CONVERT_PRIVILEGE:
                             int qta = in.readInt();

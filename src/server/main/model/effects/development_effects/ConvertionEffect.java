@@ -40,7 +40,7 @@ public class ConvertionEffect implements Effect{
      * @throws NewActionException
      */
     @Override
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void active(AbstractPlayer player) throws NewActionException {
         if (checkActivation(player)) {
             for(Field f : fieldToDecrement){
                 player.getPersonalBoard().modifyResources(f);

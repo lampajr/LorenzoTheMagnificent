@@ -4,8 +4,6 @@ package server.main.model.action_spaces;
 import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 
-import java.rmi.RemoteException;
-
 /**
  * @author Luca
  * @author Andrea
@@ -21,5 +19,5 @@ public interface ActionSpaceInterface {
      * come parametro.
      * @param action azione da eseguire
      */
-    void doAction(Action action) throws LorenzoException, RemoteException, NewActionException;
+    void doAction(Action action) throws LorenzoException, NewActionException;
 }

@@ -1,14 +1,12 @@
 package client.main.GUI.game_view;
 
+import api.types.ResourceType;
+import client.main.client.AbstractClient;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
-import api.types.ResourceType;
-import client.main.client.AbstractClient;
-
-import java.rmi.RemoteException;
 
 /**
  * @author Luca
@@ -61,26 +59,21 @@ public class PrivilegeAlert extends Alert{
 
         getButtonTypes().setAll(woodStoneButton, servantsButton, coinsButton, militaryButton, faithButton);
         showAndWait().ifPresent(response -> {
-            try {
-                if (response == woodStoneButton) {
-                    client.convertPrivilege(1, ResourceType.WOOD);
-                    client.convertPrivilege(1, ResourceType.STONE);
-                }
-                else if (response == servantsButton) {
-                    client.convertPrivilege(2, ResourceType.SERVANTS);
-                }
-                else if (response == coinsButton){
-                    client.convertPrivilege(2, ResourceType.COINS);
-                }
-                else if (response == militaryButton) {
-                    client.convertPrivilege(2, ResourceType.MILITARY);
-                }
-                else if (response == faithButton) {
-                    client.convertPrivilege(1, ResourceType.FAITH);
-                }
+            if (response == woodStoneButton) {
+                client.convertPrivilege(1, ResourceType.WOOD);
+                client.convertPrivilege(1, ResourceType.STONE);
             }
-            catch (RemoteException e) {
-                e.printStackTrace();
+            else if (response == servantsButton) {
+                client.convertPrivilege(2, ResourceType.SERVANTS);
+            }
+            else if (response == coinsButton){
+                client.convertPrivilege(2, ResourceType.COINS);
+            }
+            else if (response == militaryButton) {
+                client.convertPrivilege(2, ResourceType.MILITARY);
+            }
+            else if (response == faithButton) {
+                client.convertPrivilege(1, ResourceType.FAITH);
             }
         });
     }

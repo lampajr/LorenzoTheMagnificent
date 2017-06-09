@@ -1,12 +1,11 @@
 package server.main.model.effects.excommunicating_effects;
 
 import api.types.ResourceType;
+import server.main.game_server.AbstractPlayer;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.effects.development_effects.Effect;
 import server.main.model.fields.Resource;
-import server.main.game_server.AbstractPlayer;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class VictoryPointsDecrementEffect implements Effect{
     }
 
     @Override
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void active(AbstractPlayer player) throws NewActionException {
         resourceTypes.forEach((resourceType -> {
             int decrement = player.getPersonalBoard().getQtaResources().get(resourceType);
             if (resourceType == ResourceType.VICTORY)

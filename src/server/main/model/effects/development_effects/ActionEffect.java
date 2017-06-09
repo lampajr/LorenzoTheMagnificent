@@ -1,9 +1,7 @@
 package server.main.model.effects.development_effects;
 
-import server.main.game_server.exceptions.NewActionException;
 import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
+import server.main.game_server.exceptions.NewActionException;
 
 /**
  * @author Luca
@@ -28,7 +26,7 @@ public class ActionEffect implements Effect{
      * @param player giocatore che esegue l'azione
      */
     @Override
-    public void active(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void active(AbstractPlayer player) throws NewActionException {
         player.notifyNewAction(value, codActionSpace);
         throw new NewActionException();
     }

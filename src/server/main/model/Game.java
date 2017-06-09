@@ -17,6 +17,7 @@ import server.main.model.fields.Resource;
 
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * @author Luca
@@ -51,9 +52,8 @@ public class Game {
     /**
      * metodo che mi aggiunge un giocatore alla partita.
      * @param abstractPlayer giocatore da aggiungere alla partita
-     * @throws RemoteException
      */
-    public void addPlayer(AbstractPlayer abstractPlayer) throws RemoteException {
+    public void addPlayer(AbstractPlayer abstractPlayer) {
         numPlayers++;
         playerMap.put(numPlayers , abstractPlayer);
         abstractPlayer.createPersonalBoard(numPlayers);
@@ -79,26 +79,20 @@ public class Game {
 
     /**
      * metodo che mi fa partire la partita
-     * @throws RemoteException
      */
-    private void startGame() throws RemoteException {
+    private void startGame() {
         this.isStarted = true;
         board = new Board(numPlayers);
         phase = Phases.ACTION;
         playerMap.forEach(((integer, player) -> {
-            try {
-                player.initializeBoard(board.getCompleteListTowersCards());
-                Map<Integer, String> opponentsMap = new HashMap<>();
-                playerMap.forEach((opponentId, opponent) -> {
-                    if (opponent != player)
-                        opponentsMap.put(opponentId, opponent.getUsername());
-                });
-                player.gameIsStarted(opponentsMap, board.getExcomCodeList());
-                player.sendOrder(turnOrder);
-            }
-            catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            player.initializeBoard(board.getCompleteListTowersCards());
+            Map<Integer, String> opponentsMap = new HashMap<>();
+            playerMap.forEach((opponentId, opponent) -> {
+                if (opponent != player)
+                    opponentsMap.put(opponentId, opponent.getUsername());
+            });
+            player.gameIsStarted(opponentsMap, board.getExcomCodeList());
+            player.sendOrder(turnOrder);
         }));
         currentPlayer = turnOrder.get(0);
         currentPlayer.notifyRollDice();
@@ -108,9 +102,8 @@ public class Game {
     /**
      * metodo per il lancio dei dadi, controlla se è il tuo turno..
      * @param player giocatore che ha appena tirato i dadi
-     * @throws RemoteException
      */
-    public void shotDice(AbstractPlayer player, int orange, int white, int black) throws  RemoteException {
+    public void shotDice(AbstractPlayer player, int orange, int white, int black) {
         try{
             checkTurn(player);
             if((player != turnOrder.get(0)) || (lap != 1) || (phase != Phases.ACTION))
@@ -128,7 +121,7 @@ public class Game {
 
     /**
      * mi ottiene l'id del giocatore
-     * @param player
+     * @param player giocatore di cui voglio conoscere l'id
      * @return
      */
     public int getId(PlayerInterface player){
@@ -230,20 +223,18 @@ public class Game {
      * attiva il primo periodo
      * @param action azione
      * @param type tipo di effetto da verificare
-     * @throws RemoteException
      * @throws NewActionException
      */
-    public void activeFirstPeriodExcommunication(Action action, int type) throws RemoteException, NewActionException {
+    public void activeFirstPeriodExcommunication(Action action, int type) throws NewActionException {
         board.activeFirstPeriodExcommunication(action, type);
     }
 
     /**
      * attiva effetti del secondo periodo
      * @param action azione
-     * @throws RemoteException
      * @throws NewActionException
      */
-    public void activeSecondPeriodExcommunication(Action action) throws RemoteException, NewActionException {
+    public void activeSecondPeriodExcommunication(Action action) throws NewActionException {
         board.activeSecondPeriodExcommunication(action);
     }
 
@@ -262,7 +253,7 @@ public class Game {
      * @param familyMember familiare da spostare, già ricavato dall classe che lo invoca
      * @throws RemoteException in caso si verifichino errori
      */
-    public void doAction(AbstractPlayer player, MessageAction msg, FamilyMember familyMember) throws RemoteException {
+    public void doAction(AbstractPlayer player, MessageAction msg, FamilyMember familyMember) {
         if (phase == Phases.ACTION){
             try {
                 isStarted();
@@ -299,16 +290,8 @@ public class Game {
      * @param qtaResourcesMap mappa delle risorse
      */
     public void notifyAllPlayers(AbstractPlayer player, int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msg) {
-        for (AbstractPlayer opponent : playerMap.values()) {
-            if (opponent!=player) {
-                try {
-                    opponent.updateOpponentMove(id, personalcardsMap, qtaResourcesMap, msg);
-                }
-                catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        turnOrder.stream().filter(differentFrom(player))
+                .forEach(opponent -> opponent.updateOpponentMove(id, personalcardsMap, qtaResourcesMap, msg));
     }
 
     /**
@@ -317,16 +300,8 @@ public class Game {
      * @param period periodo
      */
     public void notifyAllPlayers(AbstractPlayer player, int period) {
-        for (AbstractPlayer opponent : playerMap.values()) {
-            if (opponent!=player) {
-                try {
-                    opponent.opponentExcommunicate(player.getIdPlayer(), period);
-                }
-                catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        turnOrder.stream().filter(differentFrom(player))
+                .forEach(opponent -> opponent.opponentExcommunicate(player.getIdPlayer(), period));
     }
 
     /**
@@ -335,9 +310,8 @@ public class Game {
      * l'esecuzione della nuova azione al tabellone
      * @param player giocatore che sta eseguendo la nuova azione
      * @param msg messaggio codificato dell'azione
-     * @throws RemoteException
      */
-    public void doNewAction(AbstractPlayer player, MessageNewAction msg) throws RemoteException {
+    public void doNewAction(AbstractPlayer player, MessageNewAction msg) {
         if (phase == Phases.NEW_ACTION) {
             try {
                 checkTurn(player);
@@ -368,9 +342,8 @@ public class Game {
      * viene chiamato dopo che il giocatore ha eseguito la mossa
      * controlla se è finito il giro o no
      * @param player il giocatore che ha terminato la mossa
-     * @throws RemoteException in caso di problemi di connesisone
      */
-    public void endMove(AbstractPlayer player) throws RemoteException {
+    public void endMove(AbstractPlayer player) {
         try {
             isStarted();
             checkTurn(player);
@@ -405,9 +378,8 @@ public class Game {
 
     /**
      * controlla se è finito il turno.
-     * @throws RemoteException
      */
-    private void endLap() throws RemoteException, NewActionException {
+    private void endLap() throws NewActionException {
         if (lap == 1 && phase == Phases.EXCOMMUNICATION){
             lap = 1;
             System.out.println("END EXCOMMUNICATION TURN");
@@ -428,9 +400,8 @@ public class Game {
 
     /**
      * controlla se è finito il periodo, cioè questo è l'ultimo turno di costui
-     * @throws RemoteException
      */
-    private void endTurn() throws RemoteException, NewActionException {
+    private void endTurn() throws NewActionException {
         if(turn == 2 && phase == Phases.ACTION){
             turn++;
             phase = Phases.EXCOMMUNICATION;
@@ -453,9 +424,8 @@ public class Game {
 
     /**
      * controlla se è l'ultimo periodo, cioè è finita la partita.
-     * @throws RemoteException
      */
-    private void endPeriod() throws RemoteException, NewActionException {
+    private void endPeriod() throws NewActionException {
         if(period == 3){
             endGame();
         }
@@ -469,9 +439,8 @@ public class Game {
     /**
      * questo metodo controlla lo spazio azione del consiglio e riposiziona nella
      * lista turnOrder il nuovo ordine correto per il nuovo turno.
-     * @throws RemoteException
      */
-    private void sortPlayerOrder() throws RemoteException {
+    private void sortPlayerOrder() {
         List<FamilyMember> familyMembersList = board.getOrder();
         if(!familyMembersList.isEmpty()){
             List<AbstractPlayer> newTurnOrder = new ArrayList<>();
@@ -506,14 +475,10 @@ public class Game {
         }
         //inizializza il turno sul tabellone
         board.initializeTurn(period, turn);
-        playerMap.forEach(((id, player) -> {
-            try {
-                player.removeAllFamilyMembers();
-                player.initializeBoard(board.getCompleteListTowersCards());
-                player.sendOrder(turnOrder);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+        playerMap.values().forEach(((player) -> {
+            player.removeAllFamilyMembers();
+            player.initializeBoard(board.getCompleteListTowersCards());
+            player.sendOrder(turnOrder);
         }));
         currentPlayer = turnOrder.get(0);
         currentPlayer.notifyRollDice();
@@ -524,7 +489,7 @@ public class Game {
      * metodo chiamato al termine della gara, non fa altro che calcolare
      * tutti i punti vittoria di ciascun giocatore e decretare il vincitore.
      */
-    private void endGame() throws RemoteException, NewActionException {
+    private void endGame() {
         //military points
         Map<AbstractPlayer, Integer> militaryMap = new HashMap<>();
         for (AbstractPlayer player: turnOrder){
@@ -548,18 +513,17 @@ public class Game {
 
         //victory points
         Map<AbstractPlayer, Integer> victoryMap = new HashMap<>();
-        for (AbstractPlayer player: turnOrder){
-            victoryMap.put(player, player.calculateVictoryPoints());
-        }
+        turnOrder.forEach(player -> victoryMap.put(player, player.calculateVictoryPoints()));
         AbstractPlayer winner = turnOrder.get(0);
         for (AbstractPlayer player: turnOrder){
             if(victoryMap.get(winner) < victoryMap.get(player))
                 winner = player;
         }
-        winner.youWin();
-        for (AbstractPlayer player: turnOrder)
-            if(player != winner)
-                player.youLose();
+        Map<String, Integer> rankingMap = new HashMap<>();
+        victoryMap.forEach((p, point) -> rankingMap.put(p.getUsername(), point));
+        winner.youWin(rankingMap);
+        turnOrder.stream().filter(differentFrom(winner))
+                .forEach(player -> player.youLose(rankingMap));
     }
 
     /**
@@ -573,22 +537,10 @@ public class Game {
         numPlayers--;
         if (isStarted) {
             if (numPlayers==1){
-                try {
-                    turnOrder.get(0).youWin();
-                }
-                catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+                turnOrder.get(0).youWinByAbandonment();
             }
             else {
-                turnOrder.forEach((abstractPlayer -> {
-                    try {
-                        abstractPlayer.opponentSurrender(player.getIdPlayer());
-                    }
-                    catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }));
+                turnOrder.forEach((abstractPlayer -> abstractPlayer.opponentSurrender(player.getIdPlayer())));
             }
         }
     }
@@ -618,13 +570,19 @@ public class Game {
                     e.printStackTrace();
                 }
             }
-            try {
-                startGame();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            startGame();
         }
 
+    }
+
+    /**
+     * metodo statico che ritorna un predicato per filtrare la mia lista in modo
+     * che mi tenga il giocatore solo se è diverso da quello corrente
+     * @param current gioctore corrente da non tenere
+     * @return il predicato
+     */
+    private static Predicate<AbstractPlayer> differentFrom(AbstractPlayer current) {
+        return player -> player != current;
     }
 
 

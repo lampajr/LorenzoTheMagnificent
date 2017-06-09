@@ -7,8 +7,6 @@ import server.main.model.action_spaces.ActionSpaceInterface;
 import server.main.model.board.FamilyMember;
 import server.main.model.effects.development_effects.Effect;
 
-import java.rmi.RemoteException;
-
 
 /**
  * @author Luca
@@ -52,5 +50,5 @@ public abstract class ActionSpace implements ActionSpaceInterface {
          return minValue;
      }
 
-     public abstract void doAction(Action action) throws LorenzoException, RemoteException, NewActionException;
+     public abstract void doAction(Action action) throws LorenzoException, NewActionException;
 }
