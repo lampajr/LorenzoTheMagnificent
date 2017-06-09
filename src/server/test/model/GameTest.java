@@ -17,6 +17,7 @@ import java.rmi.RemoteException;
 import static api.types.ResourceType.FAITH;
 import static api.types.ResourceType.VICTORY;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -43,33 +44,34 @@ public class GameTest {
     }
 
     @Test
-    public void getCurrentPlayer() throws Exception {
+    public void getCurrentPlayer() {
+        assertSame(player1, game.getCurrentPlayer());
     }
 
     @Test
-    public void isFull() throws Exception {
+    public void isFull() {
         assertTrue(game.isFull());
     }
 
     @Test
-    public void shotDice() throws Exception {
+    public void shotDice() {
         game.shotDice(player1, 3, 4, 5);
         assertEquals(5, player1.getPersonalBoard().getFamilyMember(FamilyMemberType.BLACK_DICE).getValue());
         assertEquals(3, player2.getPersonalBoard().getFamilyMember(FamilyMemberType.ORANGE_DICE).getValue());
     }
 
     @Test
-    public void getId() throws Exception {
+    public void getId() {
         assertEquals(1, game.getId(player1));
     }
 
     @Test(expected = LorenzoException.class)
-    public void checkTurn() throws Exception {
+    public void checkTurn() throws LorenzoException {
         game.checkTurn(player2);
     }
 
     @Test
-    public void excommunicatePlayer() throws Exception {
+    public void excommunicatePlayer() {
         game.setPhase(Phases.EXCOMMUNICATION);
         player1.getPersonalBoard().modifyResources(new Resource(2, FAITH));
         game.giveChurchSupport(player1); //mi chiama il metodo excommunicatePlayer
@@ -87,16 +89,16 @@ public class GameTest {
     }
 
     @Test
-    public void doAction() throws Exception {
+    public void doAction() {
 
     }
 
     @Test
-    public void doNewAction() throws Exception {
+    public void doNewAction() {
     }
 
     @Test
-    public void endMove1() throws Exception {
+    public void endMove1() {
         game.setLap(4);
         game.setCurrentPlayer(player2);
         game.endMove(player2);
@@ -104,7 +106,7 @@ public class GameTest {
     }
 
     @Test
-    public void endMove2() throws Exception {
+    public void endMove2() {
         assertEquals(Phases.ACTION, game.getPhase());
         game.setLap(4);
         game.setCurrentPlayer(player2);
@@ -115,7 +117,7 @@ public class GameTest {
     }
 
     @Test
-    public void endMove3() throws Exception {
+    public void endMove3() {
         game.setLap(4);
         game.setCurrentPlayer(player2);
         game.endMove(player2);
@@ -123,7 +125,7 @@ public class GameTest {
     }
 
     @Test
-    public void endMove4() throws Exception {
+    public void endMove4() {
         game.setLap(4);
         game.setCurrentPlayer(player2);
         game.endMove(player2);
@@ -131,7 +133,10 @@ public class GameTest {
     }
 
     @Test
-    public void removePlayer() throws Exception {
+    public void removePlayer() {
+        assertEquals(2, game.getTurnOrder().size());
+        game.removePlayer(player2);
+        assertEquals(1, game.getTurnOrder().size());
     }
 
 }

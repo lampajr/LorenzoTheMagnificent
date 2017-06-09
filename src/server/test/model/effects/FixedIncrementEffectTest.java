@@ -27,7 +27,7 @@ public class FixedIncrementEffectTest {
     }
 
     @Test
-    public void active() throws Exception {
+    public void active() {
         effect.active(player);
         assertEquals("wood",7, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
     }

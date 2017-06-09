@@ -630,4 +630,8 @@ public class Game {
     public void setCurrentPlayer(AbstractPlayer player) {
         currentPlayer = player;
     }
+
+    public List<AbstractPlayer> getTurnOrder() {
+        return turnOrder;
+    }
 }

@@ -2,6 +2,7 @@ package server.test.model.effects;
 
 import org.junit.Before;
 import org.junit.Test;
+import server.main.game_server.exceptions.NewActionException;
 import server.main.game_server.rmi.PlayerRMI;
 import server.main.model.effects.development_effects.ConvertionEffect;
 import server.main.model.fields.Field;
@@ -15,7 +16,8 @@ import static api.types.ResourceType.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author lampa
+ * @author Andrea
+ * @author Luca
  */
 public class ConvertionEffectTest {
     private ConvertionEffect effect;
@@ -34,7 +36,7 @@ public class ConvertionEffectTest {
     }
 
     @Test
-    public void active() throws Exception {
+    public void active() throws NewActionException {
         effect.active(player);
         assertEquals("wood",1, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
         assertEquals("coins",1, player.getPersonalBoard().getQtaResources().get(COINS).intValue());
@@ -43,7 +45,7 @@ public class ConvertionEffectTest {
     }
 
     @Test
-    public void activeError() throws Exception {
+    public void activeError() throws NewActionException {
         effectError.active(player);
         assertEquals("wood",2, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
         assertEquals("coins",5, player.getPersonalBoard().getQtaResources().get(COINS).intValue());

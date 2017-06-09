@@ -40,7 +40,7 @@ public class ActionValueModifyingEffectTest {
     }
 
     @Test
-    public void noActive() throws RemoteException{
+    public void noActive() {
         player.getPersonalBoard().setCurrentAction(action2);
         effect.active(player);
         assertEquals(2, player.getPersonalBoard().getCurrentAction().getValue());

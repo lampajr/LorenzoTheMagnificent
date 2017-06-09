@@ -49,14 +49,14 @@ public class DevelopmentCardTest {
     }
 
     @Test
-    public void getPlayer() throws Exception {
+    public void getPlayer() throws LorenzoException {
         assertNull(characterCard.getPlayer());
         characterCard.setPlayer(player);
         assertNotNull(characterCard.getPlayer());
     }
 
     @Test
-    public void setPlayer() throws Exception {
+    public void setPlayer() throws LorenzoException {
         characterCard.setPlayer(player);
         assertEquals(0L, player.getPersonalBoard().getQtaResources().get(ResourceType.SERVANTS).intValue());
         assertNotNull(player.getPersonalBoard().getCardsList(CardType.CHARACTER).get(0));
@@ -74,12 +74,12 @@ public class DevelopmentCardTest {
     }
 
     @Test
-    public void activeQuickEffects() throws Exception {
+    public void activeQuickEffects() {
         //devo creare la partita
     }
 
     @Test
-    public void activePermanentEffects() throws Exception {
+    public void activePermanentEffects() {
         //devo creare la partita
     }
 

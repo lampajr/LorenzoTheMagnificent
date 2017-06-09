@@ -31,7 +31,7 @@ public class VariableIncrementEffectTest {
     }
 
     @Test
-    public void active() throws RemoteException {
+    public void active() {
         effect.active(player);
         assertEquals(4, player.getPersonalBoard().getQtaResources().get(ResourceType.WOOD).intValue());
     }

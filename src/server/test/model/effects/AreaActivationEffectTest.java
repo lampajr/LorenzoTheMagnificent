@@ -2,6 +2,7 @@ package server.test.model.effects;
 
 import org.junit.Before;
 import org.junit.Test;
+import server.main.game_server.exceptions.NewActionException;
 import server.main.game_server.rmi.PlayerRMI;
 import server.main.model.action_spaces.Action;
 import server.main.model.effects.development_effects.AreaActivationEffect;
@@ -30,14 +31,14 @@ public class AreaActivationEffectTest {
     }
 
     @Test
-    public void active() throws Exception {
+    public void active() throws NewActionException {
         player.getPersonalBoard().setCurrentAction(new Action(null, 5, null, player));
         areaEffect.active(player);
         assertEquals(7, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
     }
 
     @Test
-    public void activeError() throws Exception {
+    public void activeError() throws NewActionException {
         player.getPersonalBoard().setCurrentAction(new Action(null, 3, null, player));
         areaEffect.active(player);
         assertEquals(2, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
