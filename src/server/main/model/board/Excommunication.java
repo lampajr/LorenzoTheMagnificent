@@ -8,7 +8,6 @@ import server.main.model.effects.excommunicating_effects.ExcommunicatingEffectCr
 import server.main.model.effects.excommunicating_effects.FamilyMemberValueDecrementEffect;
 import server.main.model.effects.excommunicating_effects.ForEachGainDecrementEffect;
 
-import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -111,7 +110,6 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 1
      * @param player giocatore
-     * @throws RemoteException
      * @throws NewActionException
      */
     public void activeFirtsPeriod(AbstractPlayer player, int type) throws NewActionException {
@@ -130,7 +128,6 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 2
      * @param player giocatore
-     * @throws RemoteException
      * @throws NewActionException
      */
     public void activeSecondPeriod(AbstractPlayer player) throws NewActionException {
@@ -144,10 +141,9 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 3
      * @param player giocatore
-     * @throws RemoteException
      * @throws NewActionException
      */
-    public void activeThirdPeriod(AbstractPlayer player) throws RemoteException, NewActionException {
+    public void activeThirdPeriod(AbstractPlayer player) throws  NewActionException {
         if (excomPlayerMap.get(3).contains(player)){
             excomEffectList.get(2).active(player);
         }
@@ -158,7 +154,7 @@ public class Excommunication {
      * @param period periodo della scomunica
      * @param player giocatore da scomunicare
      */
-    public void addPlayer(int period, AbstractPlayer player) throws RemoteException {
+    public void addPlayer(int period, AbstractPlayer player) {
         excomPlayerMap.get(period).add(player);
         player.excommunicate(player.getIdPlayer(), period);
     }
@@ -169,8 +165,8 @@ public class Excommunication {
 
     /**
      * dato il periodo mi ritorna l'effetto scomunica relativo
-     * @param period
-     * @return
+     * @param period periodo da cercare
+     * @return l'effetto
      */
     public Effect getExcommunicatingEffect(int period){
         return excomEffectList.get(period-1);

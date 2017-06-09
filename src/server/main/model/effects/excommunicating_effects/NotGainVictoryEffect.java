@@ -18,10 +18,10 @@ public class NotGainVictoryEffect implements Effect {
 
     @Override
     public void active(AbstractPlayer player) throws NewActionException {
-
+        player.getPersonalBoard().resetList(cardType);
     }
 
-    public static Effect createExcomInstance(String codEffect) {
+    static Effect createExcomInstance(String codEffect) {
         switch (codEffect.charAt(0)){
             case EffectsCreator.CHAR_TERRITORY:
                 return new NotGainVictoryEffect(CardType.TERRITORY);

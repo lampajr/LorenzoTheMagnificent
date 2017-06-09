@@ -119,12 +119,6 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
         }
     }
 
-    public void activeExcommunicationEffects() {
-        if (game!=null)
-            game.activeThirdPeriodExcommunication();
-    }
-
-
 
     /// METODI ASTRATTI AGGIUNTI DA QUESTA CLASSE E CHE VERRANNO IMPLEMENTATI DALLE SUE DUE DIRETTE SOTTOCLASSI ///////////////
 
@@ -269,7 +263,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     }
 
     @Override
-    public void endMove() throws RemoteException {
+    public void endMove() {
         if (game!=null)
             game.endMove(this);
     }
@@ -281,7 +275,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     }
 
     @Override
-    public void doNewAction(MessageNewAction msg) throws RemoteException {
+    public void doNewAction(MessageNewAction msg)  {
         if (game!=null)
             game.doNewAction(this, msg);
     }
@@ -289,10 +283,9 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     /**
      * identifica la scelta nella fase di scomunica.
      * @param choice true accetto la scomunica, false do sostegno
-     * @throws RemoteException
      */
     @Override
-    public synchronized void excommunicationChoice(boolean choice) throws RemoteException {
+    public synchronized void excommunicationChoice(boolean choice) {
         if (game!=null){
             if (choice){
                 game.excommunicatePlayer(this);
@@ -304,7 +297,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     }
 
     @Override
-    public void convertPrivilege(int qta, ResourceType type) throws RemoteException {
+    public void convertPrivilege(int qta, ResourceType type) {
         Field res = new Resource(qta, type);
         personalBoard.modifyResources(res);
         personalBoard.setCurrentField(res);

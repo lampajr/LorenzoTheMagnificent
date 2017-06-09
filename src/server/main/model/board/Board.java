@@ -18,7 +18,6 @@ import server.main.model.action_spaces.single_action_spaces.HarvestActionSpace;
 import server.main.model.action_spaces.single_action_spaces.MarketActionSpace;
 import server.main.model.action_spaces.single_action_spaces.ProductionActionSpace;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -190,7 +189,7 @@ public class Board {
      * @param period periodo
      * @param player giocatore
      */
-    public void excommunicatePlayer(int period, AbstractPlayer player) throws RemoteException {
+    public void excommunicatePlayer(int period, AbstractPlayer player) {
         excommunication.addPlayer(period, player);
     }
 
@@ -204,8 +203,8 @@ public class Board {
         excommunication.activeSecondPeriod(action.getPlayer());
     }
 
-    public void activeThirdPeriodExcommunication() {
-
+    public void activeThirdPeriodExcommunication(AbstractPlayer player) throws NewActionException {
+        excommunication.activeThirdPeriod(player);
     }
 
     /**

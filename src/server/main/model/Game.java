@@ -15,7 +15,6 @@ import server.main.model.board.Board;
 import server.main.model.board.FamilyMember;
 import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -173,7 +172,7 @@ public class Game {
      * mi scomunica il giocatore preciso
      * @param player giocatore
      */
-    public void excommunicatePlayer(AbstractPlayer player) throws RemoteException {
+    public void excommunicatePlayer(AbstractPlayer player) {
         if (phase == Phases.EXCOMMUNICATION){
             try {
                 checkTurn(player);
@@ -195,7 +194,7 @@ public class Game {
      * mi scomunica automaticamente il giocatore
      * @param player giocatore
      */
-    public void giveChurchSupport(AbstractPlayer player) throws RemoteException {
+    public void giveChurchSupport(AbstractPlayer player) {
         if (phase == Phases.EXCOMMUNICATION){
             try {
                 checkTurn(player);
@@ -240,9 +239,15 @@ public class Game {
 
     /**
      * attiva effetti delle tessere scomunica del terzo periodo
+     * @param player giocatore su cui attivare la scomunica
      */
-    public void activeThirdPeriodExcommunication() {
-        board.activeThirdPeriodExcommunication();
+    public void activeThirdPeriodExcommunication(AbstractPlayer player) {
+        try {
+            board.activeThirdPeriodExcommunication(player);
+        }
+        catch (NewActionException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -251,7 +256,6 @@ public class Game {
      * @param player giocatore che la esegue
      * @param msg messggio da decodificare
      * @param familyMember familiare da spostare, già ricavato dall classe che lo invoca
-     * @throws RemoteException in caso si verifichino errori
      */
     public void doAction(AbstractPlayer player, MessageAction msg, FamilyMember familyMember) {
         if (phase == Phases.ACTION){
@@ -507,6 +511,7 @@ public class Game {
                 }
             }
         }
+        turnOrder.forEach(this::activeThirdPeriodExcommunication);
 
         militaryWinners.get(0).getPersonalBoard().modifyResources(new Resource(5, ResourceType.VICTORY));
         militaryWinners.get(1).getPersonalBoard().modifyResources(new Resource(2, ResourceType.VICTORY));

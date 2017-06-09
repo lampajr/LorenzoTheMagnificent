@@ -41,6 +41,8 @@ public class Resource implements Field {
         if (resourceEffect.getType().getCode().equals(this.type.getCode())) {
             //sono dello stesso tipo
             this.qta += resourceEffect.getQta();
+            if (qta < 0)
+                this.qta = 0;
         }
     }
 

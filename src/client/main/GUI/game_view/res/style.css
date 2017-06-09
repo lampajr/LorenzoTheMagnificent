@@ -2,8 +2,6 @@
     -fx-cursor: hand;
     -fx-border-radius: 15%;
     -fx-border-color: black;
-
-
 }
 
 #toolbar {
@@ -92,8 +90,4 @@
     -fx-background-color: rgba(57,29,4,0.71);
     -fx-border-color: black;
     -fx-border-radius: 5%;
-}
-
-#privilegeAlert {
-    -fx-background-image: url("brickBackground.png");
 }

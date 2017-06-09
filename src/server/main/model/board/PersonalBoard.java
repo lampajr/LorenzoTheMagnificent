@@ -145,6 +145,14 @@ public class PersonalBoard {
     }
 
     /**
+     * metodo che restta la lista delle carte del tipo passato come parametro
+     * @param cardType tipo di carte
+     */
+    public void resetList(CardType cardType) {
+        cardsMap.put(cardType, new ArrayList<>());
+    }
+
+    /**
      * mi controlla se ho le risorse necessarie
      * @param cost risorsa da verificare
      * @return true se le ho, false altrimenti
@@ -244,7 +252,7 @@ public class PersonalBoard {
     /**
      * mi attiva gli effetti permanenti delle carte impresa
      */
-    private void activeVentueresEffects() {
+    private void activeVenturesEffects() {
         cardsMap.get(CardType.VENTURES).forEach((developmentCard -> {
             try {
                 developmentCard.activePermanentEffects();
@@ -269,7 +277,7 @@ public class PersonalBoard {
     }
 
     public int calculateVictoryPoints() {
-        activeVentueresEffects();
+        activeVenturesEffects();
         int sum = resourceList.get(ResourceType.VICTORY).getQta(); //aggiungo i punti vittoria
         //adesso devo convertire gli altri
         int sumResources = 0;

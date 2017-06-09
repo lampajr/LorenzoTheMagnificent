@@ -1,4 +1,4 @@
-package client.main.GUI.game_view;
+package client.main.GUI.game_view.alert;
 
 import api.types.ResourceType;
 import client.main.client.AbstractClient;
@@ -32,8 +32,8 @@ public class PrivilegeAlert extends Alert{
         setResizable(false);
 
         DialogPane pane = getDialogPane();
-        pane.getStylesheets().add(getClass().getResource("res/style.css").toExternalForm());
-        pane.setId("privilegeAlert");
+        pane.getStylesheets().add(getClass().getResource("alertStyle.css").toExternalForm());
+        pane.setId("alert");
         pane.setPrefSize(WIDTH, HEGHT);
         pane.setCursor(Cursor.HAND);
 
