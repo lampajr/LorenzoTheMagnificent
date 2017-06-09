@@ -54,6 +54,7 @@ public class ClientRMI extends AbstractClient {
         }
     }
 
+
     @Override
     public void doNewAction(MessageNewAction msg, int servantsToPay) {
         try {
