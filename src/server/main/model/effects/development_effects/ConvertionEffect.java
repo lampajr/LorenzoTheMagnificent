@@ -2,11 +2,11 @@ package server.main.model.effects.development_effects;
 
 import api.types.ResourceType;
 import server.main.game_server.AbstractPlayer;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,35 +36,34 @@ public class ConvertionEffect implements Effect{
      * Attiva l' effetto della conversione andando a controllare se la conversione può essere effettuata facendo il
      * controllo sulla risorsa
      * @param player il giocatore che sta attivando l'effetto
-     * @throws RemoteException
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione, non dovrebbe mai verificarsi
      */
     @Override
     public void active(AbstractPlayer player) throws NewActionException {
-        if (checkActivation(player)) {
-            for(Field f : fieldToDecrement){
+        try {
+            checkActivation(player);
+            for (Field f : fieldToDecrement) {
                 player.getPersonalBoard().modifyResources(f);
             }
-            for(Field f : fieldToIncrement) {
+            for (Field f : fieldToIncrement) {
                 if (f.getType() != ResourceType.PRIVILEGE) {
                     player.getPersonalBoard().modifyResources(f);
                     player.getPersonalBoard().setCurrentField(f);
                     player.activeExcommunicationEffects(player.getPersonalBoard().getCurrentAction(), 2);
-                }
-                else {
+                } else {
                     player.notifyPrivilege();
                 }
             }
+        } catch (LorenzoException e) {
+            //non posso attivare la conversione, perché non ho abbastanza risorse
+            //non faccio nulla.
         }
     }
 
-    private boolean checkActivation(AbstractPlayer player) {
-        for(Field f : fieldToDecrement){
-            if(!player.getPersonalBoard().checkResources(f)){
-                return false;
-            }
+    private void checkActivation(AbstractPlayer player) throws LorenzoException {
+        for(Field toCheck : fieldToDecrement){
+            player.getPersonalBoard().checkResources(toCheck);
         }
-        return true;
     }
 
 
@@ -72,7 +71,7 @@ public class ConvertionEffect implements Effect{
      * prende le due stringhe codificate e aggiunge le risorse alle due liste da inc e da dec
      * @param increment lista di risorse da incrementare
      * @param decrement lista di risorse da decrementare
-     * @return
+     * @return un oggetto del tipo ConvertionEffect
      */
     public static ConvertionEffect createInstance(String increment, String decrement){
         List<Field> fieldToIncrement = new ArrayList<>();

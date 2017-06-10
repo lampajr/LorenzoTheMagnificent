@@ -52,7 +52,7 @@ public class DevelopmentDeck {
      * @return lista di carte
      */
     public List<DevelopmentCard> drawCards(int period, int turn, CardType type) {
-        int initPos=0, finalpos=0;
+        int initPos=0, finalPos;
         switch (period) {
             case 1:
                 initPos=0;
@@ -64,30 +64,30 @@ public class DevelopmentDeck {
                 initPos=16;
                 break;
         }
-        finalpos = initPos+4;
+        finalPos = initPos+4;
         if(turn == 2) {
             initPos += 4;
-            finalpos += 4;
+            finalPos += 4;
         }
         List<DevelopmentCard> list = new ArrayList<>();
-        switch (type.getCode()) {
-            case "TERRITORY":
-                for (int cont = initPos; cont < finalpos; cont++) {
+        switch (type) {
+            case TERRITORY:
+                for (int cont = initPos; cont < finalPos; cont++) {
                 list.add(territoriesList.get(cont));
                 }
                 break;
-            case "CHARACTER":
-                for (int cont = initPos; cont < finalpos; cont++) {
+            case CHARACTER:
+                for (int cont = initPos; cont < finalPos; cont++) {
                 list.add(charactersList.get(cont));
                 }
                 break;
-            case "BUILDING":
-                for (int cont = initPos; cont < finalpos; cont++) {
+            case BUILDING:
+                for (int cont = initPos; cont < finalPos; cont++) {
                     list.add(buildingsList.get(cont));
                 }
                 break;
-            case "VENTURES":
-                for (int cont = initPos; cont < finalpos; cont++) {
+            case VENTURES:
+                for (int cont = initPos; cont < finalPos; cont++) {
                     list.add(venturesList.get(cont));
                 }
                 break;
@@ -138,7 +138,7 @@ public class DevelopmentDeck {
      * @param rs risultato integgogazione db
      * @return lista carte
      */
-    public List<DevelopmentCard> createCardList(CardType type, ResultSet rs) {
+    private List<DevelopmentCard> createCardList(CardType type, ResultSet rs) {
         DevelopmentCard DevelopmentCard =null;
         List<DevelopmentCard> list = new ArrayList<>();
         try {
@@ -184,8 +184,8 @@ public class DevelopmentDeck {
 
     /**
      * Crea fli effetti delle carte di tipo Personaggio
-     * @param cod
-     * @return
+     * @param cod codice identificativo degli effetti
+     * @return lista degli effetti permanenti per i personaggi
      */
     private List<Effect> createPermanentEffectListCharacters(String cod) {
         List<Effect> permanentEffectList = new ArrayList<>();
@@ -198,8 +198,8 @@ public class DevelopmentDeck {
 
     /**
      * Crea gli effetti delle carte di tipo Imprese
-     * @param cod
-     * @return
+     * @param cod codice identificativo degli effetti
+     * @return lista degli effetti permanenti per le imprese
      */
     private List<Effect> createPermanentEffectListVentures(String cod) {
         List<Effect> permanentEffectList = new ArrayList<>();
@@ -212,8 +212,8 @@ public class DevelopmentDeck {
 
     /**
      * crea la lista degli effetti delle carte di tipo edificio
-     * @param cod
-     * @return
+     * @param cod codice identificativo degli effetti
+     * @return lista degli effetti permanenti per gli edifici
      */
     private List<Effect> createPermanentEffectListBuildings(String cod) {
         List<Effect> permanentEffectList = new ArrayList<>();
@@ -242,8 +242,8 @@ public class DevelopmentDeck {
 
     /**
      * Crea la lista degli effetti delle carte di tipo territorio
-     * @param cod
-     * @return
+     * @param cod codice identificativo degli effetti
+     * @return lista degli effetti permanenti per i territori
      */
 
     private List<Effect> createPermanentEffectListTerritory(String cod) {
@@ -263,8 +263,8 @@ public class DevelopmentDeck {
 
     /**
      * Da qui in poi metodi che creano gli effetti dei tipo rapido
-     * @param cod
-     * @return
+     * @param cod codice identificativo degli effetti
+     * @return lista degli effetti rapidi per i personaggi e le imprese
      */
 
     private List<Effect> createQuickEffectListVC(String cod) {
@@ -301,8 +301,8 @@ public class DevelopmentDeck {
 
     /**
      * crea la lista dei costi di ogni carta, metodo chiamato dal metodo createCardList
-     * @param codCost
-     * @return
+     * @param codCost codice dei costi
+     * @return lista dei costi per qualsiasi tipo di carta
      */
     private List<Field> createCostsList(String codCost) {
         //creo la lista degli effetti immediati
@@ -323,8 +323,8 @@ public class DevelopmentDeck {
     /**
      * crea la lista di costi per le imprese, deve fare un'ulteriore
      * verifica se il costo riguarda punti militari
-     * @param codCost
-     * @return
+     * @param codCost codice dei costi per le imprese
+     * @return lista dei costi per le imprese
      */
     private List<Field> createCostsListVentures(String codCost) {
         if (codCost == null) {

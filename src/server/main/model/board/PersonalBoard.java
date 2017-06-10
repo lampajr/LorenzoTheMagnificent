@@ -3,6 +3,7 @@ package server.main.model.board;
 import api.types.CardType;
 import api.types.FamilyMemberType;
 import api.types.ResourceType;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.game_server.exceptions.NewActionException;
 import server.main.model.action_spaces.Action;
 import server.main.model.fields.Field;
@@ -23,6 +24,7 @@ import static api.types.ResourceType.WOOD;
  * rappresenta la plancia personale del singolo giocatore
  */
 public class PersonalBoard {
+    private static final int MAX_CARDS = 6;
     //lista dei familiari in possesso, uno neutro e tre personali
     private Map<FamilyMemberType,FamilyMember> familyMemberList;
     // WOOD , STONE , SERVANTS , COINS , VICTORY , FAITH , MILITARY
@@ -153,12 +155,22 @@ public class PersonalBoard {
     }
 
     /**
-     * mi controlla se ho le risorse necessarie
+     * mi controlla se ho le risorse necessarie, se non le dovessi avere
+     * mi lancia un'eccezione Lorenzo Exception
      * @param cost risorsa da verificare
-     * @return true se le ho, false altrimenti
      */
-    public boolean checkResources(Field cost){
-        return resourceList.get(cost.getType()).checkResource(cost);
+    public void checkResources(Field cost) throws LorenzoException {
+        resourceList.get(cost.getType()).checkResource(cost);
+    }
+
+    /**
+     * controlla se ho raggiunto il limite massimo di carte per quel tipo
+     * in caso il limite sia stato raggiunto viene lanciata un'eccezione
+     * @param type tipo di carta da controllare
+     */
+    void checkNumberOfCards(CardType type) throws LorenzoException {
+        if (cardsMap.get(type).size() == MAX_CARDS)
+            throw new LorenzoException("You've reached the maximum limit of " + type.toString() + " cards");
     }
 
     /**
@@ -176,9 +188,7 @@ public class PersonalBoard {
      */
     public Map<ResourceType,Integer> getQtaResources() {
         Map<ResourceType,Integer> qtaResourceMap = new HashMap<>();
-        resourceList.forEach(((resourceType, resource) -> {
-            qtaResourceMap.put(resourceType, resource.getQta());
-        }));
+        resourceList.forEach(((resourceType, resource) -> qtaResourceMap.put(resourceType, resource.getQta())));
         return qtaResourceMap;
     }
 
@@ -193,11 +203,7 @@ public class PersonalBoard {
         cardsNameMap.put(CardType.CHARACTER, new ArrayList<>());
         cardsNameMap.put(CardType.BUILDING, new ArrayList<>());
         cardsNameMap.put(CardType.VENTURES, new ArrayList<>());
-        cardsMap.forEach(((cardType, developmentCards) -> {
-            developmentCards.forEach(developmentCard -> {
-                cardsNameMap.get(cardType).add(developmentCard.getName());
-            });
-        }));
+        cardsMap.forEach(((cardType, developmentCards) -> developmentCards.forEach(developmentCard -> cardsNameMap.get(cardType).add(developmentCard.getName()))));
         return cardsNameMap;
     }
 

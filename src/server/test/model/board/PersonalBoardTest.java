@@ -3,6 +3,7 @@ package server.test.model.board;
 import api.types.CardType;
 import api.types.FamilyMemberType;
 import api.types.ResourceType;
+import server.main.game_server.exceptions.LorenzoException;
 import server.main.model.action_spaces.Action;
 import server.main.model.board.DevelopmentCard;
 import server.main.model.board.PersonalBoard;
@@ -42,7 +43,7 @@ public class PersonalBoardTest {
 
 
     @Test
-    public void setDiceValues() throws Exception {
+    public void setDiceValues() {
         personalBoard.setDiceValues(5,4,3);
         assertEquals(5L, personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).getValue());
         assertEquals(4L, personalBoard.getFamilyMember(FamilyMemberType.WHITE_DICE).getValue());
@@ -50,13 +51,13 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void addCard() throws Exception {
+    public void addCard() {
         personalBoard.addCard(card);
         assertEquals(card, personalBoard.getCardsList(card.getType()).get(0));
     }
 
     @Test
-    public void modifyResources() throws Exception {
+    public void modifyResources() {
         personalBoard.modifyResources(new Resource(5, ResourceType.SERVANTS));
         personalBoard.modifyResources(new Resource(-1, ResourceType.WOOD));
         assertEquals(8L, personalBoard.getQtaResources().get(ResourceType.SERVANTS).intValue());
@@ -64,24 +65,23 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void resetResource() throws Exception {
+    public void resetResource() {
         personalBoard.resetResource(ResourceType.SERVANTS);
         assertEquals(0, personalBoard.getQtaResources().get(ResourceType.SERVANTS).intValue());
     }
 
-    @Test
-    public void checkResources() throws Exception {
-        assertTrue(personalBoard.checkResources(new Resource(3, ResourceType.SERVANTS)));
-        assertTrue(personalBoard.checkResources(new Resource(2, ResourceType.WOOD)));
+    @Test(expected = LorenzoException.class)
+    public void checkResourcesError() throws Exception {
+        personalBoard.checkResources(new Resource(4, ResourceType.SERVANTS));
     }
 
     @Test
-    public void getFamilyMember() throws Exception {
+    public void getFamilyMember() {
         assertEquals(FamilyMemberType.ORANGE_DICE, personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).getType());
     }
 
     @Test
-    public void removeAllFamilyMembers() throws Exception {
+    public void removeAllFamilyMembers() {
         personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).setPositioned(true);
         personalBoard.removeAllFamilyMembers();
         assertFalse(personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).isPositioned());
@@ -89,29 +89,29 @@ public class PersonalBoardTest {
 
 
     @Test
-    public void getQtaResources() throws Exception {
+    public void getQtaResources() {
         assertEquals(2L, personalBoard.getQtaResources().get(ResourceType.WOOD).intValue());
     }
 
     @Test
-    public void getPersonalCardsMap() throws Exception {
+    public void getPersonalCardsMap() {
         personalBoard.addCard(card);
         assertEquals(card.getName(), personalBoard.getPersonalCardsMap().get(card.getType()).get(0));
     }
 
     @Test
-    public void activeTerritoriesEffects() throws Exception {
+    public void activeTerritoriesEffects() {
     }
 
     @Test
-    public void activeBuildingsEffects() throws Exception {
+    public void activeBuildingsEffects() {
     }
 
     @Test
-    public void activeCharacterEffects() throws Exception {
+    public void activeCharacterEffects() {
     }
 
     @Test
-    public void calculateVictoryPoints() throws Exception {
+    public void calculateVictoryPoints() {
     }
 }

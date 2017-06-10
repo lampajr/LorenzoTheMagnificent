@@ -1,6 +1,7 @@
 package server.main.model.fields;
 
 import api.types.ResourceType;
+import server.main.game_server.exceptions.LorenzoException;
 
 import static server.main.model.effects.development_effects.EffectsCreator.*;
 
@@ -66,12 +67,16 @@ public class Resource implements Field {
     }
 
     @Override
-    public boolean checkResource(Field cost) {
+    public void checkResource(Field cost) throws LorenzoException {
+        int toCheck;
         if (cost instanceof MilitaryCost) {
             MilitaryCost militaryCost = (MilitaryCost) cost;
-            return qta >= militaryCost.getMinValue();
+            toCheck = militaryCost.getMinValue();
         }
-        return qta >= Math.abs(cost.getQta());
+        else
+            toCheck = cost.getQta();
+        if (qta < Math.abs(toCheck))
+            throw new LorenzoException("You do not have enough funds to do the action");
     }
 
     /**

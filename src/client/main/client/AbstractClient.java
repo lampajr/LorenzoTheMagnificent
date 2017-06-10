@@ -140,7 +140,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
             interfaceController.updateMyCards(personalCardsMap);
             interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
         }
-    };
+    }
 
     /**
      * notifica al client che un suo avversatio ha mosso qualcosa, e cosa..
@@ -277,7 +277,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     public void excommunicate(int id, int period) {
         if (interfaceController!=null)
             interfaceController.excommunicate(id, period);
-    };
+    }
 
     /**
      * notifica che la partita è terminata, con l'esito
@@ -288,7 +288,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     public void gameEnded(String msg, Map<String, Integer> rankingMap) {
         if (interfaceController!=null)
             interfaceController.showGameEndedAlert(msg, rankingMap);
-    };
+    }
 
     /**
      * temrine della partita per abbandono
@@ -421,7 +421,7 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     }
 
     /**
-     * metodo che mi codifica il messaggio azione DA RICONTROLLARE
+     * metodo che mi codifica il messaggio nuova azione, verificando se è quella corretta richiesta dal server
      * @return ritorna il MessageAction corretto da inviare al server
      */
     private MessageNewAction encondingMessageNewAction() {
@@ -433,21 +433,25 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
             if (actionSpacesType == ActionSpacesType.SINGLE_PRODUCTION || actionSpacesType == ActionSpacesType.LARGE_PRODUCTION)
                 return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
         }
-        else if (actionSpacesType != currentNewActionActionSpaceType) {
-            if (interfaceController!=null) {
-                interfaceController.notifyMessage("You haven't selected the correct Action Space");
+        else { //non è in zona produzione o raccolta, cioè potrà essere solo nelle torri
+            if (actionSpacesType != currentNewActionActionSpaceType) {
+                if (interfaceController != null)
+                    interfaceController.notifyMessage("You haven't selected the correct Action Space");
+                return null;
+            }
+            else if (currentNewActionCardType == null || cardType == currentNewActionCardType) {
+                //o posso farlo in qualsiasi torre o comunque ho selezionato la torre giusta
+                return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
+            }
+            else {
+                if (interfaceController != null)
+                    interfaceController.notifyMessage("You haven't selected the correct Tower");
                 return null;
             }
         }
-        else if (currentNewActionCardType == null) //va bene qualsiasi torre
-            return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
-        else if (cardType != currentNewActionCardType) {
-            if (interfaceController!=null) {
-                interfaceController.notifyMessage("You haven't selected the correct Tower");
-                return null;
-            }
-        }
-        return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
+        if (interfaceController!=null)
+            interfaceController.notifyMessage("You haven't selected the correct Action Space");
+        return null;
     }
 
 

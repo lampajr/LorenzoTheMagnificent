@@ -19,8 +19,8 @@ public enum CardType implements Serializable {
         code = s ;
     }
 
-    public String getCode(){
-        return code;
+    @Override
+    public String toString() {
+        return code.toLowerCase();
     }
-
 }

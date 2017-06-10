@@ -1,6 +1,7 @@
 package server.main.model.fields;
 
 import api.types.ResourceType;
+import server.main.game_server.exceptions.LorenzoException;
 
 /**
  * @author Luca
@@ -12,7 +13,7 @@ public interface Field {
 
     /**
      * ritorna la quantità della risorsa in oggetto
-     * @return
+     * @return la quantità
      */
     int getQta();
 
@@ -47,9 +48,8 @@ public interface Field {
     void setQta(int reset);
 
     /**
-     * mi controlla se ho le risorse sufficienti
+     * mi controlla se ho le risorse sufficienti, in caso negativo viene lanciata un'eccezione
      * @param cost costo da verificare
-     * @return true se le ho, false altrimenti
      */
-    boolean checkResource(Field cost);
+    void checkResource(Field cost) throws LorenzoException;
 }
