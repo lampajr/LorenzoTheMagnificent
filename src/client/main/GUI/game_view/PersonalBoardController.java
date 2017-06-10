@@ -57,7 +57,7 @@ public class PersonalBoardController {
      * mi aggiorna le carte che ho nella mia plancia
      * @param newCardsMap mappa delle carte
      */
-    public void updateCards(Map<CardType, List<String>> newCardsMap) {
+    void updateCards(Map<CardType, List<String>> newCardsMap) {
         Platform.runLater(() -> {
             newCardsMap.forEach(((cardType, nameList) -> {
                 for (int counter=0; counter<nameList.size(); counter++){

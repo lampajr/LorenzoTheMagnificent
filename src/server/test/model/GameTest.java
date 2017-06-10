@@ -1,5 +1,7 @@
 package server.test.model;
 
+import api.messages.MessageAction;
+import api.types.ActionSpacesType;
 import api.types.FamilyMemberType;
 import api.types.Phases;
 import client.main.client.ClientRMI;
@@ -14,11 +16,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import static api.types.ResourceType.FAITH;
-import static api.types.ResourceType.VICTORY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static api.types.ResourceType.*;
+import static org.junit.Assert.*;
 
 /**
  * @author Andrea
@@ -65,8 +64,14 @@ public class GameTest {
         assertEquals(1, game.getId(player1));
     }
 
+    @Test
+    public void correctTurn() throws LorenzoException {
+        game.checkTurn(player1);
+        assertSame(player1, game.getCurrentPlayer());
+    }
+
     @Test(expected = LorenzoException.class)
-    public void checkTurn() throws LorenzoException {
+    public void errorTurn() throws LorenzoException {
         game.checkTurn(player2);
     }
 
@@ -80,7 +85,7 @@ public class GameTest {
     }
 
     @Test
-    public void giveChurchSupport() throws Exception {
+    public void giveChurchSupport() {
         game.setPhase(Phases.EXCOMMUNICATION);
         player1.getPersonalBoard().modifyResources(new Resource(5, FAITH));
         game.giveChurchSupport(player1);
@@ -90,7 +95,10 @@ public class GameTest {
 
     @Test
     public void doAction() {
-
+        MessageAction msgAction = new MessageAction(ActionSpacesType.COUNCIL, FamilyMemberType.ORANGE_DICE);
+        game.shotDice(player1, 6, 6, 6);
+        game.doAction(player1, msgAction, player1.getFamilyMember(FamilyMemberType.ORANGE_DICE));
+        assertEquals(6, player1.getPersonalBoard().getQtaResources().get(COINS).intValue());
     }
 
     @Test

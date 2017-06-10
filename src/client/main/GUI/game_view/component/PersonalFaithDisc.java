@@ -31,7 +31,7 @@ public class PersonalFaithDisc extends PersonalDisc{
         currentPosition = pos;
         double x;
         if (pos == 3 || pos == 4 || pos == 5 || pos == 6) {
-            x = START_X + (INC_X * 2) + (INC_PLUS_X * (pos-3));
+            x = START_X + (INC_X * 2) + (INC_PLUS_X * (pos-2));
         }
         else if (pos < 3){
             x = START_X + INC_X*pos;

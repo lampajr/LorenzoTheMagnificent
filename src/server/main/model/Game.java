@@ -57,6 +57,7 @@ public class Game {
         playerMap.put(numPlayers , abstractPlayer);
         abstractPlayer.createPersonalBoard(numPlayers);
         turnOrder.add(abstractPlayer);
+        //currentPlayer = turnOrder.get(0);
         if(numPlayers == 2 && gameMode == MainServer.RANDOM)
             new Timer(10); //il parametro indica i secondi di attesa
         if(checkMaxNumberReached())
@@ -87,8 +88,9 @@ public class Game {
             player.initializeBoard(board.getCompleteListTowersCards());
             Map<Integer, String> opponentsMap = new HashMap<>();
             playerMap.forEach((opponentId, opponent) -> {
-                if (opponent != player)
+                if (opponent != player) {
                     opponentsMap.put(opponentId, opponent.getUsername());
+                }
             });
             player.gameIsStarted(opponentsMap, board.getExcomCodeList());
             player.sendOrder(turnOrder);
@@ -121,7 +123,7 @@ public class Game {
     /**
      * mi ottiene l'id del giocatore
      * @param player giocatore di cui voglio conoscere l'id
-     * @return
+     * @return l'id del giocatore, eventualmente -1 se il giocatore non è della partita
      */
     public int getId(PlayerInterface player){
         for(int i = 1; i<=numPlayers ; i++){
@@ -133,7 +135,7 @@ public class Game {
 
     /**
      * mi dice se la partita è al completo o comunque se è già cominciata!
-     * @return
+     * @return true se la partita è al completo, false altrimenti
      */
     public boolean isFull(){
         return isStarted;

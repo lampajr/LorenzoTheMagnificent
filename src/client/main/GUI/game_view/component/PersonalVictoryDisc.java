@@ -14,7 +14,7 @@ public class PersonalVictoryDisc extends PersonalDisc{
     private final double FINAL_X;
     private final double START_Y;
     private final double INIT_Y = 20;
-    private final double FINAL_Y = INIT_Y + (INC_Y*29);
+    private final double FINAL_Y;
 
     private int currentPosition = 0;
 
@@ -22,6 +22,7 @@ public class PersonalVictoryDisc extends PersonalDisc{
         super(id, container);
         START_Y = 18 - (NUMBER_OF_DISC*6);
         FINAL_X = START_X + (INC_X*19) + INC_FINAL_X + (NUMBER_OF_DISC*6);
+        FINAL_Y = INIT_Y + (INC_Y*29) + (6*NUMBER_OF_DISC) + 20;
         NUMBER_OF_DISC++;
         setTranslateX(START_X);
         setTranslateY(START_Y);
@@ -36,7 +37,7 @@ public class PersonalVictoryDisc extends PersonalDisc{
         currentPosition = pos;
         double x = 0;
         double y = 0;
-        if (pos < 19) {
+        if (pos < 20) {
             x = START_X + (INC_X*pos);
             y = START_Y;
         }
@@ -44,9 +45,17 @@ public class PersonalVictoryDisc extends PersonalDisc{
             x = FINAL_X;
             y = INIT_Y;
         }
-        else if (pos < 49) {
+        else if (pos < 50) {
             x = FINAL_X;
             y = INIT_Y + (INC_Y*(pos-20));
+        }
+        else if (pos == 50) {
+            x = FINAL_X;
+            y = FINAL_Y;
+        }
+        else if (pos < 70) {
+            x = START_X + (INC_X*(70-pos));
+            y = FINAL_Y;
         }
         setTranslateX(x);
         setTranslateY(y);

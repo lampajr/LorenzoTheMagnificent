@@ -323,6 +323,8 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
 
     /// METODI AGGIUNTI DALLA CLASSE ASTRATTA E GIA' IMPLEMENTATI /////////////////////////////////////////////////////////
 
+
+
     public Map<ResourceType, Integer> getQtaResourcesMap() {
         return qtaResourcesMap;
     }
@@ -379,10 +381,18 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
         return qtaResourcesMap.get(type);
     }
 
+    String getUsername() {
+        return username;
+    }
+
+    String getPassword() {
+        return password;
+    }
+
     public void encodingAndSendingMessage(int servantsToPay) {
         if (phase == Phases.NEW_ACTION) {
             MessageNewAction msgNewAction = encondingMessageNewAction();
-            if (msgNewAction != null)
+            if (msgNewAction!=null)
                 doNewAction(msgNewAction, servantsToPay);
         }
         else {
@@ -424,24 +434,20 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
                 return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
         }
         else if (actionSpacesType != currentNewActionActionSpaceType) {
-            if (interfaceController!=null)
+            if (interfaceController!=null) {
                 interfaceController.notifyMessage("You haven't selected the correct Action Space");
+                return null;
+            }
         }
         else if (currentNewActionCardType == null) //va bene qualsiasi torre
             return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
         else if (cardType != currentNewActionCardType) {
-            if (interfaceController!=null)
+            if (interfaceController!=null) {
                 interfaceController.notifyMessage("You haven't selected the correct Tower");
+                return null;
+            }
         }
         return new MessageNewAction(actionSpacesType, cardType, numFloor, marketActionType, currentNewActionValue);
-    }
-
-    String getUsername() {
-        return username;
-    }
-
-    String getPassword() {
-        return password;
     }
 
 

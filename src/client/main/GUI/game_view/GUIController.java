@@ -692,10 +692,10 @@ public class GUIController implements InterfaceController {
     }
 
     /**
-     * inizializza il tabellone
-     * @throws InterruptedException
+     * inizializza il tabellone, inizializzando tutti i componenti
+     * (precisamente gli spazi azione e i dischetti)
      */
-    public void initialize() throws InterruptedException {
+    public void initialize() {
         client = AbstractClient.getInstance();
         initializeTowers();
         initializeMarket(MarketActionType.YELLOW, yellowMarket);
@@ -728,6 +728,4 @@ public class GUIController implements InterfaceController {
             e.printStackTrace();
         }
     }
-
-
 }

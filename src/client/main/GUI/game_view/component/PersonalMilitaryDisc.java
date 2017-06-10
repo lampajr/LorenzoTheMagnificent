@@ -10,7 +10,7 @@ public class PersonalMilitaryDisc extends PersonalDisc{
     private static int NUMBER_OF_DISC = 0;
     private final double START_Y = 908;
     private final double FINAL_X;
-    private final double INC_Y = 32;
+    private final double INC_Y = 33;
     private int currentPosition;
 
     public PersonalMilitaryDisc(int id, AnchorPane container) {
