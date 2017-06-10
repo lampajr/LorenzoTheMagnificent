@@ -83,4 +83,10 @@ public class LargeActionSpace extends Pane implements ActionSpaceInterface{
         AbstractClient.getInstance().setActionSpacesType(type);
         AbstractClient.getInstance().encodingAndSendingMessage(guiController.getServantsToPay());
     }
+
+    @Override
+    public void removeFamilyMember(GuiFamilyMember familyMemberToRemove) {
+        if (container.getChildren().contains(familyMemberToRemove))
+            Platform.runLater(() -> container.getChildren().remove(familyMemberToRemove));
+    }
 }

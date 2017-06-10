@@ -77,7 +77,7 @@ public class SingleActionSpace extends AnchorPane implements ActionSpaceInterfac
         return type;
     }
 
-    public GUIController getGuiController() {
+    GUIController getGuiController() {
         return guiController;
     }
 
@@ -89,4 +89,11 @@ public class SingleActionSpace extends AnchorPane implements ActionSpaceInterfac
         client.setActionSpacesType(type);
         client.encodingAndSendingMessage(guiController.getServantsToPay());
     }
+
+    @Override
+    public void removeFamilyMember(GuiFamilyMember familyMemberToRemove) {
+        if (container.getChildren().contains(familyMemberToRemove))
+            Platform.runLater(() -> container.getChildren().remove(familyMemberToRemove));
+    }
+
 }

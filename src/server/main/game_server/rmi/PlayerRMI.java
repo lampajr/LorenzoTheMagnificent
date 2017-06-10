@@ -128,6 +128,8 @@ public class PlayerRMI extends AbstractPlayer {
             if (getClientInterface()!= null) {
                 getClientInterface().updateResources(getPersonalBoard().getQtaResources());
                 getClientInterface().updatePersonalCards(getPersonalBoard().getPersonalCardsMap());
+                if (msg != null)
+                    getClientInterface().movePersonalFamilyMember();
             }
             if (getGame()!= null)
                 getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msg);
@@ -138,10 +140,10 @@ public class PlayerRMI extends AbstractPlayer {
     }
 
     @Override
-    public void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
+    public void updateOpponentMove(int id, Map<CardType, List<String>> personalCardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
         try {
             if (getClientInterface()!= null)
-                getClientInterface().opponentMove(id, personalcardsMap, qtaResourcesMap);
+                getClientInterface().opponentMove(id, personalCardsMap, qtaResourcesMap);
             if (msgAction != null)
                 getClientInterface().opponentFamilyMemberMove(id, msgAction);
         }

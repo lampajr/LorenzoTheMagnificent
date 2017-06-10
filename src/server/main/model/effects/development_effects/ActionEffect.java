@@ -15,7 +15,7 @@ public class ActionEffect implements Effect{
     private int value;
     private char codActionSpace;
 
-    public ActionEffect(char codActionSpace, int value) {
+    private ActionEffect(char codActionSpace, int value) {
         this.codActionSpace = codActionSpace;
         this.value = value;
     }

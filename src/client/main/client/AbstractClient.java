@@ -138,8 +138,12 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
         if (interfaceController!=null){
             interfaceController.removeDrawnCards(personalCardsMap);
             interfaceController.updateMyCards(personalCardsMap);
-            interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
         }
+    }
+
+    @Override
+    public void movePersonalFamilyMember() {
+        interfaceController.moveFamilyMember(actionSpacesType, cardType, numFloor, marketActionType, familyMemberType);
     }
 
     /**

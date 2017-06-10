@@ -152,6 +152,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
             out.writeObject(getPersonalBoard().getPersonalCardsMap());
             out.flush();
+            if (msgAction!=null) {
+                out.writeObject(SocketProtocol.MOVE_MY_FAMILY_MEMBER);
+                out.flush();
+            }
             if (getGame()!=null)
                 getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msgAction);
         }
@@ -161,13 +165,13 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     }
 
     @Override
-    public void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
+    public void updateOpponentMove(int id, Map<CardType, List<String>> personalCardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
         try {
             out.writeObject(SocketProtocol.OPPONENT_MOVE);
             out.flush();
             out.writeInt(id);
             out.flush();
-            out.writeObject(personalcardsMap);
+            out.writeObject(personalCardsMap);
             out.flush();
             out.writeObject(qtaResourcesMap);
             out.flush();

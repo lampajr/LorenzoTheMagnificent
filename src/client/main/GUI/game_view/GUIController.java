@@ -31,10 +31,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Luca
@@ -478,16 +475,14 @@ public class GUIController implements InterfaceController {
      */
     @Override
     public void relocateFamilyMembers() {
-        Platform.runLater(() -> {
-            personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> {
-                if (!personalHBox.getChildren().contains(familyMember)) {
-                    personalHBox.getChildren().add(familyMember);
-                    familyMember.addMouseClicked();
-                    familyMember.setToggleGroup(toggleGroup);
-                    familyMember.setDisable(false);
-                }
-            }));
-        });
+        Platform.runLater(() -> personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> {
+            if (!personalHBox.getChildren().contains(familyMember)) {
+                personalHBox.getChildren().add(familyMember);
+                familyMember.addMouseClicked();
+                familyMember.setToggleGroup(toggleGroup);
+                familyMember.setDisable(false);
+            }
+        })));
     }
 
     /**
@@ -502,6 +497,7 @@ public class GUIController implements InterfaceController {
     public void moveFamilyMember(ActionSpacesType actionSpacesType, CardType cardType, int numFloor, MarketActionType marketActionType, FamilyMemberType familyMemberType) {
         Platform.runLater(() ->{
             GuiFamilyMember familyMember = personalFamilyMembersMap.get(familyMemberType);
+            removeFamilyMember(familyMember);
             if (personalHBox.getChildren().contains(familyMember)) {
                 personalHBox.getChildren().remove(familyMember);
                 familyMember.removeMouseClicked();
@@ -632,6 +628,17 @@ public class GUIController implements InterfaceController {
             servantsToPay = 0;
         }
         return servantsToPay;
+    }
+
+    /**
+     * rimuove un familiare preciso
+     * @param familyMemberToRemove familiare da rimuovere
+     */
+    private void removeFamilyMember(GuiFamilyMember familyMemberToRemove) {
+        actionSpacesMap.values().forEach(actionSpace -> actionSpace.removeFamilyMember(familyMemberToRemove));
+        towerMap.values().forEach(actionSpaceInterfaces -> Arrays.stream(actionSpaceInterfaces)
+                .forEach(actionSpace -> actionSpace.removeFamilyMember(familyMemberToRemove)));
+        marketMap.values().forEach(actionSpace -> actionSpace.removeFamilyMember(familyMemberToRemove));
     }
 
     @Override

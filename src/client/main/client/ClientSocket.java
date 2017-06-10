@@ -263,6 +263,9 @@ public class ClientSocket extends AbstractClient implements Runnable{
                             Map<CardType, List<String>> personalCardsMap = (Map<CardType, List<String>>) in.readObject();
                             updatePersonalCards(personalCardsMap);
                             break;
+                        case MOVE_MY_FAMILY_MEMBER:
+                            movePersonalFamilyMember();
+                            break;
                         case UPDATE_RESOURCES:
                             Map<ResourceType, Integer> personalQtaResourcesMap = (Map<ResourceType, Integer>) in.readObject();
                             updateResources(personalQtaResourcesMap);
@@ -296,7 +299,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                     }
 
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.println("server connection interrupted");
                 }
             }
         }

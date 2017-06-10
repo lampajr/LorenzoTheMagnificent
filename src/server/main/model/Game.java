@@ -354,6 +354,8 @@ public class Game {
             isStarted();
             checkTurn(player);
             player.notifyEndMove();
+            if (phase == Phases.NEW_ACTION)
+                phase = Phases.ACTION;
             for(int i = 0 ; i < numPlayers ; i++){
                 if(currentPlayer == turnOrder.get(i)) {
                     if (i == numPlayers - 1) {

@@ -31,4 +31,10 @@ public interface ActionSpaceInterface {
      * mi setta lo spazio azione corrente
      */
     void setCurrentActionSpace();
+
+    /**
+     * rimuove uno specifico familiare solo se presente
+     * @param familyMemberToRemove familiare da rimuovere
+     */
+    void removeFamilyMember(GuiFamilyMember familyMemberToRemove);
 }

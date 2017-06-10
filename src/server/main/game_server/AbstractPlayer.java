@@ -179,7 +179,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     /**
      * notifica a tutti i giocatori che cosa ha mosso il giocatore che ha appena effettuato la mossa
      */
-    public abstract void updateOpponentMove(int id, Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msg);
+    public abstract void updateOpponentMove(int id, Map<CardType, List<String>> personalCardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msg);
 
     /**
      * notifica al giocatore che deve tirare i dadi

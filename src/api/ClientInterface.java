@@ -39,10 +39,16 @@ public interface ClientInterface extends Remote{
 
     /**
      * metodo che mi aggiorna le mie carte nella personal board
-     * @param personalcardsMap mapp delle carte
+     * @param personalCardsMap mapp delle carte
      * @throws RemoteException
      */
-    void updatePersonalCards(Map<CardType, List<String>> personalcardsMap) throws RemoteException;
+    void updatePersonalCards(Map<CardType, List<String>> personalCardsMap) throws RemoteException;
+
+    /**
+     * mi muove il mio familiare in seguito ad una mossa
+     * @throws RemoteException
+     */
+    void movePersonalFamilyMember() throws RemoteException;
 
     /**
      * mi notifica un messaggio di informazione

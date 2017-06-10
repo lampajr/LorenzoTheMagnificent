@@ -23,7 +23,6 @@ public class CouncilActionSpace extends LargeActionSpace{
     @Override
     public void addFamilyMember(GuiFamilyMember familyMember) {
         setFamilyMember(familyMember);
-//        familyMember.setTranslateX(20 + (45*counter));
         Platform.runLater(() -> getContainer().getChildren().add(familyMember));
         counter++;
     }
@@ -33,7 +32,6 @@ public class CouncilActionSpace extends LargeActionSpace{
         Platform.runLater(() -> {
             for (int i = 0; i < getFamilyMemberList().size(); i++) {
                 GuiFamilyMember familyMember = getFamilyMemberList().get(i);
-//                familyMember.setTranslateX(0);
                 getContainer().getChildren().remove(familyMember);
             }
             setFamilyMemberList();
