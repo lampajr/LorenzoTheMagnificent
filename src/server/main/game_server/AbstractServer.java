@@ -45,10 +45,10 @@ public abstract class AbstractServer extends UnicastRemoteObject implements Serv
     /**
      * mi restituisce la prima partita libera, eventualmente appena creata
      * del tipo passato come parametro
-     * @param gameMode
-     * @return
+     * @param gameMode modalità di gioco
+     * @return l'istanza corretta della partita
      */
-    public Game getFreeGame(int gameMode) {
+    protected Game getFreeGame(int gameMode) {
         List<Game> games = new ArrayList<>();
         switch (gameMode){
             case RANDOM:

@@ -21,7 +21,7 @@ public interface Effect {
      * metodo nella maniera propriamente corretta.
      * @param player il giocatore che sta attivando l'effetto
      */
-    public void active(AbstractPlayer player) throws NewActionException;
+    void active(AbstractPlayer player) throws NewActionException;
 
 
 }

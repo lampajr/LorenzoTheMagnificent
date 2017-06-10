@@ -22,15 +22,15 @@ import java.util.*;
  * numero casuale per tabella e me la crea.
  */
 public class Excommunication {
-    private final String QUERY_PERIOD_1 = "SELECT * FROM excommunicatingcards WHERE period=1 AND id=";
-    private final String QUERY_PERIOD_2 = "SELECT * FROM excommunicatingcards WHERE period=2 AND id=";
-    private final String QUERY_PERIOD_3 = "SELECT * FROM excommunicatingcards WHERE period=3 AND id=";
+    private static final String QUERY_PERIOD_1 = "SELECT * FROM excommunicatingcards WHERE period=1 AND id=";
+    private static final String QUERY_PERIOD_2 = "SELECT * FROM excommunicatingcards WHERE period=2 AND id=";
+    private static final String QUERY_PERIOD_3 = "SELECT * FROM excommunicatingcards WHERE period=3 AND id=";
     private ConnectionDB connectionDB;
     private List<Effect> excomEffectList;
     private List<String> codeList;
     private Map<Integer,List<AbstractPlayer>> excomPlayerMap;
 
-    public Excommunication(){
+    Excommunication(){
         connectionDB = new ConnectionDB();
         excomEffectList = new ArrayList<>();
         codeList = new ArrayList<>();
@@ -102,7 +102,7 @@ public class Excommunication {
      * ritorna la lista dei codici delle tessere scomunica pescate
      * @return lista codici
      */
-    public List<String> getCodeList() {
+    List<String> getCodeList() {
         return codeList;
     }
 
@@ -112,7 +112,7 @@ public class Excommunication {
      * @param player giocatore
      * @throws NewActionException
      */
-    public void activeFirtsPeriod(AbstractPlayer player, int type) throws NewActionException {
+    void activeFirtsPeriod(AbstractPlayer player, int type) throws NewActionException {
         if (excomPlayerMap.get(1).contains(player)){
             if (type == 1 && (excomEffectList.get(0) instanceof ActionValueModifyingEffect ||
                                 excomEffectList.get(0) instanceof FamilyMemberValueDecrementEffect)){
@@ -130,7 +130,7 @@ public class Excommunication {
      * @param player giocatore
      * @throws NewActionException
      */
-    public void activeSecondPeriod(AbstractPlayer player) throws NewActionException {
+    void activeSecondPeriod(AbstractPlayer player) throws NewActionException {
         if (excomPlayerMap.get(2).contains(player)){
             excomEffectList.get(1).active(player);
             System.out.println("ho attivato l'effetto scomunica 2 periodo per " + player.getIdPlayer());
@@ -143,7 +143,7 @@ public class Excommunication {
      * @param player giocatore
      * @throws NewActionException
      */
-    public void activeThirdPeriod(AbstractPlayer player) throws  NewActionException {
+    void activeThirdPeriod(AbstractPlayer player) throws  NewActionException {
         if (excomPlayerMap.get(3).contains(player)){
             excomEffectList.get(2).active(player);
         }
@@ -154,7 +154,7 @@ public class Excommunication {
      * @param period periodo della scomunica
      * @param player giocatore da scomunicare
      */
-    public void addPlayer(int period, AbstractPlayer player) {
+    void addPlayer(int period, AbstractPlayer player) {
         excomPlayerMap.get(period).add(player);
         player.excommunicate(player.getIdPlayer(), period);
     }

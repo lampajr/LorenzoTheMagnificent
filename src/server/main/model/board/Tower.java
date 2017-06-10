@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Tower {
     private FloorActionSpace[] floorActionSpaces;
-    private CardType towerType;
+    private final CardType towerType;
 
     public Tower(CardType type, ResourceType resourceTypeQuickEffect){
         this.towerType = type;

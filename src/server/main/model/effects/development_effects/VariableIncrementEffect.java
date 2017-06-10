@@ -20,7 +20,7 @@ public class VariableIncrementEffect implements Effect{
 
     private Field field;
     private CardType cardType = null;
-    private ResourceType resourceType = null;
+    private ResourceType resourceType;
 
     /**
      * mi incrementa la risorsa field, di una quantità pari al numero
@@ -46,7 +46,7 @@ public class VariableIncrementEffect implements Effect{
             qta = field.getQta() * list.size();
         }
         else {
-            int tmp = player.getPersonalBoard().getQtaResources().get(ResourceType.MILITARY)/2;
+            int tmp = player.getPersonalBoard().getQtaResources().get(resourceType)/2;
             qta = field.getQta() * tmp;
         }
         Resource newRes = new Resource(qta, field.getType());
@@ -56,8 +56,9 @@ public class VariableIncrementEffect implements Effect{
     }
 
     /**
-     * @param cod
-     * @return
+     * metodo statico che mi genera un effetto
+     * @param cod codice dell'effetto
+     * @return istanza di VariableIncrementEffect
      */
     public static VariableIncrementEffect createInstance(String cod) {
         int qtaToIncrement = Integer.parseInt(cod.substring(0,1));

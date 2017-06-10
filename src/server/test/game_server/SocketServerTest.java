@@ -16,13 +16,12 @@ import static org.junit.Assert.*;
  * @author Luca
  */
 public class SocketServerTest {
-    private static SocketServer socketServer;
     private  ClientSocket client;
     private  ClientSocket client2;
 
     @BeforeClass
     public static void setupClass() throws RemoteException {
-        socketServer = new SocketServer();
+        SocketServer socketServer = new SocketServer();
     }
 
     @Before

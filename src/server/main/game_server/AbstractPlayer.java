@@ -93,7 +93,7 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
      */
     public void removeAllFamilyMembers(){
         personalBoard.removeAllFamilyMembers();
-    };
+    }
 
     public void activeExcommunicationEffects(Action action, int type) {
         personalBoard.setCurrentAction(action);

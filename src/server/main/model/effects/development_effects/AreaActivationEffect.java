@@ -1,9 +1,7 @@
 package server.main.model.effects.development_effects;
 
-import server.main.game_server.exceptions.NewActionException;
 import server.main.game_server.AbstractPlayer;
-
-import java.rmi.RemoteException;
+import server.main.game_server.exceptions.NewActionException;
 
 /**
  * @author Luca
@@ -26,8 +24,7 @@ public class AreaActivationEffect implements Effect{
     /**
      * Permette l' attivazione dell' azione
      * @param player il giocatore che sta attivando l'effetto
-     * @throws RemoteException
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione, non dovrebbe mai verificarsi
      */
     @Override
     public void active(AbstractPlayer player) throws NewActionException {
@@ -38,20 +35,20 @@ public class AreaActivationEffect implements Effect{
 
     /**
      * metodo che crea un effetto in base al tipo di area produzione false e harvest true
-     * @param c
-     * @param substring
-     * @return
+     * @param c caratte, indicante
+     * @param code codice
+     * @return istanza delll'effetto corretta
      */
-    public static Effect createInstance(char c, String substring) {
+    public static Effect createInstance(char c, String code) {
         int minValue = Integer.parseInt(c+"");
-        return new AreaActivationEffect(FixedIncrementEffect.createInstance(substring), minValue);
+        return new AreaActivationEffect(FixedIncrementEffect.createInstance(code), minValue);
     }
 
     /**
      * overloading del metodo precedente che viene chiamato quando ho un effetto permanente che incrementa
      * le risorse in base al numero di carte
-     * @param cod
-     * @return
+     * @param cod codice dell'effetto
+     * @return l'istanza corretta dell'effetto
      */
     public static Effect createInstance(String cod) {
         int minValue = Integer.parseInt(cod.charAt(0)+"");
@@ -62,9 +59,9 @@ public class AreaActivationEffect implements Effect{
     /**
      * ulteriore overloading del metodo precedente che crea l' effetto di conversione di due o più risorse,
      * quando richiamato da una zona produzione o raccolta
-     * @param increment
-     * @param decrement
-     * @return
+     * @param increment codice relativo alle risorse da incrementare
+     * @param decrement codice relativo alle risorse da decrementare
+     * @return istanza di AreaActiovationEffect
      */
     public static AreaActivationEffect createInstance(String increment, String decrement) {
         int minValue = Integer.parseInt(increment.charAt(0)+"");

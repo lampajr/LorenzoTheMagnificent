@@ -61,8 +61,8 @@ public class ActionValueModifyingEffect implements Effect {
     /**
      * Metodo creatore di un istanza di questa classe, che restituisce l' action space corrispondente e il valore
      * necessario per attivarlo
-     * @param cod
-     * @return
+     * @param cod codice dell'effetto
+     * @return l'istanza dell'effetto giusta
      */
     public static Effect createInstance(String cod) {
         int value = Integer.parseInt(cod.substring(1,2));

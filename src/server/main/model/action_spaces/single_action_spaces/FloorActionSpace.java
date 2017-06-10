@@ -10,8 +10,6 @@ import server.main.model.board.Tower;
 import server.main.model.effects.development_effects.FixedIncrementEffect;
 import server.main.model.fields.Resource;
 
-import java.rmi.RemoteException;
-
 /**
  * @author Luca
  * @author Andrea
@@ -44,10 +42,6 @@ public class FloorActionSpace extends ActionSpace {
         return developmentCard;
     }
 
-    public void removeCard(){
-        this.developmentCard = null;
-    }
-
     public CardType getCardType() {
         return cardType;
     }
@@ -57,7 +51,6 @@ public class FloorActionSpace extends ActionSpace {
      * attraverso il piazzamento legittimo del familiare
      * @param action l'azione da eseguire
      * @throws LorenzoException in caso di problemi
-     * @throws RemoteException in caso di problemi di connessione
      * @throws NewActionException in caso di effetto che mi consente una nuova mossa
      */
     @Override

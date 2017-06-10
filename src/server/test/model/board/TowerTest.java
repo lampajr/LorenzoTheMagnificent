@@ -24,19 +24,16 @@ import java.util.List;
  * @author Luca
  */
 public class TowerTest {
-    private static ServerRMI serverRMI;
-    private static ClientRMI client;
-    private static ClientRMI client2;
     private Tower tower;
     private List<DevelopmentCard> list;
     private Game game;
 
     @BeforeClass
     public void setupClass() throws RemoteException, AlreadyBoundException, NotBoundException {
-        serverRMI = new ServerRMI();
+        ServerRMI serverRMI = new ServerRMI();
         LocateRegistry.createRegistry(1099).bind("serverRMI", serverRMI);
-        client = new ClientRMI("andrea", "lol");
-        client2 = new ClientRMI("luca", "boss");
+        ClientRMI client = new ClientRMI("andrea", "lol");
+        ClientRMI client2 = new ClientRMI("luca", "boss");
         client.login();
         client.startGame(2);
         client2.login();

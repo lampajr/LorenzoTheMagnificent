@@ -17,13 +17,12 @@ import static org.junit.Assert.*;
  * @author lampa
  */
 public class ServerRMITest {
-    private static ServerRMI serverRMI;
     private static ClientRMI client;
     private static ClientRMI client2;
 
     @BeforeClass
     public static void setupClass() throws RemoteException, AlreadyBoundException {
-        serverRMI = new ServerRMI();
+        ServerRMI serverRMI = new ServerRMI();
         LocateRegistry.createRegistry(1099).bind("serverRMI", serverRMI);
         client = new ClientRMI("andrea", "lol");
         client2 = new ClientRMI("andrea", "wrvsdc");

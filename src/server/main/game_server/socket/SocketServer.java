@@ -59,7 +59,7 @@ public class SocketServer extends AbstractServer implements Runnable {
                 PlayerSocketRequest playerRequest = new PlayerSocketRequest(socketClient);
                 new Thread(playerRequest).start();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }
@@ -75,17 +75,21 @@ public class SocketServer extends AbstractServer implements Runnable {
 
         @Override
         public void run() {
+            String username;
+            String password;
             try {
                 int gameMode;
                 in = new ObjectInputStream(socket.getInputStream());
                 SocketProtocol msg = (SocketProtocol) in.readObject();
-                String username = (String) in.readObject();
-                String password = (String) in.readObject();
-                out = new ObjectOutputStream(socket.getOutputStream());
-                boolean resp = login(username, password);
-                System.out.println(resp);
-                out.writeBoolean(resp);
-                out.flush();
+                if (msg == SocketProtocol.LOGIN) {
+                    username = (String) in.readObject();
+                    password = (String) in.readObject();
+                    out = new ObjectOutputStream(socket.getOutputStream());
+                    boolean resp = login(username, password);
+                    System.out.println(resp);
+                    out.writeBoolean(resp);
+                    out.flush();
+                }
                 boolean isAssociated = false;
                 try{
                     while (!isAssociated) {

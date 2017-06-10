@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
  * @author Luca
  */
 public class ConnectionDBTest {
-    private ResultSet resultSet;
     private ConnectionDB connectionDB;
 
     @Before
@@ -24,7 +23,7 @@ public class ConnectionDBTest {
 
     @Test
     public void executeQuery() throws SQLException {
-        resultSet = connectionDB.executeQuery("SELECT * FROM cards WHERE name = \"badessa\"");
+        ResultSet resultSet = connectionDB.executeQuery("SELECT * FROM cards WHERE name = \"badessa\"");
         resultSet.next();
         assertEquals("badessa", resultSet.getString("name"));
     }
