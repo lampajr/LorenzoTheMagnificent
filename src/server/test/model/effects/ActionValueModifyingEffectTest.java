@@ -25,11 +25,11 @@ public class ActionValueModifyingEffectTest {
 
     @Before
     public void setup() throws RemoteException {
-        effect = new ActionValueModifyingEffect(new HarvestActionSpace(1), 2);
+        effect = new ActionValueModifyingEffect(new HarvestActionSpace(), 2);
         player = new PlayerRMI("andrea");
         player.createPersonalBoard(1);
-        action2 = new Action(new CouncilActionSpace(1), 2, player.getFamilyMember(FamilyMemberType.ORANGE_DICE), player);
-        action1 = new Action(new HarvestActionSpace(1), 2, player.getFamilyMember(FamilyMemberType.ORANGE_DICE), player);
+        action2 = new Action(new CouncilActionSpace(), 2, player.getFamilyMember(FamilyMemberType.ORANGE_DICE), player);
+        action1 = new Action(new HarvestActionSpace(), 2, player.getFamilyMember(FamilyMemberType.ORANGE_DICE), player);
     }
 
     @Test
