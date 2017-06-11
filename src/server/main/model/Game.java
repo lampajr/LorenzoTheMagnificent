@@ -536,6 +536,8 @@ public class Game {
      * @param player il giocatore che ha abbandonato
      */
     public void removePlayer(AbstractPlayer player) {
+        if (currentPlayer == player)
+            endMove(player);
         playerMap.remove(player.getIdPlayer());
         turnOrder.remove(player);
         numPlayers--;
@@ -560,7 +562,7 @@ public class Game {
          * di far cominciare la partita
          * @param seconds secondi
          */
-        public Timer (long seconds) {
+        Timer(long seconds) {
             this.MIN_INTERVAL_TO_START = seconds;
             this.start();
         }
