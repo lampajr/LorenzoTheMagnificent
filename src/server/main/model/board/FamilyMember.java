@@ -10,7 +10,7 @@ import api.types.FamilyMemberType;
  * dal FamilyMemberType che può essere di 4 tipi: orange, white, black, neutral
  */
 public class FamilyMember {
-    private PersonalBoard personalBoard;
+    private final PersonalBoard personalBoard;
     private int value;
     private boolean positioned;
     private final FamilyMemberType type;

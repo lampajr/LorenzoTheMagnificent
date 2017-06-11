@@ -33,7 +33,7 @@ public class PersonalBoard {
     //liste delle carte in possesso, al massimo 6 per tipo
     private Map<CardType, List<DevelopmentCard>> cardsMap;
     //id del giocatore e quindi della plancia
-    private int id;
+    private final int id;
     //lista dei correnti effetti
     private Field currentField = null;
     //azione corrente

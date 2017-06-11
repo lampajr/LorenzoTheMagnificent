@@ -21,8 +21,8 @@ import java.util.List;
 public class HarvestActionSpace extends ActionSpace {
     private List<Effect> bonusEffectList;
 
-    public HarvestActionSpace(int value){
-        super(value);
+    public HarvestActionSpace(){
+        super(1);
         initializeBonus();
     }
 
@@ -44,9 +44,7 @@ public class HarvestActionSpace extends ActionSpace {
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if (getMinValue() > action.getValue())
-            throw new LorenzoException("non hai abbastanza forza per eseguire l'azione");
-
+        checkValue(action.getValue()); //controllo se ho la forza necessaria
         setFamilyMember(action.getFamilyMember());
         for(Effect effect : bonusEffectList)
             effect.active(action.getPlayer());

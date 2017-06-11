@@ -7,18 +7,14 @@ import api.types.ResourceType;
  * @author Luca
  */
 public class MilitaryCost extends Resource{
-    private int minValue;
+    private final int minValue;
 
-    public MilitaryCost(int qta) {
-        super(qta, ResourceType.MILITARY);
-    }
-
-    public MilitaryCost(int qta, int minValue) {
+    private MilitaryCost(int qta, int minValue) {
         super(qta, ResourceType.MILITARY);
         this.minValue = minValue;
     }
 
-    public int getMinValue() {
+    int getMinValue() {
         return minValue;
     }
 

@@ -17,7 +17,7 @@ import server.main.model.fields.Resource;
  * di 4 tipi identificati da una enumerazione
  */
 public class MarketActionSpace extends ActionSpace {
-    private MarketActionType type;
+    private final MarketActionType type;
     private Effect additionalEffect;
 
     public MarketActionSpace(MarketActionType marketActionType){
@@ -53,9 +53,7 @@ public class MarketActionSpace extends ActionSpace {
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if (getMinValue() > action.getValue())
-            throw new LorenzoException("non hai abbastanza forza per effettuare l'azione");
-
+        checkValue(action.getValue()); //controlla se ho la forza necessaria
         setFamilyMember(action.getFamilyMember());
         getEffect().active(action.getPlayer());
         if (additionalEffect != null)

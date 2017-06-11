@@ -13,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.List;
 
 
 /**
@@ -24,10 +23,9 @@ import java.util.List;
  * ma qui i metodi verranno chiamati in seguito a messaggi provenienti dal client e codificati.
  */
 public class SocketServer extends AbstractServer implements Runnable {
-    private SocketServer socketServer;
-    private List<PlayerSocket> playerSocketList;
-    ServerSocket server = null;
-    int port = 4000;
+    private final SocketServer socketServer;
+    private ServerSocket server = null;
+    private static final int PORT = 4000;
 
     public SocketServer() throws RemoteException{
         this.socketServer = this;
@@ -46,11 +44,11 @@ public class SocketServer extends AbstractServer implements Runnable {
 
     public void run(){
         try {
-            server = new ServerSocket(port);
+            server = new ServerSocket(PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Waiting for connection in port:" + port);
+        System.out.println("Waiting for connection in PORT:" + PORT);
         while (true) {
             try {
                 System.out.println("......");
@@ -58,14 +56,16 @@ public class SocketServer extends AbstractServer implements Runnable {
                 System.out.println("Connection accepted from: " + socketClient.getInetAddress()); // potremmo togliere le sysout
                 PlayerSocketRequest playerRequest = new PlayerSocketRequest(socketClient);
                 new Thread(playerRequest).start();
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+            catch (IOException e) {
+                System.out.println("Server socket interrupted");
+                break;
             }
         }
     }
 
     public class PlayerSocketRequest implements Runnable{
-        private Socket socket;
+        private final Socket socket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
 

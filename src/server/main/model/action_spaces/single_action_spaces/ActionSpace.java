@@ -16,10 +16,10 @@ import server.main.model.effects.development_effects.Effect;
  */
 public abstract class ActionSpace implements ActionSpaceInterface {
     private FamilyMember familyMember;
-    private int minValue;
+    private final int minValue;
     private Effect effect;
 
-    public ActionSpace(int minValue){
+    ActionSpace(int minValue){
         this.minValue = minValue;
         familyMember = null;
     }
@@ -38,17 +38,28 @@ public abstract class ActionSpace implements ActionSpaceInterface {
 
     public void setFamilyMember(FamilyMember familyMember) throws LorenzoException {
         if (this.familyMember != null)
-            throw new LorenzoException("lo spazio azione è già occupato");
+            throw new LorenzoException("This action space is full!!");
         this.familyMember = familyMember;
+    }
+
+    /**
+     * metodo che mi controlla se l'azione ha forza sufficiente per attivare lo spazio azione.
+     * @param actionValue valore dell'azione
+     * @throws LorenzoException in caso non ce l'abbia viene lanciata una Lorenzo exception
+     */
+    void checkValue(int actionValue) throws LorenzoException {
+        if (getMinValue() > actionValue)
+            throw new LorenzoException("You haven't enough force to do this action!!");
     }
 
     public void removeFamilyMember(){
         this.familyMember=null;
     }
 
-     public int getMinValue() {
+    public int getMinValue() {
          return minValue;
      }
 
-     public abstract void doAction(Action action) throws LorenzoException, NewActionException;
+     @Override
+    public abstract void doAction(Action action) throws LorenzoException, NewActionException;
 }

@@ -12,8 +12,8 @@ import server.main.game_server.exceptions.NewActionException;
  * mio familiare.
  */
 public class ActionEffect implements Effect{
-    private int value;
-    private char codActionSpace;
+    private final int value;
+    private final char codActionSpace;
 
     private ActionEffect(char codActionSpace, int value) {
         this.codActionSpace = codActionSpace;

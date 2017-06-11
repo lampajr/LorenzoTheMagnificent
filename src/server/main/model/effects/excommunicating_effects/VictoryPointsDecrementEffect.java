@@ -16,9 +16,9 @@ import static server.main.model.effects.development_effects.EffectsCreator.*;
  * @author Andrea
  */
 public class VictoryPointsDecrementEffect implements Effect{
-    private List<ResourceType> resourceTypes;
+    private final List<ResourceType> resourceTypes;
 
-    public VictoryPointsDecrementEffect(List<ResourceType> resourceTypes) {
+    private VictoryPointsDecrementEffect(List<ResourceType> resourceTypes) {
         this.resourceTypes = resourceTypes;
     }
 
@@ -32,7 +32,7 @@ public class VictoryPointsDecrementEffect implements Effect{
         }));
     }
 
-    public static Effect createExcomInstance(String codEffect) {
+    static Effect createExcomInstance(String codEffect) {
         List<ResourceType> resourceTypes = new ArrayList<>();
         switch (codEffect.charAt(0)){
             case CHAR_RESOURCE:

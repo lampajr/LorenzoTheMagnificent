@@ -18,8 +18,8 @@ import java.util.List;
  * e me ne aggiunge altre.
  */
 public class ConvertionEffect implements Effect{
-    private List<Field> fieldToIncrement;
-    private List<Field> fieldToDecrement;
+    private final List<Field> fieldToIncrement;
+    private final List<Field> fieldToDecrement;
 
     /**
      * Costruttore della classe

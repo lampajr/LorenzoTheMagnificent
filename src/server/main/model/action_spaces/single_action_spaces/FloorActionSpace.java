@@ -19,8 +19,8 @@ import server.main.model.fields.Resource;
  */
 public class FloorActionSpace extends ActionSpace {
     private DevelopmentCard developmentCard;
-    private CardType cardType;
-    private Tower towerReference;
+    private final CardType cardType;
+    private final Tower towerReference;
 
     public FloorActionSpace(int value, CardType cardType, ResourceType resourceTypeQuickEffect, Tower towerReference) {
         super(value);
@@ -55,9 +55,7 @@ public class FloorActionSpace extends ActionSpace {
      */
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if (getMinValue() > action.getValue())
-            throw new LorenzoException("non hai abbastanza forza per eseguire l'azione!!");
-
+        checkValue(action.getValue()); //controllo se ho abbastanza forza per eseguire l'azione
         towerReference.checkOtherMyFamilyMember(this, action.getFamilyMember()); //controlla se ho già un familiare su questa torre
         developmentCard.checkDrawn(); //controlla se è già stata pescata o meno
         developmentCard.setPlayer(action.getPlayer()); //controlla se ho le risorse sufficienti, e se le ho mi setta il giocatore

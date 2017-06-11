@@ -17,8 +17,8 @@ import java.util.List;
 public class ProductionActionSpace extends ActionSpace{
     private List<Effect> bonusEffectList;
 
-    public ProductionActionSpace(int value){
-        super(value);
+    public ProductionActionSpace(){
+        super(1);
         initializeBonus();
     }
 
@@ -52,9 +52,7 @@ public class ProductionActionSpace extends ActionSpace{
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if (getMinValue() > action.getValue())
-            throw new LorenzoException("non hai abbastanza forza per eseguire l'azione");
-
+        checkValue(action.getValue()); //controlla se ho la forza necessaria
         setFamilyMember(action.getFamilyMember());
         for(Effect effect : bonusEffectList)
             effect.active(action.getPlayer());

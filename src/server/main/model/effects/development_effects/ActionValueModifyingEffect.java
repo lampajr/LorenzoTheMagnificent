@@ -18,9 +18,9 @@ import server.main.game_server.AbstractPlayer;
  */
 public class ActionValueModifyingEffect implements Effect {
     //incremento/decremento di valore dell'azione
-    private int changeValue;
+    private final int changeValue;
     //spazio azione sulla quale viene eseguita l'azione da incrementare
-    private ActionSpaceInterface actionSpace;
+    private final ActionSpaceInterface actionSpace;
 
     public ActionValueModifyingEffect(ActionSpaceInterface actionSpace, int changeValue) {
         this.actionSpace = actionSpace;
@@ -81,10 +81,10 @@ public class ActionValueModifyingEffect implements Effect {
                 actionSpace = new FloorActionSpace(1, CardType.VENTURES,null, null);
                 break;
             case EffectsCreator.CHAR_HARVEST:
-                actionSpace = new HarvestActionSpace(1);
+                actionSpace = new HarvestActionSpace();
                 break;
             case EffectsCreator.CHAR_PRODUCTION:
-                actionSpace = new ProductionActionSpace(1);
+                actionSpace = new ProductionActionSpace();
                 break;
         }
         return new ActionValueModifyingEffect(actionSpace,value);
@@ -94,9 +94,9 @@ public class ActionValueModifyingEffect implements Effect {
         ActionSpaceInterface actionSpace = null;
         switch (cod.charAt(0)){
             case EffectsCreator.CHAR_HARVEST:
-                return new ActionValueModifyingEffect(new HarvestActionSpace(1), -3);
+                return new ActionValueModifyingEffect(new HarvestActionSpace(), -3);
             case EffectsCreator.CHAR_PRODUCTION:
-                return new ActionValueModifyingEffect(new ProductionActionSpace(1), -3);
+                return new ActionValueModifyingEffect(new ProductionActionSpace(), -3);
             case EffectsCreator.CHAR_BUILDINGS:
                 actionSpace = new FloorActionSpace(1,CardType.BUILDING, null, null);
                 break;

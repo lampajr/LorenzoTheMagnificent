@@ -14,7 +14,7 @@ import server.main.model.fields.Resource;
  * parametro nel costruttore
  */
 public class FixedIncrementEffect implements Effect{
-    private Field field;
+    private final Field field;
 
     public FixedIncrementEffect(Field field){
         this.field = field;

@@ -13,7 +13,7 @@ import server.main.model.fields.Resource;
  * @author Andrea
  */
 public class ForEachGainDecrementEffect implements Effect {
-    private Field resource;
+    private final Field resource;
 
     private ForEachGainDecrementEffect(ResourceType resourceType){
         this.resource = new Resource(-1, resourceType);
@@ -27,7 +27,7 @@ public class ForEachGainDecrementEffect implements Effect {
         }
     }
 
-    public static Effect createExcomInstance(String codEffect) {
+    static Effect createExcomInstance(String codEffect) {
         switch (codEffect.charAt(0)){
             case EffectsCreator.CHAR_COIN:
                 return new ForEachGainDecrementEffect(ResourceType.COINS);

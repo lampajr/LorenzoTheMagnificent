@@ -299,12 +299,12 @@ public class ClientSocket extends AbstractClient implements Runnable{
                     }
 
                 } catch (ClassNotFoundException e) {
-                    System.out.println("server connection interrupted");
+                    System.out.println("Class not found");
                 }
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server connection interrupted");
         }
         finally {
             try {

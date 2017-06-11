@@ -25,11 +25,11 @@ public class MainServer {
     public static int counter2Players = 0;
     public static int counter3Players = 0;
     public static int counter4Players = 0;
-    public static Map<Integer,Game> randomGamesMap = Collections.synchronizedMap(new HashMap<>());
-    public static Map<Integer,Game> twoPlayerGamesMap = Collections.synchronizedMap(new HashMap<>());
-    public static Map<Integer,Game> threePlayersGamesMap = Collections.synchronizedMap(new HashMap<>());
-    public static Map<Integer,Game> fourPlayersGamesMap = Collections.synchronizedMap(new HashMap<>());
-    public static Map<String,String> playersMap = Collections.synchronizedMap(new HashMap<>());
+    public static final Map<Integer,Game> randomGamesMap = Collections.synchronizedMap(new HashMap<>());
+    public static final Map<Integer,Game> twoPlayerGamesMap = Collections.synchronizedMap(new HashMap<>());
+    public static final Map<Integer,Game> threePlayersGamesMap = Collections.synchronizedMap(new HashMap<>());
+    public static final Map<Integer,Game> fourPlayersGamesMap = Collections.synchronizedMap(new HashMap<>());
+    public static final Map<String,String> playersMap = Collections.synchronizedMap(new HashMap<>());
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         Registry registry = LocateRegistry.createRegistry(1099);

@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class VariableIncrementEffect implements Effect{
 
-    private Field field;
+    private final Field field;
     private CardType cardType = null;
     private ResourceType resourceType;
 

@@ -13,8 +13,8 @@ import server.main.game_server.exceptions.NewActionException;
  * di questo effetto.
  */
 public class AreaActivationEffect implements Effect{
-    private Effect effect;
-    private int minValue;
+    private final Effect effect;
+    private final int minValue;
 
     public AreaActivationEffect(Effect effect, int minValue){
         this.effect = effect;

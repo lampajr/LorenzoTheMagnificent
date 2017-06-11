@@ -30,7 +30,7 @@ import java.util.Map;
  * rappresenta il tabellone della partita.
  */
 public class Board {
-    private int numPlayers;
+    private final int numPlayers;
 
     private Map<CardType, Tower> towerMap;
     private HarvestActionSpace harvestActionSpace;
@@ -52,34 +52,19 @@ public class Board {
         initializeDecks();
     }
 
-    //rimuovere
-    public Map<MarketActionType, MarketActionSpace> getMarketActionSpaceMap(){
-        return marketActionSpaceMap;
-    }
-
-    //rimuovere
-    public LargeProductionActionSpace getLargeProductionActionSpace() {
-        return largeProductionActionSpace;
-    }
-
-    //rimuovere
-    public LargeHarvestActionSpace getLargeHarvestActionSpace() {
-        return largeHarvestActionSpace;
-    }
-
     /**
      * Metodo che inizializza gli spazi azione
      */
     private void initializeActionSpaces() {
         marketActionSpaceMap = new HashMap<>();
-        harvestActionSpace = new HarvestActionSpace(1);
-        productionActionSpace = new ProductionActionSpace(1);
-        councilActionSpace = new CouncilActionSpace(1);
+        harvestActionSpace = new HarvestActionSpace();
+        productionActionSpace = new ProductionActionSpace();
+        councilActionSpace = new CouncilActionSpace();
         marketActionSpaceMap.put(MarketActionType.YELLOW,new MarketActionSpace(MarketActionType.YELLOW));
         marketActionSpaceMap.put(MarketActionType.PURPLE,new MarketActionSpace(MarketActionType.PURPLE));
         if (numPlayers > 2) {
-            largeHarvestActionSpace = new LargeHarvestActionSpace(1);
-            largeProductionActionSpace = new LargeProductionActionSpace(1);
+            largeHarvestActionSpace = new LargeHarvestActionSpace();
+            largeProductionActionSpace = new LargeProductionActionSpace();
         }
 //        if(numPlayers > 3) {
             marketActionSpaceMap.put(MarketActionType.BLUE,new MarketActionSpace(MarketActionType.BLUE));
@@ -154,24 +139,12 @@ public class Board {
         towerMap.get(CardType.VENTURES).setCards(developmentDeck.drawCards(period,turn,CardType.VENTURES));
     }
 
-    public List<DevelopmentCard> getCardsFromTower(CardType cardType){
-        return towerMap.get(cardType).getCards();
-    }
-
     /**
      * mi ritorna una lista di familiare in ordine di posizionamento
      * @return lista di familiari
      */
     public List<FamilyMember> getOrder() {
         return councilActionSpace.getFamilyMembers();
-    }
-
-    /**
-     * ritorna l'azione corrente
-     * @return Action
-     */
-    public Action getCurrentAction() {
-        return currentAction;
     }
 
     /**

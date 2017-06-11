@@ -18,10 +18,11 @@ import java.util.List;
  * classe che mi rappresenta lo spazio azione raccolta grande.
  */
 public class LargeHarvestActionSpace extends LargeActionSpace{
+    private static final int decrement = -3;
     private List<Effect> bonusEffectList;
 
-    public LargeHarvestActionSpace(int value) {
-        super(value+3);
+    public LargeHarvestActionSpace() {
+        super();
         initializeBonus();
     }
 
@@ -40,9 +41,8 @@ public class LargeHarvestActionSpace extends LargeActionSpace{
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if(getValue() > action.getValue())
-            throw new LorenzoException("la tua azione non ha abbastanza forza!!");
-
+        action.modifyValue(decrement); //decremento la forza dell'azione di 3, effetto
+        checkValue(action.getValue()); //controllo se ho la forza sufficiente
         addFamilyMember(action.getFamilyMember());
         for (Effect effect : bonusEffectList){
             effect.active(action.getPlayer());

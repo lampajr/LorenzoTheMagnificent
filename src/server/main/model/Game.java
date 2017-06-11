@@ -29,12 +29,12 @@ public class Game {
     private int numPlayers;
     private int period=1,turn=1,lap=1;
     private Board board;
-    private Map<Integer, AbstractPlayer> playerMap;
+    private final Map<Integer, AbstractPlayer> playerMap;
     private List<AbstractPlayer> turnOrder;
     private AbstractPlayer currentPlayer;
     private Phases phase = Phases.ACTION;
     //1->random; 2->2giocatori; 3->3giocatori; 4->4giocatori
-    private int gameMode; //automaticamente mi indica il numero di giocatori che devo attendere
+    private final int gameMode; //automaticamente mi indica il numero di giocatori che devo attendere
 
 
     public Game(int gameMode) {
@@ -144,7 +144,7 @@ public class Game {
     /**
      * metodo che controlla se è il turno del giocatore passato come parametro
      * @param player giocatore da controllare
-     * @throws LorenzoException
+     * @throws LorenzoException in caso di errori nella mossa
      */
     public void checkTurn(AbstractPlayer player) throws LorenzoException {
         if (player != currentPlayer)
@@ -154,7 +154,7 @@ public class Game {
     /**
      * controlla se il familiare è già posizionato
      * @param familyMember familiare da controllare
-     * @throws LorenzoException
+     * @throws LorenzoException in caso di errori nella mossa
      */
     private void isAlreadyPositioned(FamilyMember familyMember) throws LorenzoException {
         if (familyMember.isPositioned())
@@ -163,7 +163,7 @@ public class Game {
 
     /**
      * controlla se la partita è cominciata
-     * @throws LorenzoException
+     * @throws LorenzoException in caso di errori nella mossa
      */
     private void isStarted() throws LorenzoException {
         if (!isStarted)
@@ -224,7 +224,7 @@ public class Game {
      * attiva il primo periodo
      * @param action azione
      * @param type tipo di effetto da verificare
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione
      */
     public void activeFirstPeriodExcommunication(Action action, int type) throws NewActionException {
         board.activeFirstPeriodExcommunication(action, type);
@@ -233,7 +233,7 @@ public class Game {
     /**
      * attiva effetti del secondo periodo
      * @param action azione
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione
      */
     public void activeSecondPeriodExcommunication(Action action) throws NewActionException {
         board.activeSecondPeriodExcommunication(action);
@@ -243,7 +243,7 @@ public class Game {
      * attiva effetti delle tessere scomunica del terzo periodo
      * @param player giocatore su cui attivare la scomunica
      */
-    public void activeThirdPeriodExcommunication(AbstractPlayer player) {
+    private void activeThirdPeriodExcommunication(AbstractPlayer player) {
         try {
             board.activeThirdPeriodExcommunication(player);
         }
@@ -373,12 +373,7 @@ public class Game {
                     }
                 }
             }
-        }
-        catch (NewActionException e) {
-            e.printStackTrace();
-            //non dovrebbe mai verificarsi
-        }
-        catch (LorenzoException e) {
+        } catch (LorenzoException e) {
             player.notifyError(e.getMessage());
         }
 
@@ -387,7 +382,7 @@ public class Game {
     /**
      * controlla se è finito il turno.
      */
-    private void endLap() throws NewActionException {
+    private void endLap() {
         if (lap == 1 && phase == Phases.EXCOMMUNICATION){
             lap = 1;
             System.out.println("END EXCOMMUNICATION TURN");
@@ -409,7 +404,7 @@ public class Game {
     /**
      * controlla se è finito il periodo, cioè questo è l'ultimo turno di costui
      */
-    private void endTurn() throws NewActionException {
+    private void endTurn() {
         if(turn == 2 && phase == Phases.ACTION){
             turn++;
             phase = Phases.EXCOMMUNICATION;
@@ -433,7 +428,7 @@ public class Game {
     /**
      * controlla se è l'ultimo periodo, cioè è finita la partita.
      */
-    private void endPeriod() throws NewActionException {
+    private void endPeriod() {
         if(period == 3){
             endGame();
         }

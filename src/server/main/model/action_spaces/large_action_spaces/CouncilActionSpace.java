@@ -21,8 +21,8 @@ import java.util.List;
 public class CouncilActionSpace extends LargeActionSpace {
     private List<Effect> bonusEffectList;
 
-    public CouncilActionSpace(int value){
-        super(value);
+    public CouncilActionSpace(){
+        super();
         initializeBonus();
     }
 
@@ -38,9 +38,7 @@ public class CouncilActionSpace extends LargeActionSpace {
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if (getValue() > action.getValue())
-            throw new LorenzoException("non hai abbastanza forza!!");
-
+        checkValue(action.getValue()); //controllo se ho la forza sufficiente
         addFamilyMember(action.getFamilyMember());
         for (Effect effect : bonusEffectList) {
             effect.active(action.getPlayer());

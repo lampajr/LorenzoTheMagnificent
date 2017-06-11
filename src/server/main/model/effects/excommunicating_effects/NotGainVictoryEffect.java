@@ -10,7 +10,7 @@ import server.main.model.effects.development_effects.EffectsCreator;
  * @author lampa
  */
 public class NotGainVictoryEffect implements Effect {
-    private CardType cardType;
+    private final CardType cardType;
 
     private NotGainVictoryEffect(CardType cardType){
         this.cardType = cardType;

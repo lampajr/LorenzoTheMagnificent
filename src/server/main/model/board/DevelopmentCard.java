@@ -43,10 +43,6 @@ public class DevelopmentCard {
         return name;
     }
 
-    public List<Field> getCosts() {
-        return costs;
-    }
-
     public AbstractPlayer getPlayer() {
         return player;
     }

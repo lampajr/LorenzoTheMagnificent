@@ -26,13 +26,13 @@ public class DevelopmentDeck {
     //query che uso sempre per interrogare il db
     private static final String QUERY_CARDS = "SELECT * FROM cards WHERE type = ";
 
-    private ConnectionDB connectionDB;
+    private final ConnectionDB connectionDB;
 
     //saranno tutte liste di 24 carte ciascuna
-    private List<DevelopmentCard> territoriesList;
-    private List<DevelopmentCard> charactersList;
-    private List<DevelopmentCard> buildingsList;
-    private List<DevelopmentCard> venturesList;
+    private final List<DevelopmentCard> territoriesList;
+    private final List<DevelopmentCard> charactersList;
+    private final List<DevelopmentCard> buildingsList;
+    private final List<DevelopmentCard> venturesList;
 
 
     public DevelopmentDeck() {

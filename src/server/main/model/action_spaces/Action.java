@@ -16,7 +16,7 @@ public class Action {
     private final FamilyMember familyMember;
     private final ActionSpaceInterface actionSpace;
     private int value;
-    private AbstractPlayer player;
+    private final AbstractPlayer player;
 
     public Action(ActionSpaceInterface actionSpace, int value, FamilyMember familyMember, AbstractPlayer player){
         this.actionSpace = actionSpace;

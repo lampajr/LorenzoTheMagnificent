@@ -19,7 +19,7 @@ import java.util.List;
  * spazio azione, ciascuna torre avrà carte sviluppo di un solo tipo
  */
 public class Tower {
-    private FloorActionSpace[] floorActionSpaces;
+    private final FloorActionSpace[] floorActionSpaces;
     private final CardType towerType;
 
     public Tower(CardType type, ResourceType resourceTypeQuickEffect){
@@ -46,7 +46,7 @@ public class Tower {
     /**
      * metodo che elimina tutti i familiari alla fine di ogni turno
      */
-    public void removeFamilyMembers(){
+    void removeFamilyMembers(){
         for(int i = 0 ; i<4 ; i++){
             floorActionSpaces[i].removeFamilyMember();
         }

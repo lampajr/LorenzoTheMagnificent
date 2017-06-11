@@ -21,14 +21,14 @@ import java.util.*;
  * per la partia ne serviranno solo una per periodo, la classe mi estrae un
  * numero casuale per tabella e me la crea.
  */
-public class Excommunication {
+class Excommunication {
     private static final String QUERY_PERIOD_1 = "SELECT * FROM excommunicatingcards WHERE period=1 AND id=";
     private static final String QUERY_PERIOD_2 = "SELECT * FROM excommunicatingcards WHERE period=2 AND id=";
     private static final String QUERY_PERIOD_3 = "SELECT * FROM excommunicatingcards WHERE period=3 AND id=";
-    private ConnectionDB connectionDB;
-    private List<Effect> excomEffectList;
-    private List<String> codeList;
-    private Map<Integer,List<AbstractPlayer>> excomPlayerMap;
+    private final ConnectionDB connectionDB;
+    private final List<Effect> excomEffectList;
+    private final List<String> codeList;
+    private final Map<Integer,List<AbstractPlayer>> excomPlayerMap;
 
     Excommunication(){
         connectionDB = new ConnectionDB();
@@ -110,7 +110,7 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 1
      * @param player giocatore
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione
      */
     void activeFirtsPeriod(AbstractPlayer player, int type) throws NewActionException {
         if (excomPlayerMap.get(1).contains(player)){
@@ -128,7 +128,7 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 2
      * @param player giocatore
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione
      */
     void activeSecondPeriod(AbstractPlayer player) throws NewActionException {
         if (excomPlayerMap.get(2).contains(player)){
@@ -141,7 +141,7 @@ public class Excommunication {
      * mi attiva la scomunica al giocatore passato come parametro solo se risulta essere
      * nella lista degli scomunicati per il periodo 3
      * @param player giocatore
-     * @throws NewActionException
+     * @throws NewActionException in caso di nuova azione
      */
     void activeThirdPeriod(AbstractPlayer player) throws  NewActionException {
         if (excomPlayerMap.get(3).contains(player)){
@@ -158,18 +158,4 @@ public class Excommunication {
         excomPlayerMap.get(period).add(player);
         player.excommunicate(player.getIdPlayer(), period);
     }
-
-    public List<Effect> getExcomCardList() {
-        return excomEffectList;
-    }
-
-    /**
-     * dato il periodo mi ritorna l'effetto scomunica relativo
-     * @param period periodo da cercare
-     * @return l'effetto
-     */
-    public Effect getExcommunicatingEffect(int period){
-        return excomEffectList.get(period-1);
-    }
-
 }

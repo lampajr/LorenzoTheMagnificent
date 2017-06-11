@@ -17,12 +17,12 @@ import java.util.List;
  * Generalizza gli spazi azione multipli
  */
 public abstract class LargeActionSpace implements ActionSpaceInterface {
-    private int value;
+    private final int minValue;
     private List<FamilyMember> familyMembers;
     private List<Effect> effects;
 
-    public LargeActionSpace(int value){
-        this.value = value;
+    LargeActionSpace(){
+        this.minValue = 1;
         this.familyMembers = new ArrayList<>();
     }
 
@@ -46,9 +46,20 @@ public abstract class LargeActionSpace implements ActionSpaceInterface {
         this.familyMembers = new ArrayList<>();
     }
 
-    public int getValue() {
-        return value;
+    private int getMinValue() {
+        return minValue;
     }
 
+    /**
+     * metodo che mi controlla se l'azione ha forza sufficiente per attivare lo spazio azione.
+     * @param actionValue valore dell'azione
+     * @throws LorenzoException in caso non ce l'abbia viene lanciata una Lorenzo exception
+     */
+    void checkValue(int actionValue) throws LorenzoException {
+        if (getMinValue() > actionValue)
+            throw new LorenzoException("You haven't enough force to do this action!!");
+    }
+
+    @Override
     public abstract void doAction(Action action) throws LorenzoException, NewActionException;
 }

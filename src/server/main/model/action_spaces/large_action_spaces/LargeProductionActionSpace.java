@@ -19,10 +19,11 @@ import java.util.List;
  * che possono essere di produzione e di raccolta
  */
 public class LargeProductionActionSpace extends LargeActionSpace {
+    private static final int decrement = -3;
     private List<Effect> bonusEffectList;
 
-    public LargeProductionActionSpace(int value){
-        super(value+3);
+    public LargeProductionActionSpace(){
+        super();
         initializeBonus();
     }
 
@@ -41,9 +42,8 @@ public class LargeProductionActionSpace extends LargeActionSpace {
 
     @Override
     public void doAction(Action action) throws LorenzoException, NewActionException {
-        if(getValue() > action.getValue())
-            throw new LorenzoException("la tua azione non ha abbastanza forza!!");
-
+        action.modifyValue(decrement); //decremento la forza dell'azione di 3, effetto
+        checkValue(action.getValue()); //controllo se ho la forza sufficiente
         addFamilyMember(action.getFamilyMember());
         for (Effect effect : bonusEffectList){
             effect.active(action.getPlayer());
@@ -52,5 +52,4 @@ public class LargeProductionActionSpace extends LargeActionSpace {
         //attivo gli effetti delle carte territorio
         action.getPlayer().getPersonalBoard().activeBuildingsEffects(action);
     }
-
 }
