@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>server.main_server.model.action_spaces</OriginalElement>
+  <nodes>
+    <node x="1504.0" y="459.5">server.main_server.model.action_spaces.single_action_spaces.MarketActionSpace</node>
+    <node x="1797.0" y="446.5">server.main_server.model.action_spaces.single_action_spaces.ProductionActionSpace</node>
+    <node x="294.43371212121235" y="114.0">server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace</node>
+    <node x="0.0" y="460.0">server.main_server.model.action_spaces.large_action_spaces.CouncilActionSpace</node>
+    <node x="1707.5" y="155.0">server.main_server.model.action_spaces.Action</node>
+    <node x="1175.0" y="460.0">server.main_server.model.action_spaces.single_action_spaces.HarvestActionSpace</node>
+    <node x="329.0000000000001" y="446.5">server.main_server.model.action_spaces.large_action_spaces.LargeHarvestActionSpace</node>
+    <node x="1282.5" y="141.0">server.main_server.model.action_spaces.single_action_spaces.ActionSpace</node>
+    <node x="586.0000000000001" y="446.5">server.main_server.model.action_spaces.large_action_spaces.LargeProductionActionSpace</node>
+    <node x="861.0000000000001" y="446.0">server.main_server.model.action_spaces.single_action_spaces.FloorActionSpace</node>
+    <node x="1369.0" y="0.0">server.main_server.model.action_spaces.ActionSpaceInterface</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="server.main_server.model.action_spaces.Action" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-100.0" />
+      <point x="1872.0" y="89.0" />
+      <point x="1562.3333333333335" y="89.0" />
+      <point x="77.33333333333326" y="32.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeProductionActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-73.0" />
+      <point x="713.5000000000001" y="426.0" />
+      <point x="567.7670454545456" y="426.0" />
+      <point x="109.33333333333326" y="141.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces.MarketActionSpace" target="server.main_server.model.action_spaces.single_action_spaces.ActionSpace">
+      <point x="0.0" y="-60.0" />
+      <point x="1640.5" y="426.0" />
+      <point x="1535.625" y="426.0" />
+      <point x="50.625" y="114.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-141.0" />
+      <point x="458.43371212121235" y="89.0" />
+      <point x="1407.6666666666667" y="89.0" />
+      <point x="-77.33333333333337" y="32.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.CouncilActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-59.5" />
+      <point x="154.5" y="426.0" />
+      <point x="349.100378787879" y="426.0" />
+      <point x="-109.33333333333331" y="141.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces.FloorActionSpace" target="server.main_server.model.action_spaces.single_action_spaces.ActionSpace">
+      <point x="0.0" y="-73.5" />
+      <point x="1008.0000000000001" y="416.0" />
+      <point x="1333.125" y="416.0" />
+      <point x="-151.875" y="114.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces.ProductionActionSpace" target="server.main_server.model.action_spaces.single_action_spaces.ActionSpace">
+      <point x="0.0" y="-73.0" />
+      <point x="1961.5" y="416.0" />
+      <point x="1636.875" y="416.0" />
+      <point x="151.875" y="114.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeHarvestActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-73.0" />
+      <point x="447.5000000000001" y="426.0" />
+      <point x="458.43371212121235" y="426.0" />
+      <point x="0.0" y="141.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces.ActionSpace" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-114.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces.HarvestActionSpace" target="server.main_server.model.action_spaces.single_action_spaces.ActionSpace">
+      <point x="0.0" y="-59.5" />
+      <point x="1329.5" y="426.0" />
+      <point x="1434.375" y="426.0" />
+      <point x="-50.625" y="114.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="245.5" y="103.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

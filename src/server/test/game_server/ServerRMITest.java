@@ -3,8 +3,8 @@ package server.test.game_server;
 import client.main.client.ClientRMI;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import server.main.MainServer;
-import server.main.game_server.rmi.ServerRMI;
+import server.main_server.MainServer;
+import server.main_server.game_server.rmi.ServerRMI;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;

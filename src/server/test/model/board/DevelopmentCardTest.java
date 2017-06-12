@@ -2,15 +2,15 @@ package server.test.model.board;
 
 import api.types.CardType;
 import api.types.ResourceType;
-import server.main.game_server.AbstractPlayer;
-import server.main.game_server.exceptions.LorenzoException;
-import server.main.game_server.rmi.PlayerRMI;
-import server.main.model.board.DevelopmentCard;
-import server.main.model.effects.development_effects.AreaActivationEffect;
-import server.main.model.effects.development_effects.Effect;
-import server.main.model.effects.development_effects.FixedIncrementEffect;
-import server.main.model.fields.Field;
-import server.main.model.fields.Resource;
+import server.main_server.game_server.AbstractPlayer;
+import server.main_server.game_server.exceptions.LorenzoException;
+import server.main_server.game_server.rmi.PlayerRMI;
+import server.main_server.model.board.DevelopmentCard;
+import server.main_server.model.effects.development_effects.AreaActivationEffect;
+import server.main_server.model.effects.development_effects.Effect;
+import server.main_server.model.effects.development_effects.FixedIncrementEffect;
+import server.main_server.model.fields.Field;
+import server.main_server.model.fields.Resource;
 import org.junit.Before;
 import org.junit.Test;
 

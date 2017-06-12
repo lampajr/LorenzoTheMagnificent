@@ -4,10 +4,10 @@ import api.types.CardType;
 import api.types.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
-import server.main.game_server.rmi.PlayerRMI;
-import server.main.model.board.DevelopmentCard;
-import server.main.model.effects.development_effects.VariableIncrementEffect;
-import server.main.model.fields.Resource;
+import server.main_server.game_server.rmi.PlayerRMI;
+import server.main_server.model.board.DevelopmentCard;
+import server.main_server.model.effects.development_effects.VariableIncrementEffect;
+import server.main_server.model.fields.Resource;
 
 import java.rmi.RemoteException;
 

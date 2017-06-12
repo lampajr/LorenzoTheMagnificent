@@ -1,8 +1,8 @@
 package server.test.model.board;
 
 import api.types.FamilyMemberType;
-import server.main.model.board.FamilyMember;
-import server.main.model.board.PersonalBoard;
+import server.main_server.model.board.FamilyMember;
+import server.main_server.model.board.PersonalBoard;
 import org.junit.Before;
 import org.junit.Test;
 

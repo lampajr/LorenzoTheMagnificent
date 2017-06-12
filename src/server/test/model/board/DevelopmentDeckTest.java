@@ -1,8 +1,8 @@
 package server.test.model.board;
 
 import api.types.CardType;
-import server.main.model.board.DevelopmentCard;
-import server.main.model.board.DevelopmentDeck;
+import server.main_server.model.board.DevelopmentCard;
+import server.main_server.model.board.DevelopmentDeck;
 import org.junit.Before;
 import org.junit.Test;
 

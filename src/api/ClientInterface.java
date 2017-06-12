@@ -58,7 +58,7 @@ public interface ClientInterface extends Remote{
     void notifyMessage(String msg) throws RemoteException;
 
     /**
-     * serve per notificare al main.client il valore dei dadi tirati a inizio di turno
+     * serve per notificare al main_server.client il valore dei dadi tirati a inizio di turno
      * @param orange
      * @param white
      * @param black
@@ -73,7 +73,7 @@ public interface ClientInterface extends Remote{
     void notifyHaveToShotDice() throws RemoteException;
 
     /**
-     * metodo che mi notifica al main.client che deve fare una nuova azione del tipo
+     * metodo che mi notifica al main_server.client che deve fare una nuova azione del tipo
      * identificato dal codeAction e del valore di value
      * @param value valore dell'azione
      * @param codeAction codice dell'azione (spazio azione)

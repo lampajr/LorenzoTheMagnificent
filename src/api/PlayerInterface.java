@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
  * @author Andrea
  *
  * interfaccia implementata nel server che avrà tutti i metodi comuni tra
- * i due "tipi di giocatori" e vengono invocati su richiesta del main.client
+ * i due "tipi di giocatori" e vengono invocati su richiesta del main_server.client
  */
 public interface PlayerInterface extends Remote {
 
@@ -35,7 +35,7 @@ public interface PlayerInterface extends Remote {
 
 
     /**
-     * mi aggiunge all'oggetto player la sua main.client interface
+     * mi aggiunge all'oggetto player la sua main_server.client interface
      * @param clientInterface l'interfacccia client del giocatore
      * @throws RemoteException problemi con rmi
      */

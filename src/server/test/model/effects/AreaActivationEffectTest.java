@@ -2,12 +2,12 @@ package server.test.model.effects;
 
 import org.junit.Before;
 import org.junit.Test;
-import server.main.game_server.exceptions.NewActionException;
-import server.main.game_server.rmi.PlayerRMI;
-import server.main.model.action_spaces.Action;
-import server.main.model.effects.development_effects.AreaActivationEffect;
-import server.main.model.effects.development_effects.FixedIncrementEffect;
-import server.main.model.fields.Resource;
+import server.main_server.game_server.exceptions.NewActionException;
+import server.main_server.game_server.rmi.PlayerRMI;
+import server.main_server.model.action_spaces.Action;
+import server.main_server.model.effects.development_effects.AreaActivationEffect;
+import server.main_server.model.effects.development_effects.FixedIncrementEffect;
+import server.main_server.model.fields.Resource;
 
 import java.rmi.RemoteException;
 

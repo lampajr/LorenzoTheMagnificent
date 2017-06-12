@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>server.main_server</OriginalElement>
+  <nodes>
+    <node x="0.0" y="420.0">server.main_server.model.fields</node>
+    <node x="365.0" y="420.0">server.main_server.model.action_spaces.Action</node>
+    <node x="253.0" y="87.0">server.main_server.model.action_spaces.single_action_spaces</node>
+    <node x="191.0" y="338.0">server.main_server.model.board</node>
+    <node x="147.0" y="169.0">server.main_server.game_server</node>
+    <node x="0.0" y="169.0">server.main_server.model.Game</node>
+    <node x="0.0" y="87.0">server.main_server.model.action_spaces.large_action_spaces</node>
+    <node x="183.0" y="420.0">server.main_server.MainServer</node>
+    <node x="0.0" y="338.0">server.main_server.model.effects</node>
+    <node x="0.5" y="256.0">server.main_server.model.Game.Timer</node>
+    <node x="142.25" y="0.0">server.main_server.model.action_spaces.ActionSpaceInterface</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-18.5" />
+      <point x="372.0" y="62.0" />
+      <point x="295.25" y="62.0" />
+      <point x="51.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.Game.Timer" target="server.main_server.model.Game">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-18.5" />
+      <point x="116.5" y="62.0" />
+      <point x="193.25" y="62.0" />
+      <point x="-51.0" y="18.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="92.5" y="181.0" />
+  <SelectedNodes>
+    <node>server.main_server.model.board</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

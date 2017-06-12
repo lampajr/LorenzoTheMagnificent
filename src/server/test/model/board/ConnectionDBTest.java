@@ -1,6 +1,6 @@
 package server.test.model.board;
 
-import server.main.model.board.ConnectionDB;
+import server.main_server.model.board.ConnectionDB;
 import org.junit.Before;
 import org.junit.Test;
 

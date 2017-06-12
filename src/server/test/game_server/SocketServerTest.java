@@ -4,8 +4,8 @@ import client.main.client.ClientSocket;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import server.main.MainServer;
-import server.main.game_server.socket.SocketServer;
+import server.main_server.MainServer;
+import server.main_server.game_server.socket.SocketServer;
 
 import java.rmi.RemoteException;
 

@@ -3,11 +3,11 @@ package server.test.model.effects;
 import api.types.FamilyMemberType;
 import org.junit.Before;
 import org.junit.Test;
-import server.main.game_server.rmi.PlayerRMI;
-import server.main.model.action_spaces.Action;
-import server.main.model.action_spaces.large_action_spaces.CouncilActionSpace;
-import server.main.model.action_spaces.single_action_spaces.HarvestActionSpace;
-import server.main.model.effects.development_effects.ActionValueModifyingEffect;
+import server.main_server.game_server.rmi.PlayerRMI;
+import server.main_server.model.action_spaces.Action;
+import server.main_server.model.action_spaces.large_action_spaces.CouncilActionSpace;
+import server.main_server.model.action_spaces.single_action_spaces.HarvestActionSpace;
+import server.main_server.model.effects.development_effects.ActionValueModifyingEffect;
 
 import java.rmi.RemoteException;
 

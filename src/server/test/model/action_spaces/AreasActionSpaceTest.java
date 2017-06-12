@@ -2,12 +2,12 @@ package server.test.model.action_spaces;
 
 import org.junit.Before;
 import org.junit.Test;
-import server.main.game_server.exceptions.LorenzoException;
-import server.main.game_server.exceptions.NewActionException;
-import server.main.game_server.rmi.PlayerRMI;
-import server.main.model.action_spaces.Action;
-import server.main.model.action_spaces.single_action_spaces.HarvestActionSpace;
-import server.main.model.action_spaces.single_action_spaces.ProductionActionSpace;
+import server.main_server.game_server.exceptions.LorenzoException;
+import server.main_server.game_server.exceptions.NewActionException;
+import server.main_server.game_server.rmi.PlayerRMI;
+import server.main_server.model.action_spaces.Action;
+import server.main_server.model.action_spaces.single_action_spaces.HarvestActionSpace;
+import server.main_server.model.action_spaces.single_action_spaces.ProductionActionSpace;
 
 import java.rmi.RemoteException;
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>server.main_server.model</OriginalElement>
+  <nodes>
+    <node x="275.0" y="174.0">server.main_server.model.action_spaces.large_action_spaces.CouncilActionSpace</node>
+    <node x="0.0" y="343.0">server.main_server.model.effects.excommunicating_effects.ForEachGainDecrementEffect</node>
+    <node x="276.0" y="343.0">server.main_server.model.effects.excommunicating_effects.FamilyMemberValueDecrementEffect</node>
+    <node x="484.0" y="87.0">server.main_server.model.action_spaces.single_action_spaces</node>
+    <node x="463.5" y="256.0">server.main_server.model.effects.development_effects</node>
+    <node x="334.0" y="507.0">server.main_server.model.Game</node>
+    <node x="606.0" y="343.0">server.main_server.model.effects.excommunicating_effects.VictoryPointsDecrementEffect</node>
+    <node x="385.75" y="0.0">server.main_server.model.action_spaces.ActionSpaceInterface</node>
+    <node x="0.0" y="507.0">server.main_server.model.fields</node>
+    <node x="281.0" y="87.0">server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace</node>
+    <node x="0.0" y="425.0">server.main_server.model.effects.excommunicating_effects.ExcommunicatingEffectCreator</node>
+    <node x="183.0" y="507.0">server.main_server.model.action_spaces.Action</node>
+    <node x="490.0" y="174.0">server.main_server.model.action_spaces.large_action_spaces.LargeHarvestActionSpace</node>
+    <node x="313.0" y="425.0">server.main_server.model.board</node>
+    <node x="886.0" y="343.0">server.main_server.model.effects.excommunicating_effects.NotGainVictoryEffect</node>
+    <node x="0.0" y="174.0">server.main_server.model.action_spaces.large_action_spaces.LargeProductionActionSpace</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeProductionActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-18.5" />
+      <point x="127.5" y="149.0" />
+      <point x="311.5" y="149.0" />
+      <point x="-61.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.single_action_spaces" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-18.5" />
+      <point x="603.0" y="62.0" />
+      <point x="538.75" y="62.0" />
+      <point x="51.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace" target="server.main_server.model.action_spaces.ActionSpaceInterface">
+      <point x="0.0" y="-18.5" />
+      <point x="372.5" y="62.0" />
+      <point x="436.75" y="62.0" />
+      <point x="-51.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.effects.excommunicating_effects.ForEachGainDecrementEffect" target="server.main_server.model.effects.development_effects">
+      <point x="0.0" y="-18.5" />
+      <point x="128.0" y="313.0" />
+      <point x="493.5" y="313.0" />
+      <point x="-90.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.CouncilActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.effects.excommunicating_effects.FamilyMemberValueDecrementEffect" target="server.main_server.model.effects.development_effects">
+      <point x="0.0" y="-18.5" />
+      <point x="431.0" y="323.0" />
+      <point x="553.5" y="323.0" />
+      <point x="-30.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.effects.excommunicating_effects.VictoryPointsDecrementEffect" target="server.main_server.model.effects.development_effects">
+      <point x="0.0" y="-18.5" />
+      <point x="736.0" y="323.0" />
+      <point x="613.5" y="323.0" />
+      <point x="30.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.action_spaces.large_action_spaces.LargeHarvestActionSpace" target="server.main_server.model.action_spaces.large_action_spaces.LargeActionSpace">
+      <point x="0.0" y="-18.5" />
+      <point x="606.5" y="149.0" />
+      <point x="433.5" y="149.0" />
+      <point x="61.0" y="18.5" />
+    </edge>
+    <edge source="server.main_server.model.effects.excommunicating_effects.NotGainVictoryEffect" target="server.main_server.model.effects.development_effects">
+      <point x="0.0" y="-18.5" />
+      <point x="987.0" y="313.0" />
+      <point x="673.5" y="313.0" />
+      <point x="90.0" y="18.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="436.5" y="362.0" />
+  <SelectedNodes>
+    <node>server.main_server.model.Game</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
