@@ -15,7 +15,6 @@ public class FamilyMember {
     private boolean positioned;
     private final FamilyMemberType type;
 
-
     /**
      * rappresenta il singolo familiare del giocatore, viene identificato dagli altr
      * dal tipo.

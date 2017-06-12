@@ -13,60 +13,7 @@
     <node x="0.0" y="804.5">server.main_server.model.board.Excommunication</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="server.main_server.model.board.FamilyMember" target="server.main_server.model.board.PersonalBoard">
-      <point x="-167.33333333333337" y="-181.5" />
-      <point x="1997.1666666666665" y="1572.0" />
-      <point x="1874.1666666666665" y="1572.0" />
-      <point x="-290.3333333333333" y="492.0" />
-    </edge>
-    <edge source="server.main_server.model.board.Board" target="server.main_server.model.board.DevelopmentDeck">
-      <point x="-61.75" y="-411.0" />
-      <point x="777.3072916666665" y="1572.0" />
-      <point x="726.7499999999999" y="1572.0" />
-      <point x="-161.75" y="316.5" />
-    </edge>
-    <edge source="server.main_server.model.board.DevelopmentDeck" target="server.main_server.model.board.ConnectionDB">
-      <point x="-80.875" y="-316.5" />
-      <point x="807.6249999999999" y="518.0" />
-      <point x="586.6510416666665" y="518.0" />
-      <point x="125.25" y="154.5" />
-    </edge>
-    <edge source="server.main_server.model.board.Board" target="server.main_server.model.board.Excommunication">
-      <point x="-308.75" y="-411.0" />
-      <point x="530.3072916666665" y="1572.0" />
-      <point x="136.25" y="1572.0" />
-      <point x="-136.25" y="235.5" />
-    </edge>
-    <edge source="server.main_server.model.board.DevelopmentDeck" target="server.main_server.model.board.DevelopmentCard">
-      <point x="242.625" y="-316.5" />
-      <point x="1131.125" y="528.0" />
-      <point x="1193.3333333333333" y="528.0" />
-      <point x="0.0" y="249.0" />
-    </edge>
-    <edge source="server.main_server.model.board.PersonalBoard" target="server.main_server.model.board.FamilyMember">
-      <point x="-1.1368683772161603E-13" y="492.0" />
-      <point x="0.0" y="-181.5" />
-    </edge>
-    <edge source="server.main_server.model.board.Board" target="server.main_server.model.board.Tower">
-      <point x="185.25" y="-411.0" />
-      <point x="1024.3072916666665" y="1562.0" />
-      <point x="1351.25" y="1562.0" />
-      <point x="-119.25" y="127.5" />
-    </edge>
-    <edge source="server.main_server.model.board.Excommunication" target="server.main_server.model.board.ConnectionDB">
-      <point x="-136.25" y="-235.5" />
-      <point x="136.25" y="528.0" />
-      <point x="336.1510416666665" y="528.0" />
-      <point x="-125.25" y="154.5" />
-    </edge>
-    <edge source="server.main_server.model.board.PersonalBoard" target="server.main_server.model.board.DevelopmentCard">
-      <point x="0.0" y="-492.0" />
-      <point x="2164.5" y="528.0" />
-      <point x="1374.9999999999998" y="528.0" />
-      <point x="181.66666666666652" y="249.0" />
-    </edge>
-  </edges>
+  <edges />
   <settings layout="Hierarchic Group" zoom="0.32703368940016436" x="1300.0" y="1207.0" />
   <SelectedNodes />
   <Categories>

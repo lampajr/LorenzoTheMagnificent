@@ -200,7 +200,7 @@ public class Board {
     public void doNewAction(AbstractPlayer player, MessageNewAction msg) throws LorenzoException, NewActionException {
         ActionSpaceInterface actionSpace = convertActionMessage(msg);
         if (actionSpace == null)
-            throw new LorenzoException("YOU CAN'T DO ACTION HERE; ACTION SPACE ISN?T AVAILABLE");
+            throw new LorenzoException("YOU CAN'T DO ACTION HERE; ACTION SPACE ISN'T AVAILABLE");
         int force = msg.getValue() + msg.getAdditionalValue();
         currentAction = new Action(actionSpace, force, null, player);
         currentAction.commitAction();
