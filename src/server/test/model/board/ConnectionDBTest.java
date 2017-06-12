@@ -32,5 +32,4 @@ public class ConnectionDBTest {
     public void closeConnection() {
         connectionDB.closeConnection();
     }
-
 }

@@ -43,5 +43,4 @@ public class AreaActivationEffectTest {
         areaEffect.active(player);
         assertEquals(2, player.getPersonalBoard().getQtaResources().get(WOOD).intValue());
     }
-
 }

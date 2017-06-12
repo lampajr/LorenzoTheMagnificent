@@ -77,10 +77,4 @@ public class DevelopmentCardTest {
     public void activeQuickEffects() {
         //devo creare la partita
     }
-
-    @Test
-    public void activePermanentEffects() {
-        //devo creare la partita
-    }
-
 }

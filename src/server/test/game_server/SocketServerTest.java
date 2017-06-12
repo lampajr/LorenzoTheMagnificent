@@ -31,7 +31,7 @@ public class SocketServerTest {
     }
 
     @Test
-    public void startGame() throws RemoteException, InterruptedException {
+    public void startGame() throws InterruptedException {
         client.login();
         assertNull(MainServer.twoPlayerGamesMap.get(MainServer.counter2Players-1));
         client.startGame(2);
@@ -40,14 +40,13 @@ public class SocketServerTest {
     }
 
     @Test
-    public void loginOk() throws RemoteException {
+    public void loginOk() {
         assertTrue(client.login());
         assertEquals("lol", MainServer.playersMap.get("andrea"));
     }
 
     @Test
-    public void loginError() throws RemoteException {
+    public void loginError() {
         assertFalse(client2.login());
     }
-
 }

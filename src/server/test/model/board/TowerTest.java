@@ -2,20 +2,12 @@ package server.test.model.board;
 
 import api.types.CardType;
 import api.types.ResourceType;
-import client.main_client.client.ClientRMI;
-import server.main_server.game_server.rmi.ServerRMI;
-import server.main_server.model.Game;
-import server.main_server.model.board.DevelopmentCard;
-import server.main_server.model.board.Tower;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import server.main_server.model.board.DevelopmentCard;
+import server.main_server.model.board.Tower;
 
-import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +18,6 @@ import java.util.List;
 public class TowerTest {
     private Tower tower;
     private List<DevelopmentCard> list;
-    private Game game;
-
-    @BeforeClass
-    public void setupClass() throws RemoteException, AlreadyBoundException, NotBoundException {
-        ServerRMI serverRMI = new ServerRMI();
-        LocateRegistry.createRegistry(1099).bind("serverRMI", serverRMI);
-        ClientRMI client = new ClientRMI("andrea", "lol");
-        ClientRMI client2 = new ClientRMI("luca", "boss");
-        client.login();
-        client.startGame(2);
-        client2.login();
-        client2.startGame(2);
-    }
 
     @Before
     public void setup() {
@@ -55,7 +34,7 @@ public class TowerTest {
     }
 
     @Test
-    public void setGetCards() throws Exception {
+    public void setGetCards() {
         tower.setCards(list);
         Assert.assertEquals("uno", tower.getCards().get(3).getName());
         Assert.assertEquals("due", tower.getCards().get(2).getName());
@@ -64,12 +43,12 @@ public class TowerTest {
     }
 
     @Test
-    public void removeFamilyMembers() throws Exception {
+    public void removeFamilyMembers() {
 
     }
 
     @Test
-    public void getFloor() throws Exception {
+    public void getFloor() {
         Assert.assertEquals(1, tower.getFloor(0).getMinValue());
         Assert.assertEquals(3, tower.getFloor(1).getMinValue());
         Assert.assertEquals(5, tower.getFloor(2).getMinValue());
@@ -77,7 +56,7 @@ public class TowerTest {
     }
 
     @Test
-    public void checkOtherMyFamilyMember() throws Exception {
+    public void checkOtherMyFamilyMember() {
 
     }
 }

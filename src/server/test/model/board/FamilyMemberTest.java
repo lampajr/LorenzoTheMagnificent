@@ -33,5 +33,4 @@ public class FamilyMemberTest {
         familyMember.modifyValue(-2);
         assertEquals(5, familyMember.getValue());
     }
-
 }

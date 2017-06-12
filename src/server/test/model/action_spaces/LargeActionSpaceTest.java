@@ -18,7 +18,8 @@ import static api.types.ResourceType.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author lampa
+ * @author Andrea
+ * @author Luca
  */
 public class LargeActionSpaceTest {
     private LargeHarvestActionSpace largeHarvestActionSpace;

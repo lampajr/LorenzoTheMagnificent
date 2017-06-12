@@ -112,7 +112,6 @@ public class GameTest {
         assertEquals("servants",4, player1.getPersonalBoard().getQtaResources().get(SERVANTS).intValue());
     }
 
-
     @Test
     public void endMove1() {
         game.setLap(4);
@@ -154,5 +153,4 @@ public class GameTest {
         game.removePlayer(player2);
         assertEquals(1, game.getTurnOrder().size());
     }
-
 }

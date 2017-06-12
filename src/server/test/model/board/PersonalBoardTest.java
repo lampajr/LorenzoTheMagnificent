@@ -62,7 +62,6 @@ public class PersonalBoardTest {
         characterCard = new DevelopmentCard(CardType.CHARACTER, "valle", null, null, permanent, 1);
     }
 
-
     @Test
     public void setDiceValues() {
         personalBoard.setDiceValues(5,4,3);
@@ -108,7 +107,6 @@ public class PersonalBoardTest {
         assertFalse(personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).isPositioned());
     }
 
-
     @Test
     public void getQtaResources() {
         assertEquals(2L, personalBoard.getQtaResources().get(ResourceType.WOOD).intValue());
@@ -121,22 +119,17 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void activeTerritoriesEffects() throws LorenzoException {
+    public void activeCardsEffects() throws LorenzoException {
         card.setPlayer(player);
         personalBoard.activeTerritoriesEffects(new Action(null, 6, null, player));
         assertEquals(7, personalBoard.getQtaResources().get(COINS).intValue());
     }
 
     @Test
-    public void noActiveTerritoriesEffects() throws LorenzoException {
+    public void noActiveCardsEffects() throws LorenzoException {
         card.setPlayer(player);
         personalBoard.activeTerritoriesEffects(new Action(null, 4, null, player));
         assertEquals(5, personalBoard.getQtaResources().get(COINS).intValue());
-    }
-
-    @Test
-    public void activeBuildingsEffects() {
-        //uguale activeTerritoriesEffects
     }
 
     @Test

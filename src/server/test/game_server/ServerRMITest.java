@@ -14,14 +14,15 @@ import java.rmi.registry.LocateRegistry;
 import static org.junit.Assert.*;
 
 /**
- * @author lampa
+ * @author Andrea
+ * @author Luca
  */
 public class ServerRMITest {
     private static ClientRMI client;
     private static ClientRMI client2;
 
     @BeforeClass
-    public static void setupClass() throws RemoteException, AlreadyBoundException {
+    public static void setupClass() throws AlreadyBoundException, RemoteException {
         ServerRMI serverRMI = new ServerRMI();
         LocateRegistry.createRegistry(1099).bind("serverRMI", serverRMI);
         client = new ClientRMI("andrea", "lol");
@@ -29,7 +30,7 @@ public class ServerRMITest {
     }
 
     @Test
-    public void startGame() throws RemoteException, NotBoundException {
+    public void startGame() throws  NotBoundException {
         client.login();
         assertNull(MainServer.twoPlayerGamesMap.get(MainServer.counter2Players-1));
         client.startGame(2);
@@ -37,15 +38,14 @@ public class ServerRMITest {
     }
 
     @Test
-    public void loginOk() throws RemoteException, NotBoundException {
+    public void loginOk() throws  NotBoundException {
         assertTrue(client.login());
         assertEquals("lol", MainServer.playersMap.get("andrea"));
     }
 
     @Test
-    public void loginError() throws RemoteException, NotBoundException {
+    public void loginError() throws NotBoundException {
         client.login();
         assertFalse(client2.login());
     }
-
 }
