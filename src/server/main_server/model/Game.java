@@ -44,10 +44,6 @@ public class Game {
         turnOrder = new ArrayList<>();
     }
 
-    public AbstractPlayer getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     /**
      * metodo che mi aggiunge un giocatore alla partita.
      * @param abstractPlayer giocatore da aggiungere alla partita
@@ -64,6 +60,11 @@ public class Game {
             new Timer(3);
     }
 
+    /**
+     * controlla se ho raggiunto il limite massimo di giocatori
+     * per la partita specifica
+     * @return true se l'ho raggiunto, false altrimenti
+     */
     private boolean checkMaxNumberReached(){
         if (gameMode != MainServer.RANDOM){
             if (numPlayers == gameMode)
@@ -595,6 +596,10 @@ public class Game {
 
     /////// METODI SET e GET AGGIUNTI PER I TEST
 
+
+    public AbstractPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public int getPeriod() {
         return period;

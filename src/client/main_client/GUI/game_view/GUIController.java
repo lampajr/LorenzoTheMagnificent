@@ -13,7 +13,6 @@ import client.main_client.GUI.game_view.component.action_spaces.*;
 import client.main_client.GUILauncher;
 import client.main_client.client.AbstractClient;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -30,7 +29,6 @@ import javafx.scene.shape.Circle;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -148,6 +146,9 @@ public class GUIController implements InterfaceController {
         actionSpacesMap.put(councilActionSpace.getType(), councilActionSpace);
     }
 
+    /**
+     * inizializza tutte le torri
+     */
     private void initializeTowers() {
         initializeTower(CardType.TERRITORY, territoryTowersActionSpaces);
         initializeTower(CardType.CHARACTER, characterTowersActionSpaces);
@@ -217,7 +218,7 @@ public class GUIController implements InterfaceController {
     }
 
     /**
-     * mi inizializza le imagView delle tessere scomunica
+     * mi inizializza le imageView delle tessere scomunica
      */
     private void initializeImageViewExcomCards() {
         for (int i=0; i<3; i++) {
@@ -300,7 +301,7 @@ public class GUIController implements InterfaceController {
     }
 
     /**
-     * mi scomunica
+     * mi scomunica, cioè mi genera il cubetto della scomunica
      * @param period periodo della scomunica
      */
     @Override
@@ -417,7 +418,8 @@ public class GUIController implements InterfaceController {
     }
 
     /**
-     * mi genera e posiziona i dischetti dei giocatori avversari
+     * mi genera e posiziona i dischetti dei giocatori avversari, crea i tab
+     * relativi alle plance degli avversari
      * @param id id del giocatore avversario
      * @param name nome del giocatore
      */
@@ -527,6 +529,10 @@ public class GUIController implements InterfaceController {
         messagesController.setMessage(msg);
     }
 
+    /**
+     * mi aggiunge le tssere scomunica al tabellone
+     * @param codeList lista dei codici
+     */
     @Override
     public void showExcomCards(List<String> codeList) {
         Platform.runLater(()->{
@@ -581,16 +587,31 @@ public class GUIController implements InterfaceController {
         Platform.runLater(PrivilegeAlert::new);
     }
 
+    /**
+     * mi rende visibile l'alert realtivo al termine della partita per abbandono
+     * @param msg messaggio da notificare al giocatore
+     */
     @Override
     public void showGameEndedAlert(String msg) {
         Platform.runLater(() -> new GameEndedAlert(msg, this));
     }
 
+    /**
+     * mi rende visibile l'alert relativo alla fine della partita completa
+     * @param msg messaggio da notificare al giocatore
+     * @param rankingMap classifica finale
+     */
     @Override
     public void showGameEndedAlert(String msg, Map<String, Integer> rankingMap) {
         Platform.runLater(() -> new GameEndedAlert(msg, this, rankingMap));
     }
 
+    /**
+     * aggiorna la plancia dell'avversario il cui id è passato come parametro
+     * @param personalcardsMap mappa delle carte
+     * @param resourcesMap mappa delle risorse
+     * @param id id del giocatore
+     */
     @Override
     public void updateOpponentPersonalBoard(Map<CardType, List<String>> personalcardsMap, Map<ResourceType, Integer> resourcesMap, int id) {
         opponentPersonalBoardControllerMap.get(id).updateCards(personalcardsMap);
@@ -629,11 +650,18 @@ public class GUIController implements InterfaceController {
         marketMap.values().forEach(actionSpace -> actionSpace.removeFamilyMember(familyMemberToRemove));
     }
 
+    /**
+     * in caso di richiesta da parte del giocatore di abbandonare la partita
+     * ed uscire interamentedall'applicazione
+     */
     @Override
-    public void exit() throws InterruptedException {
+    public void exit() {
         client.exit();
     }
 
+    /**
+     * notifica al server che il giocatore vuole abbandonare la partita corrente
+     */
     @FXML
     @Override
     public void surrenderAction() {
@@ -642,11 +670,17 @@ public class GUIController implements InterfaceController {
     }
 
 
-    public void iconify(ActionEvent actionEvent) {
+    /**
+     * quando vuoi rendere a icona l'applicazione
+     */
+    public void iconify() {
         GUILauncher.getPrimaryStage().setIconified(true);
     }
 
 
+    /**
+     * incrementa il numero di servitori
+     */
     @FXML
     public void increaseServants() {
         int servants;
@@ -660,6 +694,9 @@ public class GUIController implements InterfaceController {
         servantsToPayTextField.setText(servants + "");
     }
 
+    /**
+     * decrementa il numero di servitori
+     */
     @FXML
     public void decreaseServants() {
         int servants;
@@ -675,12 +712,22 @@ public class GUIController implements InterfaceController {
         servantsToPayTextField.setText(servants + "");
     }
 
+    /**
+     * chiamato quando il giocatore vuole terminare il proprio
+     * turno senza eseguire mosse
+     */
     @FXML
     @Override
-    public void endMoveActionEvent() throws RemoteException {
+    public void endMoveActionEvent(){
         client.endMove();
     }
 
+    /**
+     * metodo che mi inizializza tutti i componenti in seguito all'inizio
+     * ufficiale della partita, notificato dal server
+     * @param id id del giocatore
+     * @param username username del giocatore
+     */
     @Override
     public void startGame(int id, String username) {
         createDiscs(id);

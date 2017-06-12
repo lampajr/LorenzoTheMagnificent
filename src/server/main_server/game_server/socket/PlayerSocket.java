@@ -38,6 +38,12 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
 
     // metodi ereditati e da implementare da ABSTRACT PLAYER //////////////////////////////////////
 
+
+    /**
+     * notifica al giocator che la partita è cominciata
+     * @param opponents giocatori avversari
+     * @param codeExcomList lista dei codici delle tessere scomunica
+     */
     @Override
     public void gameIsStarted(Map<Integer, String> opponents, List<String> codeExcomList) {
         try {
@@ -55,6 +61,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica che è il mio turno
+     */
     @Override
     public void isYourTurn() {
         try {
@@ -66,6 +75,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che è il suo turno nella fase scomunica
+     */
     @Override
     public void isYourExcommunicationTurn() {
         try {
@@ -77,6 +89,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che ha vinto per abbandono
+     */
     @Override
     public void youWinByAbandonment() {
         try {
@@ -91,6 +106,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
 
     }
 
+    /**
+     * notifica al giocatore che ha vinto la partita (terminata correttamente)
+     * @param rankingMap classifica finale
+     */
     @Override
     public void youWin(Map<String, Integer> rankingMap) {
         try {
@@ -106,6 +125,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che ha perso
+     * @param rankingMap classifica finale
+     */
     @Override
     public void youLose(Map<String, Integer> rankingMap) {
         try {
@@ -121,6 +144,11 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che può fare una mossa aggiuntiva senza spostare il familiare
+     * @param value valore dell'azione
+     * @param codeAction codice che mi identifica che tipo di azione posso fare
+     */
     @Override
     public void notifyNewAction(int value, char codeAction) {
         try {
@@ -136,11 +164,20 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che è avvenuto un errore nella sua mossa
+     * @param errorMessage messaggio d'errore
+     */
     @Override
     public void notifyError(String errorMessage) {
         printMsgToClient(errorMessage);
     }
 
+    /**
+     * notifica al giocatore tutto ciò che è cambiato in seguito alla propria mossa
+     * inviandogli la lista delle proprie carte e delle risorse
+     * @param msgAction messaggio codificato dell'azione appena andata a buon fine
+     */
     @Override
     public void updateMove(MessageAction msgAction) {
         try {
@@ -164,6 +201,13 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore le modifiche avvenute in seguito alla mossa di un suo avversario
+     * @param id id del giocatore che ha mosso
+     * @param personalCardsMap mappa delle carte
+     * @param qtaResourcesMap mappa delle risorse
+     * @param msgAction messaggio codificato dell'azione
+     */
     @Override
     public void updateOpponentMove(int id, Map<CardType, List<String>> personalCardsMap, Map<ResourceType, Integer> qtaResourcesMap, MessageAction msgAction) {
         try {
@@ -189,6 +233,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che deve tirare i dadi
+     */
     @Override
     public void notifyRollDice() {
         try {
@@ -200,6 +247,11 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che è stato scomunicato
+     * @param id id del giocatore
+     * @param period periodo
+     */
     @Override
     public void excommunicate(int id, int period) {
         if (getGame()!=null)
@@ -207,6 +259,11 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         opponentExcommunicate(id, period);
     }
 
+    /**
+     * notifica al giocatore che il suo avversario con id idPlayer è stato scomunicato
+     * @param idPlayer id del giocatore
+     * @param period periodo
+     */
     @Override
     public void opponentExcommunicate(int idPlayer, int period) {
         try {
@@ -222,6 +279,12 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * invia i valori dei dadi (tirati da un suo avversario)
+     * @param orange valore dado arancione
+     * @param white dado bianco
+     * @param black dado nero
+     */
     @Override
     public void sendDicesValues(int orange, int white, int black) {
         try {
@@ -239,6 +302,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * inizializza il tabellone inviando tutte le carte delle torri al client
+     * @param towersCardsList lista di stringhe che mi indica i nomi delle carte pescate
+     */
     @Override
     public void initializeBoard(List<DevelopmentCard> towersCardsList) {
         List<String> list = new ArrayList<>();
@@ -254,6 +321,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica il temrine del turno
+     */
     @Override
     public void notifyEndMove() {
         try {
@@ -265,6 +335,9 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica l'ottenimento di un privilegio
+     */
     @Override
     public void notifyPrivilege() {
         try {
@@ -276,6 +349,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * invia l'ordine di gioco
+     * @param playersOrderList lista dei giocatori
+     */
     @Override
     public void sendOrder(List<AbstractPlayer> playersOrderList) {
         List<Integer> orderList = new ArrayList<>();
@@ -293,6 +370,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore che il suo avversario ha abbandonato
+     * @param id id del giocatore arreso
+     */
     @Override
     public void opponentSurrender(int id) {
         try {
@@ -306,6 +387,10 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
+    /**
+     * notifica al giocatore un messaggio
+     * @param content contenuto del messaggio
+     */
     private void printMsgToClient(String content){
         try {
             out.writeObject(SocketProtocol.INFORMATION);
@@ -318,15 +403,21 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
     }
 
-    // metodi ereditati dalla PLAYER INTERFACE ////////////////////////////////////////
-
-
-    public void setSocketConnection(Socket socket, ObjectInputStream in, ObjectOutputStream out) {
+    /**
+     * setta i canali di comunicazione e la socket
+     * @param socket socket
+     * @param in stream in input
+     * @param out stream in output
+     */
+    void setSocketConnection(Socket socket, ObjectInputStream in, ObjectOutputStream out) {
         this.socketClient = socket;
         this.in = in;
         this.out = out;
     }
 
+    /**
+     * corpo del thread dove rimane in attesa dei messaggi provenienti dal client
+     */
     @Override
     public void run() {
         try{

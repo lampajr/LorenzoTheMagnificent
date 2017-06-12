@@ -37,6 +37,10 @@ public class Resource implements Field {
         return type;
     }
 
+    /**
+     * modifica la quantità della risorsa
+     * @param resourceEffect risorsa di modifica
+     */
     @Override
     public void modify(Field resourceEffect) {
         if (resourceEffect.getType().getCode().equals(this.type.getCode())) {
@@ -55,17 +59,30 @@ public class Resource implements Field {
         }
     }
 
+    /**
+     * setta il tipo della risorsa
+     * @param type tipo
+     */
     @Override
     public void setType(ResourceType type) {
         if (this.type == null)
             this.type = type;
     }
 
+    /**
+     * setta la quantità della risorsa
+     * @param reset valore qta
+     */
     @Override
     public void setQta(int reset) {
         this.qta = reset;
     }
 
+    /**
+     * controlla se ho le risorse necessarie
+     * @param cost risorsa di cui devo ferificarne la dispoinibiltà
+     * @throws LorenzoException in caso di risorse non sufficicenti
+     */
     @Override
     public void checkResource(Field cost) throws LorenzoException {
         int toCheck;

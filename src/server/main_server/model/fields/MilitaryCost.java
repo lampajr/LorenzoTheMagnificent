@@ -18,6 +18,11 @@ public class MilitaryCost extends Resource{
         return minValue;
     }
 
+    /**
+     * metodo di factory che mi genera un costo militare
+     * @param cod codice
+     * @return istanza di questa classe
+     */
     public static MilitaryCost createMilitaryCost(String cod) {
         int minValue = Integer.parseInt(cod.substring(0,1));
         int qta = Integer.parseInt(cod.substring(1,2));
