@@ -1,6 +1,6 @@
 package server.test.game_server;
 
-import client.main.client.ClientSocket;
+import client.main_client.client.ClientSocket;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

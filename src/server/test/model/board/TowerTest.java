@@ -2,7 +2,7 @@ package server.test.model.board;
 
 import api.types.CardType;
 import api.types.ResourceType;
-import client.main.client.ClientRMI;
+import client.main_client.client.ClientRMI;
 import server.main_server.game_server.rmi.ServerRMI;
 import server.main_server.model.Game;
 import server.main_server.model.board.DevelopmentCard;

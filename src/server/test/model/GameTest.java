@@ -5,7 +5,7 @@ import api.messages.MessageNewAction;
 import api.types.ActionSpacesType;
 import api.types.FamilyMemberType;
 import api.types.Phases;
-import client.main.client.ClientRMI;
+import client.main_client.client.ClientRMI;
 import org.junit.Before;
 import org.junit.Test;
 import server.main_server.game_server.exceptions.LorenzoException;

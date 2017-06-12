@@ -1,6 +1,6 @@
 package server.test.game_server;
 
-import client.main.client.ClientRMI;
+import client.main_client.client.ClientRMI;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import server.main_server.MainServer;

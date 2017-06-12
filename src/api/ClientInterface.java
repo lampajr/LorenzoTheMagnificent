@@ -18,7 +18,7 @@ import java.util.Map;
  * dell'interfaccia grafica, i suoi metodi vengono invocati direttamente in caso di connessione RMI
  * mentre indirettamente nel caso di connessione socket.
  *
- * @see client.main.client.AbstractClient
+ * @see client.main_client.client.AbstractClient
  */
 public interface ClientInterface extends Remote{
 

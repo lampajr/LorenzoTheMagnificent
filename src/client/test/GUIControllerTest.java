@@ -17,7 +17,7 @@ public class GUIControllerTest extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("client/main/GUI/game_view/game_view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("client/main_client/GUI/game_view/game_view.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
