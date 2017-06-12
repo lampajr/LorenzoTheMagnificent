@@ -1,6 +1,7 @@
 package server.test.model;
 
 import api.messages.MessageAction;
+import api.messages.MessageNewAction;
 import api.types.ActionSpacesType;
 import api.types.FamilyMemberType;
 import api.types.Phases;
@@ -95,15 +96,22 @@ public class GameTest {
 
     @Test
     public void doAction() {
-        MessageAction msgAction = new MessageAction(ActionSpacesType.COUNCIL, FamilyMemberType.ORANGE_DICE);
+        MessageAction msgAction = new MessageAction(ActionSpacesType.SINGLE_HARVEST, FamilyMemberType.ORANGE_DICE);
         game.shotDice(player1, 6, 6, 6);
         game.doAction(player1, msgAction, player1.getFamilyMember(FamilyMemberType.ORANGE_DICE));
-        assertEquals(6, player1.getPersonalBoard().getQtaResources().get(COINS).intValue());
+        assertEquals(3, player1.getPersonalBoard().getQtaResources().get(WOOD).intValue());
     }
 
     @Test
     public void doNewAction() {
+        game.setPhase(Phases.NEW_ACTION);
+        MessageNewAction msgNAction = new MessageNewAction(ActionSpacesType.SINGLE_HARVEST, 6);
+        game.doNewAction(player1, msgNAction);
+        assertEquals("wood",3, player1.getPersonalBoard().getQtaResources().get(WOOD).intValue());
+        assertEquals("stone",3, player1.getPersonalBoard().getQtaResources().get(STONE).intValue());
+        assertEquals("servants",4, player1.getPersonalBoard().getQtaResources().get(SERVANTS).intValue());
     }
+
 
     @Test
     public void endMove1() {

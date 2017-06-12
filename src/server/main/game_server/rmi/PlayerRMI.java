@@ -25,6 +25,7 @@ public class PlayerRMI extends AbstractPlayer {
         super(username);
     }
 
+
     // OVERRIDE DEI METODI EREDITATI DA ABSTRACT PLAYER /////////////////////////////////////////////////
 
 

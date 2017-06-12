@@ -3,21 +3,29 @@ package server.test.model.board;
 import api.types.CardType;
 import api.types.FamilyMemberType;
 import api.types.ResourceType;
+import org.junit.Before;
+import org.junit.Test;
 import server.main.game_server.exceptions.LorenzoException;
+import server.main.game_server.rmi.PlayerRMI;
 import server.main.model.action_spaces.Action;
+import server.main.model.action_spaces.single_action_spaces.HarvestActionSpace;
 import server.main.model.board.DevelopmentCard;
 import server.main.model.board.PersonalBoard;
+import server.main.model.effects.development_effects.ActionValueModifyingEffect;
+import server.main.model.effects.development_effects.AreaActivationEffect;
 import server.main.model.effects.development_effects.Effect;
 import server.main.model.effects.development_effects.FixedIncrementEffect;
 import server.main.model.fields.Field;
 import server.main.model.fields.Resource;
-import org.junit.Before;
-import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static api.types.ResourceType.COINS;
+import static api.types.ResourceType.VICTORY;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author Andrea
@@ -26,19 +34,32 @@ import static org.junit.Assert.*;
 public class PersonalBoardTest {
     private PersonalBoard personalBoard;
     private DevelopmentCard card;
-    private Action territoryAction;
-    private Action buildingAction;
+    private DevelopmentCard characterCard;
+    private PlayerRMI player;
 
     @Before
-    public void setup() {
-        personalBoard = new PersonalBoard(1);
+    public void setupPlayer() throws RemoteException {
+        player = new PlayerRMI("andrea");
+        player.createPersonalBoard(1);
+        personalBoard = player.getPersonalBoard();
+    }
+
+    @Before
+    public void setupTerritoryCard() {
         List<Field> cost = new ArrayList<>();
         cost.add(new Resource(-3, ResourceType.SERVANTS));
         List<Effect> quick = new ArrayList<>();
         quick.add(new FixedIncrementEffect(new Resource(4, ResourceType.STONE)));
         List<Effect> permanent = new ArrayList<>();
-        permanent.add(new FixedIncrementEffect(new Resource(2, ResourceType.COINS)));
+        permanent.add(new AreaActivationEffect(new FixedIncrementEffect(new Resource(2, COINS)), 6));
         card = new DevelopmentCard(CardType.TERRITORY, "valle", cost, quick, permanent, 1);
+    }
+
+    @Before
+    public void setupCharacterCard() {
+        List<Effect> permanent = new ArrayList<>();
+        permanent.add(new ActionValueModifyingEffect(new HarvestActionSpace(), 2));
+        characterCard = new DevelopmentCard(CardType.CHARACTER, "valle", null, null, permanent, 1);
     }
 
 
@@ -94,24 +115,51 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void getPersonalCardsMap() {
-        personalBoard.addCard(card);
+    public void getPersonalCardsMap() throws LorenzoException {
+        card.setPlayer(player);
         assertEquals(card.getName(), personalBoard.getPersonalCardsMap().get(card.getType()).get(0));
     }
 
     @Test
-    public void activeTerritoriesEffects() {
+    public void activeTerritoriesEffects() throws LorenzoException {
+        card.setPlayer(player);
+        personalBoard.activeTerritoriesEffects(new Action(null, 6, null, player));
+        assertEquals(7, personalBoard.getQtaResources().get(COINS).intValue());
+    }
+
+    @Test
+    public void noActiveTerritoriesEffects() throws LorenzoException {
+        card.setPlayer(player);
+        personalBoard.activeTerritoriesEffects(new Action(null, 4, null, player));
+        assertEquals(5, personalBoard.getQtaResources().get(COINS).intValue());
     }
 
     @Test
     public void activeBuildingsEffects() {
+        //uguale activeTerritoriesEffects
     }
 
     @Test
-    public void activeCharacterEffects() {
+    public void activeCharacterEffects() throws LorenzoException {
+        characterCard.setPlayer(player);
+        card.setPlayer(player);
+        personalBoard.activeCharacterEffects(new Action(new HarvestActionSpace(), 2,null, player));
+        assertEquals(4, personalBoard.getCurrentAction().getValue());
     }
 
     @Test
     public void calculateVictoryPoints() {
+        // + 6
+        personalBoard.addCard(characterCard);
+        personalBoard.addCard(characterCard);
+        personalBoard.addCard(characterCard);
+        // + 1
+        personalBoard.addCard(card);
+        personalBoard.addCard(card);
+        personalBoard.addCard(card);
+        // + 5
+        personalBoard.modifyResources(new Resource(5, VICTORY));
+        // + 2 dal totale delle risorse
+        assertEquals("victory",14, personalBoard.calculateVictoryPoints());
     }
 }

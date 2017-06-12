@@ -64,9 +64,4 @@ public class FloorActionSpace extends ActionSpace {
             getEffect().active(action.getPlayer());
         developmentCard.activeQuickEffects();
     }
-
-
-
-
-
 }
