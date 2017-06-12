@@ -186,12 +186,12 @@ class GameMenu {
      */
     private void initializeGameMenu() {
         gameMap = new HashMap<>();
-        gameMap.put(SURRENDER , cliController::surrender);
+        gameMap.put(SURRENDER , cliController::surrenderAction);
         gameMap.put(SHOW_BOARD, cliController::showBoard);
         gameMap.put(SHOW_PERSONAL_BOARD, cliController::showPersonalBoard);
         gameMap.put(SHOW_OPPONENTS_PERSONAL_BOARD, cliController::showOpponentsPersonalBoard);
         gameMap.put(DO_ACTION, cliController::actionDoAction);
-        gameMap.put(END_TURN, cliController::endMoveAction);
+        gameMap.put(END_TURN, cliController::endMoveActionEvent);
     }
 
     public void handleMenu(Object object) throws InterruptedException {

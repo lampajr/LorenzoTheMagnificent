@@ -209,7 +209,7 @@ public class CLIController implements InterfaceController, Runnable {
     }
 
     @Override
-    public void endMoveAction() throws RemoteException {
+    public void endMoveActionEvent() throws RemoteException {
         client.endMove();
     }
 
@@ -430,7 +430,7 @@ public class CLIController implements InterfaceController, Runnable {
     }
 
     @Override
-    public void surrender() {
+    public void surrenderAction() {
         System.out.println("---- ARE YOU SURE YOU WANNA SURRENDER ? (yes - no) ----");
         try {
             String surrenderChoice = in.readLine();

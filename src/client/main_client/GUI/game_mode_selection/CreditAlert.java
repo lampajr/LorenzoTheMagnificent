@@ -9,12 +9,12 @@ import javafx.scene.control.DialogPane;
  * @author Andrea
  * @author Luca
  */
-public class CreditAlert extends Alert {
+class CreditAlert extends Alert {
     private double WIDTH = 320, HEGHT = 155;
     ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
 
 
-    public CreditAlert() {
+    CreditAlert() {
         super(AlertType.NONE);
         this.setOnCloseRequest(e -> this.close());
         initializeAlert();

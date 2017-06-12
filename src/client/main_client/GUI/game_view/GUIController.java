@@ -39,9 +39,8 @@ import java.util.*;
  */
 public class GUIController implements InterfaceController {
     private static final String EXTENSION = ".png";
-    public static final int CARD_HEIGHT = 126;
-    public static final int CARD_WIDTH = 108;
-    @FXML private Button iconifyButton;
+    private static final int CARD_HEIGHT = 126;
+    private static final int CARD_WIDTH = 108;
     private AbstractClient client;
     private LorenzoAnimation lorenzoAnimation;
 
@@ -87,6 +86,8 @@ public class GUIController implements InterfaceController {
     @FXML private Button increaseButton;
     @FXML private Button decreaseButton;
     @FXML private Tab personalTab;
+
+    @FXML private Button iconifyButton;
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -465,9 +466,7 @@ public class GUIController implements InterfaceController {
         personalFamilyMembersMap.put(FamilyMemberType.BLACK_DICE, new GuiFamilyMember(id, FamilyMemberType.BLACK_DICE));
         personalFamilyMembersMap.put(FamilyMemberType.WHITE_DICE, new GuiFamilyMember(id, FamilyMemberType.WHITE_DICE));
         personalFamilyMembersMap.put(FamilyMemberType.NEUTRAL_DICE, new GuiFamilyMember(id, FamilyMemberType.NEUTRAL_DICE));
-        personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> {
-            familyMember.setToggleGroup(toggleGroup);
-        }));
+        personalFamilyMembersMap.forEach(((familyMemberType, familyMember) -> familyMember.setToggleGroup(toggleGroup)));
     }
 
     /**
@@ -521,7 +520,7 @@ public class GUIController implements InterfaceController {
 
     /**
      * notifica sul controller relativo ai messsaggi
-     * @param msg
+     * @param msg messaggio da notificare
      */
     @Override
     public void notifyMessage(String msg) {
@@ -537,12 +536,6 @@ public class GUIController implements InterfaceController {
                                 .getResource("res/excom_cards/" + codeList.get(i) + EXTENSION).toExternalForm()), codeList.get(i));
             }
         });
-    }
-
-    @Override
-    public void surrender() {
-        client.surrender();
-        backToMenu();
     }
 
     /**
@@ -610,11 +603,6 @@ public class GUIController implements InterfaceController {
         opponentDiscs.get(surrenderId).forEach((type, personalDisc) -> personalDisc.remove());
     }
 
-    @FXML
-    public void endMoveAction() throws RemoteException {
-        client.endMove();
-    }
-
     /**
      * ritorna il numero di servitori che ho intenzione di pagare
      * @return servitori che voglio pagare
@@ -644,6 +632,13 @@ public class GUIController implements InterfaceController {
     @Override
     public void exit() throws InterruptedException {
         client.exit();
+    }
+
+    @FXML
+    @Override
+    public void surrenderAction() {
+        client.surrender();
+        backToMenu();
     }
 
 
@@ -678,6 +673,12 @@ public class GUIController implements InterfaceController {
         if (servants < 0)
             servants = 0;
         servantsToPayTextField.setText(servants + "");
+    }
+
+    @FXML
+    @Override
+    public void endMoveActionEvent() throws RemoteException {
+        client.endMove();
     }
 
     @Override

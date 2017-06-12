@@ -95,7 +95,7 @@ public interface InterfaceController {
     * metodo che notifica la fine della mossa al server
     * @throws RemoteException
     */
-    void endMoveAction() throws RemoteException;
+    void endMoveActionEvent() throws RemoteException;
 
 
     /**
@@ -126,7 +126,7 @@ public interface InterfaceController {
     /**
      * abbandona la partita
      */
-    void surrender();
+    void surrenderAction();
 
     /**
      * aggiorna la lista delle mie carte
