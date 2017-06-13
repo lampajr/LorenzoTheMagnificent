@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import client.main_client.GUI.game_mode_selection.GameModeSelectionView;
-import client.main_client.GUILauncher;
+import client.main_client.launchers.GUILauncher;
 import client.main_client.client.AbstractClient;
 
 import javax.sound.sampled.LineUnavailableException;

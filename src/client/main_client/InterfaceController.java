@@ -1,4 +1,4 @@
-package client.main_client.CLI;
+package client.main_client;
 
 import api.messages.MessageAction;
 import api.types.*;

@@ -4,7 +4,7 @@ import api.ClientInterface;
 import api.messages.MessageAction;
 import api.messages.MessageNewAction;
 import api.types.*;
-import client.main_client.CLI.InterfaceController;
+import client.main_client.InterfaceController;
 import client.main_client.GUI.Service;
 
 import java.rmi.NotBoundException;

@@ -25,7 +25,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import client.main_client.GUI.game_view.GUIController;
 import client.main_client.music.Music;
-import client.main_client.GUILauncher;
+import client.main_client.launchers.GUILauncher;
 import client.main_client.client.AbstractClient;
 
 

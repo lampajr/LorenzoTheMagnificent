@@ -1,6 +1,7 @@
-package client.main_client.CLI;
+package client.main_client.launchers;
 
 
+import client.main_client.CLI.CLIController;
 import client.main_client.music.Music;
 import client.main_client.client.AbstractClient;
 

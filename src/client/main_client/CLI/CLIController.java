@@ -2,6 +2,7 @@ package client.main_client.CLI;
 
 import api.messages.MessageAction;
 import api.types.*;
+import client.main_client.InterfaceController;
 import client.main_client.client.AbstractClient;
 
 import java.io.BufferedReader;
