@@ -35,12 +35,11 @@ public class AreaActivationEffect implements Effect{
 
     /**
      * metodo che crea un effetto in base al tipo di area produzione false e harvest true
-     * @param c caratte, indicante
+     * @param minValue valore minimo necessario
      * @param code codice
      * @return istanza delll'effetto corretta
      */
-    public static Effect createInstance(char c, String code) {
-        int minValue = Integer.parseInt(c+"");
+    public static Effect createInstance(int minValue, String code) {
         return new AreaActivationEffect(FixedIncrementEffect.createInstance(code), minValue);
     }
 

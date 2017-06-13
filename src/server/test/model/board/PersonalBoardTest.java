@@ -26,6 +26,7 @@ import static api.types.ResourceType.COINS;
 import static api.types.ResourceType.VICTORY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 
 /**
  * @author Andrea
@@ -63,17 +64,9 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void setDiceValues() {
-        personalBoard.setDiceValues(5,4,3);
-        assertEquals(5L, personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).getValue());
-        assertEquals(4L, personalBoard.getFamilyMember(FamilyMemberType.WHITE_DICE).getValue());
-        assertEquals(3L, personalBoard.getFamilyMember(FamilyMemberType.BLACK_DICE).getValue());
-    }
-
-    @Test
     public void addCard() {
         personalBoard.addCard(card);
-        assertEquals(card, personalBoard.getCardsList(card.getType()).get(0));
+        assertSame(card, personalBoard.getCardsList(card.getType()).get(0));
     }
 
     @Test
@@ -84,20 +77,9 @@ public class PersonalBoardTest {
         assertEquals(1L, personalBoard.getQtaResources().get(ResourceType.WOOD).intValue());
     }
 
-    @Test
-    public void resetResource() {
-        personalBoard.resetResource(ResourceType.SERVANTS);
-        assertEquals(0, personalBoard.getQtaResources().get(ResourceType.SERVANTS).intValue());
-    }
-
     @Test(expected = LorenzoException.class)
     public void checkResourcesError() throws Exception {
         personalBoard.checkResources(new Resource(4, ResourceType.SERVANTS));
-    }
-
-    @Test
-    public void getFamilyMember() {
-        assertEquals(FamilyMemberType.ORANGE_DICE, personalBoard.getFamilyMember(FamilyMemberType.ORANGE_DICE).getType());
     }
 
     @Test
@@ -113,23 +95,10 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void getPersonalCardsMap() throws LorenzoException {
-        card.setPlayer(player);
-        assertEquals(card.getName(), personalBoard.getPersonalCardsMap().get(card.getType()).get(0));
-    }
-
-    @Test
     public void activeCardsEffects() throws LorenzoException {
         card.setPlayer(player);
         personalBoard.activeTerritoriesEffects(new Action(null, 6, null, player));
         assertEquals(7, personalBoard.getQtaResources().get(COINS).intValue());
-    }
-
-    @Test
-    public void noActiveCardsEffects() throws LorenzoException {
-        card.setPlayer(player);
-        personalBoard.activeTerritoriesEffects(new Action(null, 4, null, player));
-        assertEquals(5, personalBoard.getQtaResources().get(COINS).intValue());
     }
 
     @Test

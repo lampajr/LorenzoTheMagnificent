@@ -44,11 +44,6 @@ public class GameTest {
     }
 
     @Test
-    public void getCurrentPlayer() {
-        assertSame(player1, game.getCurrentPlayer());
-    }
-
-    @Test
     public void isFull() {
         assertTrue(game.isFull());
     }
@@ -58,11 +53,6 @@ public class GameTest {
         game.shotDice(player1, 3, 4, 5);
         assertEquals(5, player1.getPersonalBoard().getFamilyMember(FamilyMemberType.BLACK_DICE).getValue());
         assertEquals(3, player2.getPersonalBoard().getFamilyMember(FamilyMemberType.ORANGE_DICE).getValue());
-    }
-
-    @Test
-    public void getId() {
-        assertEquals(1, game.getId(player1));
     }
 
     @Test
@@ -110,6 +100,13 @@ public class GameTest {
         assertEquals("wood",3, player1.getPersonalBoard().getQtaResources().get(WOOD).intValue());
         assertEquals("stone",3, player1.getPersonalBoard().getQtaResources().get(STONE).intValue());
         assertEquals("servants",4, player1.getPersonalBoard().getQtaResources().get(SERVANTS).intValue());
+    }
+
+    @Test
+    public void errorDoAction() {
+        MessageAction msgAction = new MessageAction(ActionSpacesType.SINGLE_HARVEST, FamilyMemberType.ORANGE_DICE);
+        game.doAction(player1, msgAction, player1.getFamilyMember(FamilyMemberType.ORANGE_DICE));
+        assertEquals(2, player1.getPersonalBoard().getQtaResources().get(WOOD).intValue());
     }
 
     @Test

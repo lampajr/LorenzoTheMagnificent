@@ -193,6 +193,7 @@ public class Board {
             throw new LorenzoException("YOU CAN'T DO ACTION HERE; ACTION SPACE ISN'T AVAILABLE");
         int force = familyMember.getValue() + msg.getValue();
         currentAction = new Action(actionSpace, force, familyMember, player);
+        player.getPersonalBoard().setCurrentAction(currentAction);
         currentAction.commitAction();
     }
 

@@ -218,6 +218,7 @@ public class DevelopmentDeck {
     private List<Effect> createPermanentEffectListBuildings(String cod) {
         List<Effect> permanentEffectList = new ArrayList<>();
         if(cod != null){
+            int minValue = (Integer.parseInt(cod.substring(0,1)));
             if(cod.charAt(1) == 'g'){
                 permanentEffectList.add(AreaActivationEffect.createInstance(cod));
                 return permanentEffectList;
@@ -228,12 +229,12 @@ public class DevelopmentDeck {
                 permanentEffectList.add(AreaActivationEffect.createInstance(increment,decrement));
                 return permanentEffectList;
             }
-            permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(1,3) ));
+            permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(1,3) ));
             if (cod.length() == 5 ) {
-                permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(3,5)));
+                permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(3,5)));
             }
             if (cod.length() == 7) {
-                permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(5,7)));
+                permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(5,7)));
             }
             return permanentEffectList;
         }
@@ -245,16 +246,16 @@ public class DevelopmentDeck {
      * @param cod codice identificativo degli effetti
      * @return lista degli effetti permanenti per i territori
      */
-
     private List<Effect> createPermanentEffectListTerritory(String cod) {
         List<Effect> permanentEffectList = new ArrayList<>();
         if(cod != null){
-            permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(1,3)));
+            int minValue = (Integer.parseInt(cod.substring(0,1)));
+            permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(1,3)));
             if (cod.length() == 5) {
-                permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(3,5)));
+                permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(3,5)));
             }
             if (cod.length() == 7) {
-                permanentEffectList.add(AreaActivationEffect.createInstance(cod.charAt(0),cod.substring(5,7)));
+                permanentEffectList.add(AreaActivationEffect.createInstance(minValue,cod.substring(5,7)));
             }
             return permanentEffectList;
         }
@@ -266,7 +267,6 @@ public class DevelopmentDeck {
      * @param cod codice identificativo degli effetti
      * @return lista degli effetti rapidi per i personaggi e le imprese
      */
-
     private List<Effect> createQuickEffectListVC(String cod) {
         List<Effect> effectList = new ArrayList<>();
         if(cod != null){
