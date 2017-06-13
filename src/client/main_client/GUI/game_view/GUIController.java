@@ -10,7 +10,7 @@ import client.main_client.GUI.game_view.alert.GameEndedAlert;
 import client.main_client.GUI.game_view.alert.PrivilegeAlert;
 import client.main_client.GUI.game_view.component.*;
 import client.main_client.GUI.game_view.component.action_spaces.*;
-import client.main_client.launchers.GUILauncher;
+import client.main_client.GUILauncher;
 import client.main_client.client.AbstractClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

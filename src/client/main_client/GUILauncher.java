@@ -1,4 +1,4 @@
-package client.main_client.launchers;
+package client.main_client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

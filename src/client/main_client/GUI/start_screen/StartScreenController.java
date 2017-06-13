@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import client.main_client.music.Music;
-import client.main_client.launchers.GUILauncher;
+import client.main_client.GUILauncher;
 
 import java.io.IOException;
 import java.net.URL;
