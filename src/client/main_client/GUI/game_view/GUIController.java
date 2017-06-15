@@ -540,6 +540,7 @@ public class GUIController implements InterfaceController {
                 excomImageList.get(i).setImage(
                         new Image(getClass()
                                 .getResource("res/excom_cards/" + codeList.get(i) + EXTENSION).toExternalForm()), codeList.get(i));
+                System.out.println(codeList.get(i));
             }
         });
     }
