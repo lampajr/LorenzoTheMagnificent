@@ -275,6 +275,11 @@ public abstract class AbstractPlayer extends UnicastRemoteObject implements Play
     }
 
     @Override
+    public void restart() {
+        //non deve fare nulla
+    }
+
+    @Override
     public void doNewAction(MessageNewAction msg)  {
         if (game!=null)
             game.doNewAction(this, msg);

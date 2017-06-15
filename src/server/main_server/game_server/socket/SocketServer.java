@@ -68,9 +68,17 @@ public class SocketServer extends AbstractServer implements Runnable {
         private final Socket socket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
+        private boolean restart = false;
 
         PlayerSocketRequest(Socket socket){
             this.socket = socket;
+        }
+
+        PlayerSocketRequest(Socket socket, ObjectInputStream in, ObjectOutputStream out){
+            this.socket = socket;
+            this.in = in;
+            this.out = out;
+            this.restart = true;
         }
 
         @Override
@@ -79,16 +87,19 @@ public class SocketServer extends AbstractServer implements Runnable {
             String password;
             try {
                 int gameMode;
-                in = new ObjectInputStream(socket.getInputStream());
-                SocketProtocol msg = (SocketProtocol) in.readObject();
-                if (msg == SocketProtocol.LOGIN) {
-                    username = (String) in.readObject();
-                    password = (String) in.readObject();
-                    out = new ObjectOutputStream(socket.getOutputStream());
-                    boolean resp = login(username, password);
-                    System.out.println(resp);
-                    out.writeBoolean(resp);
-                    out.flush();
+                SocketProtocol msg;
+                if (!restart) {
+                    in = new ObjectInputStream(socket.getInputStream());
+                    msg = (SocketProtocol) in.readObject();
+                    if (msg == SocketProtocol.LOGIN) {
+                        username = (String) in.readObject();
+                        password = (String) in.readObject();
+                        out = new ObjectOutputStream(socket.getOutputStream());
+                        boolean resp = login(username, password);
+                        System.out.println(resp);
+                        out.writeBoolean(resp);
+                        out.flush();
+                    }
                 }
                 boolean isAssociated = false;
                 try{

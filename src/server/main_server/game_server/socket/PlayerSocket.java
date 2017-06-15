@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static api.messages.SocketProtocol.*;
+
 
 /**
  * @author Luca
@@ -152,7 +154,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     @Override
     public void notifyNewAction(int value, char codeAction) {
         try {
-            out.writeObject(SocketProtocol.NEW_ACTION);
+            out.writeObject(NEW_ACTION);
             out.flush();
             out.writeInt(value);
             out.flush();
@@ -415,59 +417,78 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         this.out = out;
     }
 
+
+    /**
+     * torna al serverSocket precedente per la scelta della partita
+     * @throws IOException in caso di disconnessioni
+     */
+    private void backToMenu() throws IOException {
+        new Thread(this.socketServer.new PlayerSocketRequest(socketClient, in, out)).start();
+        out.writeObject(SocketProtocol.RESTART);
+        out.flush();
+    }
+
     /**
      * corpo del thread dove rimane in attesa dei messaggi provenienti dal client
      */
     @Override
     public void run() {
+        boolean restart = false;
         try{
             try{
                 boolean connect = true;
                 while (connect) {
-                    SocketProtocol msg = (SocketProtocol) in.readObject();
-                    switch (msg){
-                        case NEW_ACTION:
-                            MessageNewAction msgNewAction = (MessageNewAction) in.readObject();
-                            doNewAction(msgNewAction);
-                            break;
-                        case ACTION:
-                            MessageAction msgAction = (MessageAction) in.readObject();
-                            doAction(msgAction);
-                            break;
-                        case SHOT_DICE:
-                            int orange = in.readInt();
-                            int white = in.readInt();
-                            int black = in.readInt();
-                            shotDice(orange, white, black);
-                            break;
-                        case EXCOMMUNICATION_CHOICE:
-                            boolean choice = in.readBoolean();
-                            excommunicationChoice(choice);
-                            break;
-                        case END_MOVE:
-                            endMove();
-                            break;
-                        case SURRENDER:
-                            surrender();
-                            new Thread(this.socketServer.new PlayerSocketRequest(socketClient)).start();
-                            out.writeObject(SocketProtocol.SURRENDER);
-                            out.flush();
-                            connect = false;
-                            break;
-                        case CONVERT_PRIVILEGE:
-                            int qta = in.readInt();
-                            ResourceType type = (ResourceType) in.readObject();
-                            convertPrivilege(qta, type);
-                            break;
-                        case EXIT:
-                            surrender();
-                            connect = false;
-                            out.writeObject(SocketProtocol.EXIT);
-                            out.flush();
-                            break;
+                    SocketProtocol msg = null;
+                    Object obj = in.readObject();
+                    if (obj instanceof SocketProtocol) {
+                        msg = (SocketProtocol) obj;
+                        switch (msg){
+                            case NEW_ACTION:
+                                MessageNewAction msgNewAction = (MessageNewAction) in.readObject();
+                                doNewAction(msgNewAction);
+                                break;
+                            case ACTION:
+                                MessageAction msgAction = (MessageAction) in.readObject();
+                                doAction(msgAction);
+                                break;
+                            case SHOT_DICE:
+                                int orange = in.readInt();
+                                int white = in.readInt();
+                                int black = in.readInt();
+                                shotDice(orange, white, black);
+                                break;
+                            case EXCOMMUNICATION_CHOICE:
+                                boolean choice = in.readBoolean();
+                                excommunicationChoice(choice);
+                                break;
+                            case END_MOVE:
+                                endMove();
+                                break;
+                            case SURRENDER:
+                                surrender();
+                                backToMenu();
+                                restart = true;
+                                connect = false;
+                                break;
+                            case CONVERT_PRIVILEGE:
+                                int qta = in.readInt();
+                                ResourceType type = (ResourceType) in.readObject();
+                                convertPrivilege(qta, type);
+                                break;
+                            case RESTART:
+                                backToMenu();
+                                restart = true;
+                                connect = false;
+                                break;
+                            case EXIT:
+                                surrender();
+                                connect = false;
+                                out.writeObject(SocketProtocol.EXIT);
+                                out.flush();
+                                break;
+                        }
                     }
                 }
-
             }
             catch (IOException | ClassNotFoundException e) {
                 try {
@@ -482,7 +503,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
         }
         finally {
             try {
-                if (in != null && out != null ){
+                if (in != null && out != null && !restart){
                     in.close();
                     out.close();
                 }

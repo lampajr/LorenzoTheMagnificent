@@ -146,6 +146,16 @@ public class ClientRMI extends AbstractClient {
     }
 
     @Override
+    public void restart() {
+        try {
+            serverGame.restart();
+        }
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void exit() {
         surrender();
         System.exit(0);

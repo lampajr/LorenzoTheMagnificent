@@ -56,7 +56,7 @@ public class GameEndedAlert extends Alert{
         getButtonTypes().addAll(ButtonType.FINISH);
         showAndWait().ifPresent((buttonType -> {
             if (buttonType == ButtonType.FINISH)
-                guiController.backToMenu();
+                guiController.restart();
         }));
     }
 
@@ -68,7 +68,7 @@ public class GameEndedAlert extends Alert{
         getButtonTypes().addAll(ButtonType.OK);
         showAndWait().ifPresent((buttonType -> {
             if (buttonType == ButtonType.OK)
-                guiController.backToMenu();
+                guiController.restart();
         }));
     }
 

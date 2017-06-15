@@ -670,6 +670,10 @@ public class GUIController implements InterfaceController {
         backToMenu();
     }
 
+    public void restart() {
+        client.restart();
+        backToMenu();
+    }
 
     /**
      * quando vuoi rendere a icona l'applicazione

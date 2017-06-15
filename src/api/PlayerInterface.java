@@ -68,6 +68,12 @@ public interface PlayerInterface extends Remote {
     void surrender() throws RemoteException;
 
     /**
+     * torna al menu principale
+     * @throws RemoteException
+     */
+    void restart() throws RemoteException;
+
+    /**
      * il giocatore mi richiede di convertire un privilegio
      * @param qta quntità in cui convertire
      * @param type tipo in cui convertire

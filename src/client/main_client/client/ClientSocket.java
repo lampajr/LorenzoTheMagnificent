@@ -33,11 +33,13 @@ public class ClientSocket extends AbstractClient implements Runnable{
 
     @Override
     public boolean login() {
-        try {
-            this.socket = new Socket("localhost", PORT);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+        if (!restart) {
+            try {
+                this.socket = new Socket("localhost", PORT);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -184,6 +186,17 @@ public class ClientSocket extends AbstractClient implements Runnable{
     }
 
     @Override
+    public void restart() {
+        try {
+            out.writeObject(SocketProtocol.RESTART);
+            out.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void exit() {
         try {
             out.writeObject(SocketProtocol.EXIT);
@@ -288,9 +301,8 @@ public class ClientSocket extends AbstractClient implements Runnable{
                             int surrendId = in.readInt();
                             notifyOpponentSurrender(surrendId);
                             break;
-                        case SURRENDER:
+                        case RESTART:
                             restart = true;
-                            login();
                             break;
                         case EXIT:
                             connect = false;

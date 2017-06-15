@@ -522,6 +522,11 @@ public abstract class AbstractClient extends UnicastRemoteObject implements Clie
     public abstract void surrender() ;
 
     /**
+     * notifica al server che si deve eseguire un restart al menu principale
+     */
+    public abstract void restart() ;
+
+    /**
      * esce totalmente dal gioco
      */
     public abstract void exit() ;
