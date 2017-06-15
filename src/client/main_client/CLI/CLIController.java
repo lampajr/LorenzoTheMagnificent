@@ -326,10 +326,10 @@ public class CLIController implements InterfaceController, Runnable {
     private void selectNumberServants() {
         int servants;
         while(true) {
-            System.out.println(RED + " Do you want to add servants to the action ? (0,1,2,3,4,5,6,7)" + RESET);
+            System.out.println(RED + " Do you want to add servants to the action ? (0,1,2,3,4,5,6,7,8,9,10.11,12)" + RESET);
             try {
                 servants = Integer.parseInt(in.readLine());
-                if(servants>= 0 && servants<=7 ) {
+                if(servants>= 0 && servants<13 ) {
                     client.doAction(client.encondingMessageAction(), servants);
 
                     updateBoardCards(true, null);
@@ -437,11 +437,10 @@ public class CLIController implements InterfaceController, Runnable {
             String surrenderChoice = in.readLine();
             if(surrenderChoice.equals("yes")) {
                 client.surrender();
-                isGameStarted = false;
                 backToMenu();
             }
             else if(surrenderChoice.equals("no"))
-                
+
                 game(true);
         } catch (IOException e) {
             System.out.println(" Please, insert a correct option. ");
@@ -462,6 +461,7 @@ public class CLIController implements InterfaceController, Runnable {
 
     @Override
     public void backToMenu() {
+        isGameStarted = false;
         new Thread(this).start();
     }
 
@@ -515,7 +515,7 @@ public class CLIController implements InterfaceController, Runnable {
                 choice = Integer.parseInt(in.readLine()) ;
                 gameMenu.handleMenu(choice);
                 if(choice >= 0 && choice <= 4 )
-                   break;
+                    break;
             } catch (IOException | NumberFormatException e) {
                 System.out.println(" Please, insert a correct option. ");
             } catch (InterruptedException e) {
@@ -548,7 +548,7 @@ public class CLIController implements InterfaceController, Runnable {
 
     void threePlayerGame() {
         System.out.println(RED + "---- THREE PLAYERS ----" + RESET);
-    createGame(3);
+        createGame(3);
     }
 
     void twoPlayersGame() {
