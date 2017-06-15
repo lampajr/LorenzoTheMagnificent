@@ -42,10 +42,6 @@ public class TowerTest {
         Assert.assertEquals("quattro", tower.getCards().get(0).getName());
     }
 
-    @Test
-    public void removeFamilyMembers() {
-
-    }
 
     @Test
     public void getFloor() {
@@ -53,10 +49,5 @@ public class TowerTest {
         Assert.assertEquals(3, tower.getFloor(1).getMinValue());
         Assert.assertEquals(5, tower.getFloor(2).getMinValue());
         Assert.assertEquals(7, tower.getFloor(3).getMinValue());
-    }
-
-    @Test
-    public void checkOtherMyFamilyMember() {
-
     }
 }

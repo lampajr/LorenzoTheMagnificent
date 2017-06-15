@@ -16,6 +16,7 @@ public abstract class PersonalDisc extends Circle{
 
     public PersonalDisc(int id, AnchorPane container) {
         super(RADIUS, Service.getColorById(id));
+        setStyle("-fx-border-color: black");
         this.id = id;
         this.container = container;
         Platform.runLater(() -> container.getChildren().add(this));

@@ -56,7 +56,6 @@ public class LargeActionSpace extends Pane implements ActionSpaceInterface{
     @Override
     public void addFamilyMember(GuiFamilyMember familyMember) {
         familyMemberList.add(familyMember);
-        familyMember.setTranslateX(25 + (25*counter));
         Platform.runLater(() -> container.getChildren().add(familyMember));
         counter++;
     }
@@ -64,9 +63,7 @@ public class LargeActionSpace extends Pane implements ActionSpaceInterface{
     @Override
     public void removeAllFamilyMembers() {
         Platform.runLater(() -> {
-            for (int i=0; i<familyMemberList.size(); i++) {
-                GuiFamilyMember familyMember = familyMemberList.get(i);
-                familyMember.setTranslateX(-25 - (25*i));
+            for (GuiFamilyMember familyMember : familyMemberList) {
                 getContainer().getChildren().remove(familyMember);
             }
             familyMemberList = new ArrayList<>();

@@ -436,9 +436,8 @@ public class CLIController implements InterfaceController, Runnable {
         try {
             String surrenderChoice = in.readLine();
             if(surrenderChoice.equals("yes")) {
-                System.out.println("Sto surrendando");
                 client.surrender();
-                System.out.println("sto per tornare al menu");
+                isGameStarted = false;
                 backToMenu();
             }
             else if(surrenderChoice.equals("no"))

@@ -28,7 +28,7 @@ import static org.junit.Assert.assertSame;
  * @author Andrea
  * @author Luca
  */
-public class FloorActionSpaceTest {
+public class SingleActionSpaceTest {
     private FloorActionSpace floorActionSpace;
     private MarketActionSpace marketActionSpace;
     private PlayerRMI player;

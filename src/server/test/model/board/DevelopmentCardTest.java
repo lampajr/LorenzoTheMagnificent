@@ -72,9 +72,4 @@ public class DevelopmentCardTest {
         characterCard.setPlayer(player);
         characterCard.checkDrawn();
     }
-
-    @Test
-    public void activeQuickEffects() {
-        //devo creare la partita
-    }
 }

@@ -548,6 +548,7 @@ public class Game {
             }
             else {
                 turnOrder.forEach((abstractPlayer -> abstractPlayer.opponentSurrender(player.getIdPlayer())));
+                currentPlayer.isYourTurn();
             }
         }
     }
@@ -615,10 +616,6 @@ public class Game {
 
     public void setTurn(int turn) {
         this.turn = turn;
-    }
-
-    public int getLap() {
-        return lap;
     }
 
     public void setLap(int lap) {
