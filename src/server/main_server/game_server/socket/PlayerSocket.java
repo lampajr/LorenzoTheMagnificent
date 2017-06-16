@@ -33,7 +33,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-    public PlayerSocket(String username, SocketServer socketServer ) throws RemoteException {
+    PlayerSocket(String username, SocketServer socketServer) throws RemoteException {
         super(username);
         this.socketServer = socketServer;
     }
@@ -115,7 +115,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
     @Override
     public void youWin(Map<String, Integer> rankingMap) {
         try {
-            out.writeObject(SocketProtocol.GAME_ENDED_BY_ABANDONMENT);
+            out.writeObject(SocketProtocol.GAME_ENDED);
             out.flush();
             out.writeObject("YOU WON, CONGRATS BUDDY!!");
             out.flush();
@@ -438,7 +438,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             try{
                 boolean connect = true;
                 while (connect) {
-                    SocketProtocol msg = null;
+                    SocketProtocol msg;
                     Object obj = in.readObject();
                     if (obj instanceof SocketProtocol) {
                         msg = (SocketProtocol) obj;
