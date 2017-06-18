@@ -40,8 +40,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().isGameStarted(getIdPlayer(), opponents, codeList);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending is game started error");
         }
     }
 
@@ -52,8 +53,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyYourTurn();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending your turn error");
         }
     }
 
@@ -65,8 +67,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyYourExcommunicationTurn();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending your excom turn error");
         }
     }
 
@@ -77,8 +80,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().gameEndedByAbandonment("YOU WON BECAUSE YOUR OPPONENTS HAVE ABANDONED!!");
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending ended by abandonment error");
         }
     }
 
@@ -92,8 +96,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().gameEnded("YOU WON, CONGRATS BUDDY!!", rankingMap);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending you won error");
         }
     }
 
@@ -107,8 +112,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().gameEnded(" YOU LOSE, SORRY ", rankingMap);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending you lose error");
         }
     }
 
@@ -123,8 +129,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyNewAction(value, codeAction);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending new action error");
         }
     }
 
@@ -133,8 +140,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyMessage(errorMessage);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending message error");
         }
     }
 
@@ -155,8 +163,9 @@ public class PlayerRMI extends AbstractPlayer {
             }
             if (getGame() != null)
                 getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msg);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending update error");
         }
     }
 
@@ -175,8 +184,9 @@ public class PlayerRMI extends AbstractPlayer {
                 getClientInterface().opponentMove(id, personalCardsMap, qtaResourcesMap);
             if (msgAction != null)
                 getClientInterface().opponentFamilyMemberMove(id, msgAction);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending opponent move error");
         }
     }
 
@@ -188,8 +198,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyHaveToShotDice();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending have to shot error");
         }
     }
 
@@ -205,8 +216,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().setDiceValues(orange, white, black);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending dice values error");
         }
     }
 
@@ -222,8 +234,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().setTowersCards(list);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending tower cards error");
         }
     }
 
@@ -235,8 +248,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyEndMove();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending end move error");
         }
     }
 
@@ -248,8 +262,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyPrivilege();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending privilege error");
         }
     }
 
@@ -267,8 +282,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyTurnOrder(orderList);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending order error");
         }
     }
 
@@ -282,8 +298,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().notifyOpponentSurrender(id);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending opponent surrender error");
         }
     }
 
@@ -300,8 +317,9 @@ public class PlayerRMI extends AbstractPlayer {
                 getGame().notifyAllPlayers(this, period);
             if (getClientInterface() != null)
                 getClientInterface().excommunicate(id, period);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending excommunicate error");
         }
     }
 
@@ -316,8 +334,9 @@ public class PlayerRMI extends AbstractPlayer {
         try {
             if (getClientInterface() != null)
                 getClientInterface().excommunicate(idPlayer, period);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        }
+        catch (RemoteException e) {
+            System.out.println("remote sending opponent excommunicate error");
         }
     }
 }

@@ -59,7 +59,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending is game started error");
         }
     }
 
@@ -73,7 +73,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending your turn error");
         }
     }
 
@@ -87,7 +87,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending excommunication turn error");
         }
     }
 
@@ -103,9 +103,8 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending ended by abandonment error");
         }
-
     }
 
     /**
@@ -123,7 +122,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending you won error");
         }
     }
 
@@ -142,7 +141,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending you lose error");
         }
     }
 
@@ -162,7 +161,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending new action error");
         }
     }
 
@@ -199,7 +198,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
                 getGame().notifyAllPlayers(this, getIdPlayer(), getPersonalBoard().getPersonalCardsMap(), getPersonalBoard().getQtaResources(), msgAction);
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending update error");
         }
     }
 
@@ -231,7 +230,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending opponent member move error");
         }
     }
 
@@ -245,7 +244,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending have to shot error");
         }
     }
 
@@ -277,7 +276,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending excommunicate error");
         }
     }
 
@@ -300,7 +299,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending dice values error");
         }
     }
 
@@ -319,7 +318,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending tower cards error");
         }
     }
 
@@ -333,7 +332,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending end move error");
         }
     }
 
@@ -347,7 +346,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending privilege error");
         }
     }
 
@@ -368,7 +367,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending order error");
         }
     }
 
@@ -385,7 +384,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending opponent surrender error");
         }
     }
 
@@ -401,7 +400,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("sending information error");
         }
     }
 
@@ -497,7 +496,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
                     out.close();
                     out = null;
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    System.out.println("closing error");
                 }
             }
         }
@@ -508,7 +507,7 @@ public class PlayerSocket extends AbstractPlayer implements Runnable {
                     out.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("finally closing error");
             }
         }
     }

@@ -125,10 +125,10 @@ public class SocketServer extends AbstractServer implements Runnable {
                     }
                 }
                 catch (IOException e) {
-                    System.out.println("disconnect n.1");
+                    System.out.println("player disconnected n.1");
                 }
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println("disconnect n.2");
+                System.out.println("player disconnected n.2");
             }
         }
     }
