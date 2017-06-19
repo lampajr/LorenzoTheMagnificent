@@ -18,6 +18,8 @@ import server.main_server.model.fields.Resource;
 import java.util.*;
 import java.util.function.Predicate;
 
+import static api.types.ResourceType.MILITARY;
+
 /**
  * @author Luca
  * @author Andrea
@@ -496,21 +498,17 @@ public class Game {
     private void endGame() {
         //military points
         Map<AbstractPlayer, Integer> militaryMap = new HashMap<>();
-        for (AbstractPlayer player: turnOrder){
-            militaryMap.put(player, player.getPersonalBoard().getQtaResources().get(ResourceType.MILITARY));
-        }
+        turnOrder.forEach(player -> militaryMap.put(player, player.getPersonalBoard().getQtaResources().get(MILITARY)));
 
         List<AbstractPlayer> militaryWinners = new LinkedList<>();
         List<Integer> militaryValues = new LinkedList<>(militaryMap.values());
         Collections.sort(militaryValues);
-        for (AbstractPlayer player : turnOrder){
-            for(int i=0; i<numPlayers; i++) {
-                if (player.getPersonalBoard().getQtaResources().get(ResourceType.MILITARY) == militaryValues.get(i).intValue()) {
-                    militaryWinners.add(player);
-                    break;
-                }
-            }
-        }
+        militaryValues.forEach(value -> turnOrder.stream().filter(militaryMatch(value)).forEach(player -> {
+            if (!militaryWinners.contains(player))
+                militaryWinners.add(player);
+        }));
+
+        //attivo gli effetti scomunica del terzo periodo
         turnOrder.forEach(this::activeThirdPeriodExcommunication);
 
         militaryWinners.get(0).getPersonalBoard().modifyResources(new Resource(5, ResourceType.VICTORY));
@@ -527,8 +525,7 @@ public class Game {
         Map<String, Integer> rankingMap = new HashMap<>();
         victoryMap.forEach((p, point) -> rankingMap.put(p.getUsername(), point));
         winner.youWin(rankingMap);
-        turnOrder.stream().filter(differentFrom(winner))
-                .forEach(player -> player.youLose(rankingMap));
+        turnOrder.stream().filter(differentFrom(winner)).forEach(player -> player.youLose(rankingMap));
     }
 
     /**
@@ -589,8 +586,12 @@ public class Game {
      * @param current gioctore corrente da non tenere
      * @return il predicato
      */
-    private static Predicate<AbstractPlayer> differentFrom(AbstractPlayer current) {
+    private Predicate<AbstractPlayer> differentFrom(AbstractPlayer current) {
         return player -> player != current;
+    }
+
+    private Predicate<AbstractPlayer> militaryMatch(int value) {
+        return player -> value == player.getPersonalBoard().getQtaResources().get(MILITARY);
     }
 
 
