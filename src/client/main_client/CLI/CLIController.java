@@ -101,21 +101,6 @@ public class CLIController implements InterfaceController, Runnable {
     }
 
     @Override
-    public void createOpponentDiscs(int id, String username) {
-
-    }
-
-    @Override
-    public void createFamilyMembers(int id) {
-
-    }
-
-    @Override
-    public void relocateFamilyMembers() {
-
-    }
-
-    @Override
     public void moveFamilyMember(ActionSpacesType actionSpacesType, CardType cardType, int numFloor, MarketActionType marketActionType, FamilyMemberType familyMemberType) {
         if(gameMenu.getSingleActionSpaceOccMap().get(actionSpacesType) != null){
             gameMenu.getSingleActionSpaceOccMap().get(actionSpacesType).put(personalId,familyMemberType);
@@ -131,16 +116,6 @@ public class CLIController implements InterfaceController, Runnable {
                 gameMenu.getLargeActionSpaceOccMap().get(actionSpacesType).get(personalId).add(familyMemberType);
             }
         }
-    }
-
-    @Override
-    public void modifyResources(Map<ResourceType, Integer> map) {
-
-    }
-
-    @Override
-    public void modifyOpponentPoints(Map<ResourceType, Integer> map, int id) {
-
     }
 
     /**
@@ -168,25 +143,8 @@ public class CLIController implements InterfaceController, Runnable {
     }
 
     @Override
-    public void createDiscs(int id) {
-
-    }
-
-    @Override
-    public void showExcommunicatingAlert() {
-
-    }
-
-    @Override
-    public void showPrivilegeAlert() {
-
-    }
-
-    @Override
     public void showGameEndedAlert(String msg) {
         System.out.println(GREEN_BACKGROUND + RED + "  --------------------------------- \n\n       "+msg+"      \n\n ---------------------------------");
-
-
         backToMenu();
     }
 
@@ -405,10 +363,6 @@ public class CLIController implements InterfaceController, Runnable {
         }
     }
 
-    public void actionDoNewAction() throws RemoteException {
-
-    }
-
     @Override
     public void exit() throws InterruptedException {
         System.exit(0);
@@ -446,16 +400,6 @@ public class CLIController implements InterfaceController, Runnable {
             System.out.println(" Please, insert a correct option. ");
         }
 
-
-    }
-
-    @Override
-    public void updateMyCards(Map<CardType, List<String>> personalCardsMap) {
-
-    }
-
-    @Override
-    public void excommunicate(int id, int period) {
 
     }
 
@@ -848,4 +792,54 @@ public class CLIController implements InterfaceController, Runnable {
             System.out.println(WHITE + "EMPTY ACTION SPACE " + RESET);
     }
 
+
+    @Override
+    public void createDiscs(int id) {
+
+    }
+
+    @Override
+    public void showExcommunicatingAlert() {
+
+    }
+
+    @Override
+    public void showPrivilegeAlert() {
+
+    }
+
+    @Override
+    public void updateMyCards(Map<CardType, List<String>> personalCardsMap) {
+
+    }
+
+    @Override
+    public void excommunicate(int id, int period) {
+
+    }
+
+    @Override
+    public void modifyResources(Map<ResourceType, Integer> map) {
+
+    }
+
+    @Override
+    public void modifyOpponentPoints(Map<ResourceType, Integer> map, int id) {
+
+    }
+
+    @Override
+    public void createOpponentDiscs(int id, String username) {
+
+    }
+
+    @Override
+    public void createFamilyMembers(int id) {
+
+    }
+
+    @Override
+    public void relocateFamilyMembers() {
+
+    }
 }
