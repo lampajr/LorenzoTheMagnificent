@@ -81,12 +81,12 @@ public class Dice extends ImageView {
             setX(event.getX() - xOffset);
             setY(event.getY() - yOffset);
         });
-        setOnMouseReleased(this::addAnimaion);
+        setOnMouseReleased(this::addAnimation);
 
         property.addListener((observable, oldValue, newValue) -> rollDice());
     }
 
-    private void addAnimaion(MouseEvent event){
+    private void addAnimation(MouseEvent event){
         property.setValue(0);
         //translate
         TranslateTransition translate = new TranslateTransition(Duration.millis(500), this);
@@ -94,7 +94,7 @@ public class Dice extends ImageView {
         double finalY = event.getY() - startY;
         translate.setToX(finalX*2);
         translate.setToY(finalY*2);
-        translate.play();
+//        translate.play();
 
         //timeline
         Timeline timeline = new Timeline();

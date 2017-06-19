@@ -2,7 +2,6 @@ package client.main_client.GUI.game_view;
 
 import api.messages.MessageAction;
 import api.types.*;
-import client.main_client.InterfaceController;
 import client.main_client.GUI.Service;
 import client.main_client.GUI.game_mode_selection.GameModeSelectionView;
 import client.main_client.GUI.game_view.alert.ExcommunicationAlert;
@@ -11,6 +10,7 @@ import client.main_client.GUI.game_view.alert.PrivilegeAlert;
 import client.main_client.GUI.game_view.component.*;
 import client.main_client.GUI.game_view.component.action_spaces.*;
 import client.main_client.GUILauncher;
+import client.main_client.InterfaceController;
 import client.main_client.client.AbstractClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,11 +19,9 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -40,9 +38,6 @@ public class GUIController implements InterfaceController {
     private static final int CARD_HEIGHT = 126;
     private static final int CARD_WIDTH = 108;
     private AbstractClient client;
-    private LorenzoAnimation lorenzoAnimation;
-
-    @FXML private ImageView lorenzoCenter;
 
     @FXML private GridPane territoriesTower;
     @FXML private GridPane territoryTowersActionSpaces;
@@ -71,7 +66,6 @@ public class GUIController implements InterfaceController {
 
     @FXML private ToolBar toolbar1;
     @FXML private ToolBar toolbar2;
-    @FXML private GridPane rootGridPane;
 
     @FXML private GridPane personalGridPane;
     @FXML private HBox personalHBox;
@@ -84,8 +78,6 @@ public class GUIController implements InterfaceController {
     @FXML private Button increaseButton;
     @FXML private Button decreaseButton;
     @FXML private Tab personalTab;
-
-    @FXML private Button iconifyButton;
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -103,7 +95,6 @@ public class GUIController implements InterfaceController {
 
     private Map<Integer, Map<ResourceType, PersonalDisc>> opponentDiscs = new HashMap<>(); //mappa dei dischetti avversari
     private Map<Integer, Map<FamilyMemberType,GuiFamilyMember>> opponentsFamilyMembersMap = new HashMap<>();
-    private Map<Integer, Map<FamilyMemberType, Pane>> paneMap = new HashMap<>();
 
     private Dice blackDice, whiteDice, orangeDice; //dadi
 
@@ -540,6 +531,7 @@ public class GUIController implements InterfaceController {
                 excomImageList.get(i).setImage(
                         new Image(getClass()
                                 .getResource("res/excom_cards/" + codeList.get(i) + EXTENSION).toExternalForm()), codeList.get(i));
+                //per provare che le carte vengano caricate correttamente
                 System.out.println(codeList.get(i));
             }
         });
@@ -771,8 +763,16 @@ public class GUIController implements InterfaceController {
         endMoveButton.setCursor(Cursor.HAND);
         increaseButton.setCursor(Cursor.HAND);
         decreaseButton.setCursor(Cursor.HAND);
-//        lorenzoAnimation = new LorenzoAnimation(lorenzoCenter, "Hi, i' m Lorenzo , the Magnificent!!");
-//        lorenzoAnimation.startGameAnimation();
+
+        servantsToPayTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                int value = Integer.parseInt(newValue);
+            }
+            catch (NumberFormatException e) {
+                if (!newValue.equals(""))
+                    servantsToPayTextField.setText("0");
+            }
+        });
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("client/main_client/GUI/game_view/message_view.fxml"));

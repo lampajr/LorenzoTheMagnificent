@@ -50,7 +50,7 @@ public class ClientRMI extends AbstractClient {
                 notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -66,7 +66,7 @@ public class ClientRMI extends AbstractClient {
                 notifyMessage("YOU HAVEN'T ENOUGH SERVANTS");
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -84,7 +84,7 @@ public class ClientRMI extends AbstractClient {
             return server.login(getUsername(), getPassword());
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
         return false;
     }
@@ -98,7 +98,7 @@ public class ClientRMI extends AbstractClient {
             serverGame = (PlayerInterface) server.startGame(getUsername(), gameMode, this);
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -113,7 +113,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.endMove();
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -128,7 +128,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.convertPrivilege(qta, type);
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -141,7 +141,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.surrender();
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -151,7 +151,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.restart();
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -174,7 +174,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.shotDice(orange, white, black);
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 
@@ -189,7 +189,7 @@ public class ClientRMI extends AbstractClient {
             serverGame.excommunicationChoice(choice);
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("server connection closed for an error");
         }
     }
 }

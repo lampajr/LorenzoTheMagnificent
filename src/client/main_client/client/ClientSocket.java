@@ -20,7 +20,6 @@ import java.util.Map;
  * @author Luca
  */
 public class ClientSocket extends AbstractClient implements Runnable{
-    private static ClientSocket instanceSocket;
     private static final int PORT = 4000;
     private Socket socket;
     private ObjectInputStream in;
@@ -38,7 +37,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                 this.socket = new Socket("localhost", PORT);
             }
             catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("server socket connection closed for an error");
             }
         }
         try {
@@ -50,11 +49,10 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.writeObject(getPassword());
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
-//            System.out.println(resp);
             return in.readBoolean();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
         return false;
     }
@@ -72,7 +70,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                 new Thread(this).start();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -87,7 +85,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                 out.flush();
             }
             catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("server socket connection closed for an error");
             }
         }
         else
@@ -106,7 +104,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                 out.flush();
             }
             catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("server socket connection closed for an error");
             }
         }
         else
@@ -126,7 +124,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -144,7 +142,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -155,7 +153,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -170,7 +168,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -181,7 +179,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -192,7 +190,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -203,7 +201,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
             out.flush();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("server socket connection closed for an error");
         }
     }
 
@@ -326,7 +324,7 @@ public class ClientSocket extends AbstractClient implements Runnable{
                     in.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("closing error");
             }
         }
     }
